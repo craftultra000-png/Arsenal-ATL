@@ -18,7 +18,7 @@ self.onmessage = async (e) => {
 
             self.postMessage({ type: 'progress', text: 'جاري تحميل النموذج...' });
 
-            const modelUrl = payload.modelBasePath + 'isnet_general/isnet-general-use-q8.onnx';
+            const modelUrl = 'https://cdn.jsdelivr.net/gh/craftultra000-png/Arsenal-ATL@main/web_site/core/core_app/isnet_general/isnet-general-use-q8.onnx';
 
             session = await _ort.InferenceSession.create(modelUrl, {
                 executionProviders: ['wasm'],
