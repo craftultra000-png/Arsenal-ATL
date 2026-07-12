@@ -87,8 +87,7 @@
         const veScript = scripts.find(s => s.src.includes('video_editor.js'));
         if (!veScript) return null;
         const base = veScript.src.replace('video/video_editor/video_editor.js', 'core/core_app/core_ffmpeg/');
-        return { base, coreURL: base + 'ffmpeg-core.js', wasmURL: base + 'ffmpeg-core.wasm', workerURL: base + 'ffmpeg-core.worker.js' };
-    }
+        return { base, coreURL: base + 'ffmpeg-core.js', wasmURL: 'https://cdn.jsdelivr.net/gh/craftultra000-png/Arsenal-ATL@main/web_site/core/core_app/core_ffmpeg/ffmpeg-core.wasm', workerURL: base + 'ffmpeg-core.worker.js' };
 
     // ── تهيئة FFmpeg ──────────────────────────────────────────────────
     async function initFFmpeg() {
