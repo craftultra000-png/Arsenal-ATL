@@ -1,23 +1,26 @@
-name: Deploy Arsenal to Cloudflare Pages
+name: Extract Arsenal
 
 on:
   push:
     branches: [main]
 
 jobs:
-  deploy:
+  extract:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Unzip website
-        run: unzip web_site.zip -d extracted
+        run: unzip web_site.zip -d .
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          projectName: arsenal-atl
-          directory: extracted/web_site
+      - name: Remove zip
+        run: rm web_site.zip
+
+      - name: Push extracted files
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Extract Arsenal files"
+          git push
