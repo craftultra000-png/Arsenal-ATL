@@ -1,0 +1,262 @@
+/* ══════════════════════════════════════════════
+   AUDIO ADAPTER — نمط صفحة الإعدادات
+══════════════════════════════════════════════ */
+
+html, body {
+    background: var(--bg, #000);
+    color: var(--c1, #f0f0f0);
+    margin: 0;
+}
+
+.adp-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+    overflow: visible;
+}
+
+/* ── هيدر ── */
+.adp-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.adp-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(0,212,170,0.12);
+    color: var(--acc2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.adp-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--c1);
+    margin: 0 0 4px;
+}
+
+.adp-sub {
+    font-size: 13px;
+    color: var(--c2);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ── sections ── */
+.adp-section {
+    margin-bottom: 16px;
+    position: relative;
+    overflow: visible;
+}
+
+.adp-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 8px;
+}
+
+/* ── البطاقة — صلبة افتراضياً، بلورية عند الضغط ── */
+.adp-card {
+    background: var(--bg2, #1c1c23);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    overflow: visible;
+    transition: background 0.25s, border-color 0.25s, backdrop-filter 0.25s;
+}
+
+.adp-card:active,
+.adp-card.glass {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-color: var(--acc2);
+}
+
+/* ── منطقة الرفع ── */
+.adp-drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 32px 16px;
+    border: 1px solid var(--bd);
+    background: var(--bg2, #1c1c23);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, backdrop-filter 0.2s;
+    text-align: center;
+}
+
+.adp-drop-zone:hover,
+.adp-drop-zone:active {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-color: var(--acc2);
+}
+
+.adp-drop-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: rgba(0,212,170,0.10);
+    color: var(--acc2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adp-drop-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c2);
+    word-break: break-word;
+}
+
+/* ── صيغة التصدير — الـ dropdown فوق المحتوى ── */
+.adp-format-card {
+    padding: 0;
+    overflow: visible;
+    position: relative;
+    border: none;
+    background: transparent;
+    /* ارتفاع ثابت يساوي ارتفاع زر الـ dropdown تقريباً حتى لا يدفع الصفحة */
+    min-height: 46px;
+}
+
+/* الـ dropdown يطير فوق الصفحة بدون ما يدفعها */
+.adp-format-card .asl-dropdown {
+    position: relative;
+    z-index: 50;
+}
+
+/* ── الوضع الفاتح ── */
+body.light .adp-card {
+    background: var(--bg2, #ffffff);
+    border-color: var(--bd, #e0e0e0);
+}
+
+body.light .adp-drop-zone {
+    background: var(--bg2, #ffffff);
+    border-color: var(--bd, #e0e0e0);
+}
+
+body.light .adp-drop-zone:hover {
+    background: rgba(0,212,170,0.05);
+    border-color: var(--acc2);
+}
+
+body.light .adp-drop-text {
+    color: var(--c2, #555);
+}
+
+body.light .adp-title {
+    color: var(--c1, #111);
+}
+
+body.light .adp-sub {
+    color: var(--c2, #555);
+}
+
+body.light .adp-section-label {
+    color: var(--c2, #555);
+}
+
+body.light .adp-btn-primary {
+    box-shadow: 0 4px 16px rgba(54,124,238,0.18);
+}
+
+body.light .adp-btn-success {
+    box-shadow: 0 4px 16px rgba(0,212,170,0.18);
+}
+
+/* ── الأزرار ── */
+.adp-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+}
+
+.adp-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.adp-btn-primary {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(54,124,238,0.25);
+}
+
+.adp-btn-primary:not(:disabled):hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.adp-btn-success {
+    background: var(--acc2);
+    color: #000;
+    box-shadow: 0 4px 16px rgba(0,212,170,0.25);
+}
+
+.adp-btn-success:not(:disabled):hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+/* ── الحالة ── */
+.adp-status .adp-card {
+    padding: 14px 16px;
+}
+
+.adp-status-text {
+    font-size: 13px;
+    color: var(--c1);
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: monospace, 'Tajawal';
+}
+
+.adp-progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--sf);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.adp-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--acc2), var(--acc));
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

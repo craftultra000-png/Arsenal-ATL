@@ -1,0 +1,218 @@
+/* ══════════════════════════════════════════════
+   TEXT FILTER — Unified Design System
+══════════════════════════════════════════════ */
+
+html, body {
+    background: var(--bg);
+    color: var(--c1, #f0f0f0);
+    margin: 0;
+}
+
+.txf-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+    overflow: visible;
+}
+
+/* ── هيدر ── */
+.txf-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.txf-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(124, 92, 252, 0.12);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.txf-title { font-size: 22px; font-weight: 700; color: var(--c1); margin: 0 0 4px; }
+.txf-sub   { font-size: 13px; color: var(--c2); margin: 0; line-height: 1.5; }
+
+/* ── sections ── */
+.txf-section {
+    margin-bottom: 16px;
+    position: relative;
+    overflow: visible;
+}
+
+.txf-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.txf-label-acc { color: var(--acc); }
+
+/* ── البطاقة ── */
+.txf-card {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    overflow: visible;
+    transition: background 0.25s, border-color 0.25s;
+}
+
+.txf-output-card {
+    border-color: rgba(124, 92, 252, 0.25);
+    background: rgba(124, 92, 252, 0.03);
+}
+
+/* ── حقل النص ── */
+.txf-textarea {
+    width: 100%;
+    height: 140px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    color: var(--c1);
+    padding: 13px 15px;
+    font-size: 14px;
+    font-family: 'Tajawal', sans-serif;
+    box-sizing: border-box;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.txf-textarea:focus {
+    border-color: var(--acc);
+}
+
+.txf-textarea::placeholder { color: var(--c2); opacity: 0.5; }
+
+.txf-textarea-output {
+    background: rgba(0, 0, 0, 0.15);
+    font-family: monospace, 'Tajawal';
+    font-size: 13px;
+}
+
+/* ── الأزرار ── */
+.txf-action-row { display: flex; gap: 10px; }
+.txf-mt-12 { margin-top: 12px; }
+
+.txf-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.txf-btn-primary {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124, 92, 252, 0.25);
+}
+.txf-btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.txf-btn-primary:active { transform: scale(0.98); }
+
+.txf-btn-danger {
+    background: rgba(255, 75, 75, 0.10);
+    color: #ff4b4b;
+    border: 1px solid rgba(255, 75, 75, 0.25);
+}
+.txf-btn-danger:hover { background: rgba(255, 75, 75, 0.18); }
+.txf-btn-danger:active { transform: scale(0.98); }
+
+/* ── توسيع / طي الـ textarea ── */
+.txf-expand-cb { display: none; }
+
+.txf-expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-inline-start: auto;
+    padding: 3px 9px;
+    border-radius: 20px;
+    border: 1px solid var(--bd);
+    background: var(--bg2);
+    color: var(--c2);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.txf-expand-btn:hover { border-color: var(--acc); color: var(--acc); }
+.txf-expand-btn-acc:hover { border-color: var(--acc); color: var(--acc); }
+
+/* الأيقونة والنص — الافتراضي: "توسيع" */
+.txf-collapse-icon,
+.txf-collapse-txt { display: none; }
+
+/* عند التفعيل: نعكس الأيقونة والنص */
+#expand-input:checked  ~ .txf-section-label .txf-expand-icon,
+#expand-input:checked  ~ .txf-section-label .txf-expand-txt,
+#expand-output:checked ~ .txf-section-label .txf-expand-icon,
+#expand-output:checked ~ .txf-section-label .txf-expand-txt { display: none; }
+
+#expand-input:checked  ~ .txf-section-label .txf-collapse-icon,
+#expand-input:checked  ~ .txf-section-label .txf-collapse-txt,
+#expand-output:checked ~ .txf-section-label .txf-collapse-icon,
+#expand-output:checked ~ .txf-section-label .txf-collapse-txt { display: inline; }
+
+/* تكبير الـ textarea عند التفعيل */
+.txf-textarea-expandable {
+    transition: height 0.3s ease;
+}
+
+#expand-input:checked  ~ .txf-card .txf-textarea-expandable,
+#expand-output:checked ~ .txf-card .txf-textarea-expandable {
+    height: 320px;
+}
+
+/* ── رسالة الحالة (Toast) ── */
+.txf-status-msg {
+    font-size: 13px;
+    color: var(--acc2);
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+    font-weight: 700;
+}
+
+/* ── Light Mode ── */
+body.light .txf-card         { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .txf-output-card  { background: rgba(124,92,252,0.03); border-color: rgba(124,92,252,0.20); }
+body.light .txf-title        { color: var(--c1, #111); }
+body.light .txf-sub          { color: var(--c2, #555); }
+body.light .txf-section-label{ color: var(--c2, #555); }
+body.light .txf-textarea     { background: rgba(0,0,0,0.03); color: var(--c1, #111); }
+body.light .txf-textarea-output { background: rgba(0,0,0,0.02); }
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,133 @@
+WEB_SITE/
+├── arsenal_home/
+│   ├── settings/
+│   │   ├── settings.css
+│   │   ├── settings.html
+│   │   └── settings.js
+│   ├── arsenal.css
+│   ├── arsenal.html
+│   └── arsenal.js
+├── audio/
+│   ├── audio_adapter/
+│   │   ├── audio_adapter.css
+│   │   ├── audio_adapter.html
+│   │   └── audio_adapter.js
+│   ├── audio_cut/
+│   │   ├── audio_cut.css
+│   │   ├── audio_cut.html
+│   │   └── audio_cut.js
+│   └── audio_rate/
+│       ├── audio_rate.css
+│       ├── audio_rate.html
+│       └── audio_rate.js
+├── core/
+│   ├── core_app/
+│   │   ├── core_ffmpeg/
+│   │   │   ├── 814.ffmpeg.js
+│   │   │   ├── ffmpeg-core.js
+│   │   │   ├── ffmpeg-core.wasm
+│   │   │   ├── ffmpeg-core.worker.js
+│   │   │   ├── ffmpeg.js
+│   │   │   └── index.js
+│   │   ├── isnet_general/
+│   │   │   └── isnet-general-use-q8.onnx
+│   │   ├── argon2.js
+│   │   ├── argon2.wasm
+│   │   ├── easy.qrcode.min.js
+│   │   ├── html2canvas.min.js
+│   │   ├── html5-qrcode.min.js
+│   │   ├── jspdf.umd.min.js
+│   │   ├── jszip.min.js
+│   │   ├── lame.min.js
+│   │   ├── lang.js
+│   │   ├── ort-wasm-simd-threaded.mjs
+│   │   ├── ort-wasm-simd-threaded.wasm
+│   │   ├── ort.min.js
+│   │   ├── pdf-lib.min.js
+│   │   ├── pdf.min.js
+│   │   ├── pdf.worker.min.js
+│   │   └── Tone.js
+│   ├── icons/
+│   │   ├── icon-192.png
+│   │   └── icon-512.png
+│   ├── lang/
+│   │   ├── ar.js
+│   │   ├── en.js
+│   │   ├── ru.js
+│   │   └── zh.js
+│   ├── style_and_sound/
+│   │   ├── arsenal-dropdown.css
+│   │   ├── arsenal-dropdown.js
+│   │   ├── arsenal.png
+│   │   └── click.wav
+│   └── toolLoader.js
+├── image/
+│   ├── image_compressor/
+│   │   ├── image_compressor.css
+│   │   ├── image_compressor.html
+│   │   └── image_compressor.js
+│   ├── image_editor/
+│   │   ├── image_editor.css
+│   │   ├── image_editor.html
+│   │   └── image_editor.js
+│   └── image_remover/
+│       ├── image_remover.css
+│       ├── image_remover.html
+│       ├── image_remover.js
+│       └── image_remover_worker.js
+├── multi_tools_library/
+│   ├── archive/
+│   │   ├── arsenal_archive.css
+│   │   ├── arsenal_archive.html
+│   │   ├── arsenal_archive.js
+│   │   └── portable_extractor.html
+│   ├── arsenal_share/
+│   │   ├── arsenal_share.css
+│   │   ├── arsenal_share.html
+│   │   └── arsenal_share.js
+│   └── qr_generator/
+│       ├── qr_generator.css
+│       ├── qr_generator.html
+│       └── qr_generator.js
+├── pdf/
+│   ├── pdf_compressor/
+│   │   ├── pdf_compressor.css
+│   │   ├── pdf_compressor.html
+│   │   └── pdf_compressor.js
+│   ├── pdf_create/
+│   │   ├── pdf_create.css
+│   │   ├── pdf_create.html
+│   │   └── pdf_create.js
+│   └── pdf_editor/
+│       ├── pdf_editor.css
+│       ├── pdf_editor.html
+│       └── pdf_editor.js
+├── text/
+│   ├── encrypted_texts/
+│   │   ├── encrypted_texts.css
+│   │   ├── encrypted_texts.html
+│   │   └── encrypted_texts.js
+│   ├── text_comparison/
+│   │   ├── text_comparison.css
+│   │   ├── text_comparison.html
+│   │   └── text_comparison.js
+│   └── text_filter/
+│       ├── text_filter.css
+│       ├── text_filter.html
+│       └── text_filter.js
+├── video/
+│   ├── video_compressor/
+│   │   ├── video_compressor.css
+│   │   ├── video_compressor.html
+│   │   └── video_compressor.js
+│   ├── video_converter_f_voice/
+│   │   ├── video_converter_f_voice.css
+│   │   ├── video_converter_f_voice.html
+│   │   └── video_converter_f_voice.js
+│   └── video_editor/
+│       ├── video_editor.css
+│       ├── video_editor.html
+│       └── video_editor.js
+├── coi-serviceworker.js
+├── index.html
+└── manifest.json

@@ -1,0 +1,313 @@
+/* ══════════════════════════════════════════════
+   SMART TEXT — Arsenal Visual Identity
+══════════════════════════════════════════════ */
+
+.smart-text-container {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+}
+
+/* ── هيدر ── */
+.smt-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+.smt-header-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    background: rgba(124, 92, 252, 0.12);
+    color: var(--acc);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.smt-title { font-size: 22px; font-weight: 700; color: var(--c1); margin: 0 0 4px; }
+.smt-sub   { font-size: 13px; color: var(--c2); margin: 0; line-height: 1.5; }
+
+/* ── وضع المقارنة ── */
+.smt-mode-row {
+    display: flex; align-items: center;
+    gap: 12px; margin-bottom: 18px;
+}
+.smt-mode-label {
+    font-size: 11px; font-weight: 700; color: var(--c2);
+    letter-spacing: 1.3px; text-transform: uppercase;
+    white-space: nowrap; flex-shrink: 0;
+}
+.smt-mode-toggle {
+    display: flex;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--bd);
+    border-radius: 10px;
+    padding: 3px; gap: 3px;
+}
+.smt-mode-btn {
+    flex: 1; display: inline-flex;
+    align-items: center; justify-content: center; gap: 6px;
+    padding: 8px 16px; border: none; border-radius: 8px;
+    background: transparent; color: var(--c2);
+    font-family: 'Tajawal', sans-serif; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+}
+.smt-mode-btn.active {
+    background: var(--acc); color: #fff;
+    box-shadow: 0 2px 12px rgba(124, 92, 252, 0.35);
+}
+.smt-mode-btn:not(.active):hover {
+    background: rgba(255,255,255,0.05); color: var(--c1);
+}
+
+/* ── Labels ── */
+.smt-input-label {
+    display: block; font-size: 11px; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--c2); margin-bottom: 7px;
+}
+
+/* ── Textarea wrapper (لعداد الأسطر) ── */
+.smt-ta-wrap { position: relative; margin-bottom: 14px; }
+.smt-line-badge {
+    position: absolute; bottom: 10px; left: 12px;
+    font-size: 10px; font-weight: 700; color: var(--c2);
+    opacity: 0.45; pointer-events: none;
+    font-family: 'Tajawal', sans-serif;
+    letter-spacing: 0.5px;
+}
+/* لوضع الكود: العداد على اليمين */
+.smt-ta-wrap.is-code .smt-line-badge { left: auto; right: 12px; }
+
+/* ── Textarea ── */
+.smt-textarea {
+    width: 100%; height: 130px; box-sizing: border-box;
+    background: rgba(0,0,0,0.22);
+    border: 1px solid var(--bd);
+    border-radius: 10px;
+    color: var(--c1); padding: 13px 15px 28px;
+    font-size: 14px; font-family: 'Tajawal', sans-serif;
+    resize: vertical; outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    line-height: 1.65;
+}
+.smt-textarea:focus {
+    border-color: var(--acc);
+    box-shadow: 0 0 0 3px rgba(124,92,252,0.08);
+}
+.smt-textarea::placeholder { color: var(--c2); opacity: 0.4; }
+
+/* ── زر المقارنة ── */
+.smt-compare-btn {
+    width: 100%; display: flex; align-items: center;
+    justify-content: center; gap: 9px;
+    padding: 14px; border: none; border-radius: 10px;
+    background: var(--acc); color: #fff;
+    font-family: 'Tajawal', sans-serif; font-size: 15px; font-weight: 700;
+    cursor: pointer; margin-bottom: 16px;
+    box-shadow: 0 4px 18px rgba(124,92,252,0.25);
+    transition: all 0.22s;
+}
+.smt-compare-btn:hover  { filter: brightness(1.1); transform: translateY(-1px); }
+.smt-compare-btn:active { transform: scale(0.98); }
+
+/* ── شريط أدوات الـ diff ── */
+.smt-diff-toolbar {
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap;
+    gap: 8px; margin-bottom: 8px;
+}
+.smt-legend {
+    display: flex; gap: 12px; flex-wrap: wrap;
+}
+.smt-legend-item {
+    display: flex; align-items: center;
+    gap: 5px; font-size: 11px; font-weight: 700;
+}
+.smt-leg-dot {
+    width: 9px; height: 9px;
+    border-radius: 2px; display: inline-block;
+}
+.smt-leg-del { color: #ff6b6b; }
+.smt-leg-del .smt-leg-dot { background: rgba(255,75,75,0.35); border: 1px solid #ff4b4b; }
+.smt-leg-add { color: #20c997; }
+.smt-leg-add .smt-leg-dot { background: rgba(0,212,170,0.3); border: 1px solid var(--acc2); }
+.smt-leg-eq  { color: var(--c2); }
+.smt-leg-eq  .smt-leg-dot { background: rgba(255,255,255,0.06); border: 1px solid var(--bd); }
+
+/* عداد الفروقات */
+#smt-diff-stats {
+    display: none; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 800;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--bd);
+    border-radius: 6px; padding: 4px 10px;
+    letter-spacing: 0.3px;
+}
+.smt-stat-add { color: #20c997; }
+.smt-stat-del { color: #ff6b6b; }
+.smt-stat-sep { color: var(--c2); opacity: 0.35; }
+
+/* ══════════════════════════════════════
+   لوحة الـ DIFF
+══════════════════════════════════════ */
+.smt-diff-output {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--bd);
+    border-radius: 10px;
+    padding: 0;
+    min-height: 80px; max-height: 380px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    direction: rtl; text-align: right;
+    line-height: 2;
+}
+
+/* ── رسائل حالة ── */
+.smt-diff-empty {
+    display: block; padding: 24px;
+    color: var(--c2); font-size: 13px;
+    font-style: italic; text-align: center;
+}
+.smt-identical {
+    display: block; padding: 24px;
+    color: #20c997; font-size: 14px;
+    font-weight: 700; text-align: center;
+}
+
+/* ── أسطر الـ diff (نص عادي) ── */
+.diff-equal {
+    display: block; padding: 3px 14px;
+    color: var(--c2);
+    border-right: 3px solid transparent;
+}
+.diff-deleted {
+    display: block; padding: 3px 14px;
+    background: rgba(255,75,75,0.06);
+    border-right: 3px solid rgba(255,75,75,0.6);
+}
+.diff-added {
+    display: block; padding: 3px 14px;
+    background: rgba(0,212,170,0.06);
+    border-right: 3px solid rgba(0,212,170,0.6);
+}
+
+/* ── Spans: نص عادي ── */
+.diff-word-eq  { color: var(--c2); }
+.diff-word-del {
+    background: rgba(255,75,75,0.2);
+    color: #ff6b6b;
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,75,75,0.8);
+    border-radius: 3px; padding: 1px 3px;
+}
+.diff-word-add {
+    background: rgba(0,212,170,0.18);
+    color: #20c997;
+    border-radius: 3px; padding: 1px 3px;
+}
+
+/* ══════════════════════════════════════
+   وضع الكود — GitHub-style
+══════════════════════════════════════ */
+.smt-diff-output.smt-code-mode {
+    direction: ltr;
+    text-align: left;
+    font-family: 'Courier New', Consolas, 'Lucida Console', monospace;
+    font-size: 12.5px;
+    line-height: 1.75;
+    /* إعادة ضبط كامل لتجنب أي spacing موروث */
+    letter-spacing: 0 !important;
+    word-spacing:   0 !important;
+}
+
+/* أسطر في وضع الكود: border على اليسار */
+.smt-code-mode .diff-equal   { border-right: none; border-left: 3px solid transparent; }
+.smt-code-mode .diff-deleted { border-right: none; border-left: 3px solid rgba(255,75,75,0.7); background: rgba(255,75,75,0.07); }
+.smt-code-mode .diff-added   { border-right: none; border-left: 3px solid rgba(0,212,170,0.7); background: rgba(0,212,170,0.07); }
+
+/* Spans في وضع الكود: بدون padding أفقي لتجنب فراغات بين الرموز */
+.smt-code-mode .diff-word-eq  { padding: 0; letter-spacing: 0; word-spacing: 0; }
+.smt-code-mode .diff-word-del {
+    padding: 1px 0;
+    background: rgba(255,75,75,0.28);
+    color: #ff8080;
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,75,75,0.9);
+    border-radius: 2px;
+    letter-spacing: 0; word-spacing: 0;
+}
+.smt-code-mode .diff-word-add {
+    padding: 1px 0;
+    background: rgba(0,212,170,0.25);
+    color: #2dd4b1;
+    border-radius: 2px;
+    letter-spacing: 0; word-spacing: 0;
+}
+
+/* أرقام الأسطر */
+.smt-line-num {
+    display: inline-block; min-width: 30px;
+    color: var(--c2); opacity: 0.3;
+    font-size: 10.5px; user-select: none;
+    text-align: right; margin-right: 14px;
+    padding-right: 10px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    vertical-align: middle;
+    letter-spacing: 0;
+}
+
+/* أرقام الأسطر — وضع النص العادي */
+.smt-line-num-text {
+    min-width: 22px;
+    font-size: 10px;
+    opacity: 0.3;
+    margin-right: 10px;
+    padding-right: 8px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    font-family: monospace;
+    vertical-align: middle;
+    letter-spacing: 0;
+}
+
+/* ── زر نسخ ── */
+.smt-copy-btn {
+    width: 100%; display: flex;
+    align-items: center; justify-content: center; gap: 8px;
+    padding: 12px; margin-top: 10px;
+    border: 1px solid var(--bd); border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    color: var(--c1); font-family: 'Tajawal', sans-serif;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    transition: all 0.22s;
+}
+.smt-copy-btn:hover {
+    border-color: var(--acc);
+    background: rgba(124,92,252,0.06);
+}
+.smt-copy-btn:active { transform: scale(0.98); }
+
+/* ── Light Mode ── */
+body.light .smt-textarea          { background: rgba(0,0,0,0.04); color: #111; }
+body.light .smt-mode-toggle       { background: #f0f0f0; }
+body.light .smt-mode-btn.active   { background: var(--acc); }
+body.light .smt-diff-output       { background: #f9f9f9; }
+body.light .diff-equal            { color: #555; }
+body.light #smt-diff-stats        { background: #fff; }
+body.light .smt-copy-btn          { background: #fff; }
+body.light .smt-diff-output.smt-code-mode { background: #f6f8fa; }
+
+/* ── تجاوب ── */
+@media (max-width: 450px) {
+    .smt-mode-row     { flex-direction: column; align-items: flex-start; }
+    .smt-diff-toolbar { flex-direction: column; align-items: flex-start; }
+    .smt-mode-btn     { padding: 7px 10px; font-size: 12px; }
+}
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

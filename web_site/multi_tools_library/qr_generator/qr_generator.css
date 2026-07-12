@@ -1,0 +1,322 @@
+/* ══════════════════════════════════════════════
+   QR CODE GENERATOR & SCANNER — Unified Design System
+══════════════════════════════════════════════ */
+
+html, body {
+    background: var(--bg);
+    color: var(--c1, #f0f0f0);
+    margin: 0;
+}
+
+.qrg-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+    overflow: visible;
+}
+
+/* ── هيدر ── */
+.qrg-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.qrg-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(124, 92, 252, 0.12);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.qrg-title { font-size: 22px; font-weight: 700; color: var(--c1); margin: 0 0 4px; }
+.qrg-sub   { font-size: 13px; color: var(--c2); margin: 0; line-height: 1.5; }
+
+/* ── sections ── */
+.qrg-section {
+    margin-bottom: 16px;
+    position: relative;
+    overflow: visible;
+}
+
+.qrg-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 8px;
+}
+
+/* ── البطاقة ── */
+.qrg-card {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    overflow: visible;
+    transition: background 0.25s, border-color 0.25s;
+}
+
+/* ── Tabs (رئيسية + فرعية تشترك بنفس النمط البصري) ── */
+.qrg-tabs {
+    display: flex;
+    gap: 8px;
+    background: var(--sf);
+    border: 1px solid var(--bd);
+    border-radius: 12px;
+    padding: 6px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.qrg-tab-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    background: transparent;
+    border: none;
+    color: var(--c2);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.qrg-tab-btn:hover { color: var(--c1); background: var(--sfh); }
+
+.qrg-tab-btn.active {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(124,92,252,0.30);
+}
+
+/* أزرار خيار المسح الفرعية (رفع صورة / كاميرا) — نفس الشكل بحجم أصغر قليلاً */
+.qrg-scan-opt-btn { font-size: 12px; padding: 8px 10px; }
+
+.qrg-tab-content { display: none; animation: fadeInTab 0.35s ease; }
+.qrg-tab-content.active { display: block; }
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── نص مساعد ── */
+.qrg-helper-text { font-size: 13px; color: var(--c2); margin: 0 0 14px; line-height: 1.5; }
+.qrg-mt-10 { margin-top: 10px; }
+.qrg-mt-14 { margin-top: 14px; }
+
+/* ── الحقول النصية ── */
+.qrg-input {
+    width: 100%;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 11px 14px;
+    color: var(--c1);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    margin-bottom: 14px;
+}
+
+.qrg-input:focus { outline: none; border-color: var(--acc); }
+.qrg-input::placeholder { color: var(--c2); opacity: 0.5; }
+
+/* ── معاينة QR المولّد ── */
+.qrg-qr-preview {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 4px;
+}
+.qrg-qr-preview img, .qrg-qr-preview canvas { border-radius: 0px; }
+
+/* ── الأزرار الرئيسية ── */
+.qrg-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-sizing: border-box;
+}
+
+.qrg-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.qrg-btn-primary {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124,92,252,0.25);
+}
+.qrg-btn-primary:not(:disabled):hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+.qrg-btn-success {
+    background: var(--acc2);
+    color: #000;
+    box-shadow: 0 4px 16px rgba(0,212,170,0.25);
+}
+.qrg-btn-success:not(:disabled):hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+.qrg-btn-secondary {
+    background: var(--bg2);
+    color: var(--c1);
+    border: 1px solid var(--bd);
+}
+.qrg-btn-secondary:not(:disabled):hover {
+    border-color: var(--acc);
+    background: rgba(124,92,252,0.06);
+    transform: translateY(-1px);
+}
+
+.qrg-action-row { display: flex; gap: 10px; }
+.qrg-action-row .qrg-btn { flex: 1; }
+
+/* ── منطقة رفع صورة لقراءة QR ── */
+.qrg-drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 16px;
+    cursor: pointer;
+    text-align: center;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.qrg-drop-zone:hover {
+    border-color: var(--acc);
+    background: rgba(124,92,252,0.04);
+}
+
+.qrg-drop-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(124,92,252,0.10);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qrg-drop-text { font-size: 14px; font-weight: 600; color: var(--c2); }
+.qrg-drop-safe { font-size: 11px; color: var(--c2); opacity: 0.6; }
+.qrg-drop-input { display: none; }
+
+/* ── ماسح الكاميرا ── */
+.qrg-camera-wrapper {
+    display: none;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #000;
+    border: 1px solid var(--bd);
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#webcam-preview-region { width: 100%; display: block; }
+#webcam-preview-region video { width: 100% !important; display: block; border-radius: 0; }
+#webcam-preview-region img,
+#webcam-preview-region br { display: none !important; }
+
+.qrg-scanner-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.qrg-scanner-target-box {
+    width: 220px;
+    height: 220px;
+    border: 3px solid var(--acc2);
+    border-radius: 16px;
+    box-shadow: 0 0 0 999px rgba(0,0,0,0.35);
+}
+
+/* ── صندوق نتيجة المسح ── */
+.qrg-result-box { display: none; }
+
+.qrg-result-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--acc2);
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 12px;
+}
+
+.qrg-result-text {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--c1);
+    word-break: break-all;
+    font-family: monospace, 'Tajawal';
+    line-height: 1.6;
+}
+
+/* ── Light Mode ── */
+body.light .qrg-card           { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .qrg-drop-zone      { background: var(--bg2, #fff); }
+body.light .qrg-tabs           { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .qrg-title          { color: var(--c1, #111); }
+body.light .qrg-sub            { color: var(--c2, #555); }
+body.light .qrg-section-label  { color: var(--c2, #555); }
+body.light .qrg-helper-text    { color: var(--c2, #555); }
+body.light .qrg-drop-text      { color: var(--c2, #555); }
+body.light .qrg-input          { background: var(--bg2, #fff); }
+body.light .qrg-result-text    { background: rgba(0,0,0,0.03); }
+body.light .qrg-btn-secondary {
+    background: var(--bg2, #fff);
+    border-color: var(--bd, #ddd);
+    color: var(--c1, #111);
+}
+.qrg-qr-preview canvas,
+.qrg-qr-preview img {
+    width: 230px;
+    height: 230px;
+    image-rendering: crisp-edges;
+}
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

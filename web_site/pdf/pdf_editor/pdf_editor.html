@@ -1,0 +1,181 @@
+<div class="pdfe-container">
+
+    <!-- ── هيدر ── -->
+    <div class="pdfe-header">
+        <div class="pdfe-header-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+        </div>
+        <div>
+            <h1 class="pdfe-title" data-lang="pdfe_title">محرر الـ PDF الشامل</h1>
+            <p class="pdfe-desc" data-lang="pdfe_desc">دمج، حذف، إعادة ترتيب، تدوير، وتقسيم الصفحات محلياً وبأمان تام.</p>
+        </div>
+    </div>
+
+    <!-- ── منطقة الرفع ── -->
+    <div class="pdfe-drop-zone" id="pdfe-drop-zone">
+        <input type="file" id="pdfe-file-input" accept="application/pdf" multiple>
+        <div class="pdfe-drop-icon">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                <polyline points="13 2 13 9 20 9"></polyline>
+            </svg>
+        </div>
+        <span class="pdfe-drop-text" data-lang="pdfe_drop">اضغط أو اسحب ملفات PDF هنا</span>
+        <span class="pdfe-drop-sub" data-lang="pdfe_drop_sub">يدعم رفع ملفات متعددة للدمج</span>
+    </div>
+
+    <!-- ── شريط التقدم ── -->
+    <div class="pdfe-status-wrap" id="pdfe-status-wrap" style="display:none;">
+        <div class="pdfe-status-msg" id="pdfe-status-msg"></div>
+        <div class="pdfe-progress-track"><div class="pdfe-progress-fill" id="pdfe-progress-fill"></div></div>
+    </div>
+
+    <!-- ── مساحة العمل ── -->
+    <div id="pdfe-workspace" style="display:none;">
+
+        <!-- شريط الأدوات -->
+        <div class="pdfe-toolbar">
+            <div class="pdfe-toolbar-right">
+                <input type="text" id="pdfe-filename" class="pdfe-filename-input" placeholder="اسم الملف..." data-lang-placeholder="pdfe_ph_filename" value="Arsenal_Document">
+                <button class="pdfe-tool-btn" id="pdfe-add-blank-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span data-lang="pdfe_add_blank">صفحة فارغة</span>
+                </button>
+            </div>
+            <div class="pdfe-toolbar-left">
+                <button class="pdfe-tool-btn" id="pdfe-select-all-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span data-lang="pdfe_select_all">تحديد الكل</span>
+                </button>
+                <button class="pdfe-tool-btn pdfe-tool-btn-danger" id="pdfe-delete-selected-btn" disabled>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    <span data-lang="pdfe_delete_selected">حذف المحدد</span>
+                </button>
+                <button class="pdfe-tool-btn pdfe-tool-btn-ghost" id="pdfe-clear-btn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    <span data-lang="pdfe_clear">مسح الكل</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Workspace: عرض الصفحة الحالية -->
+        <div class="pdfe-workspace-wrap">
+            <div class="pdfe-page-nav">
+                <button class="pdfe-nav-btn" id="pdfe-prev-btn" disabled>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <div class="pdfe-page-info-wrap">
+                    <span id="pdfe-cur-page">1</span>
+                    <span> / </span>
+                    <span id="pdfe-total-pages">1</span>
+                </div>
+                <button class="pdfe-nav-btn" id="pdfe-next-btn" disabled>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+                <div class="pdfe-toolbar-divider"></div>
+                <button class="pdfe-nav-btn" id="pdfe-rot-cur-btn" title="تدوير الصفحة الحالية">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                </button>
+                <button class="pdfe-nav-btn pdfe-nav-btn-danger" id="pdfe-del-cur-btn" title="حذف الصفحة الحالية">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path></svg>
+                </button>
+            </div>
+            <div class="pdfe-canvas-wrap" id="pdfe-canvas-wrap">
+                <canvas id="pdfe-main-canvas"></canvas>
+                <div class="pdfe-blank-placeholder" id="pdfe-blank-placeholder" style="display:none;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                    <span data-lang="pdfe_blank_page">صفحة فارغة</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- شريط المصغرات -->
+        <div class="pdfe-section-label" data-lang="pdfe_pages_label">الصفحات</div>
+        <div class="pdfe-thumbs-scroll">
+            <div class="pdfe-thumbs-row" id="pdfe-thumbs-row"></div>
+        </div>
+
+        <!-- أزرار التصدير -->
+        <div class="pdfe-export-row">
+            <button class="pdfe-export-btn pdfe-btn-outline" id="pdfe-split-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"></path><path d="M8 3H3v5"></path><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"></path><path d="m15 9 6-6"></path></svg>
+                <span data-lang="pdfe_split">تقسيم</span>
+            </button>
+            <button class="pdfe-export-btn pdfe-btn-outline" id="pdfe-extract-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span data-lang="pdfe_extract">استخراج نطاق</span>
+            </button>
+            <button class="pdfe-export-btn pdfe-btn-secondary" id="pdfe-export-img-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                <span data-lang="pdfe_export_img">تصدير صور</span>
+            </button>
+            <button class="pdfe-export-btn pdfe-btn-primary" id="pdfe-export-pdf-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline></svg>
+                <span data-lang="pdfe_export_pdf">حفظ PDF</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal: مسح الكل -->
+    <div class="pdfe-modal-overlay" id="pdfe-modal-clear" style="display:none;">
+        <div class="pdfe-modal">
+            <div class="pdfe-modal-icon pdfe-modal-icon-danger">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            </div>
+            <h3 class="pdfe-modal-title" data-lang="pdfe_modal_clear_title">مسح جميع الصفحات؟</h3>
+            <p class="pdfe-modal-msg" data-lang="pdfe_modal_clear_msg">سيتم حذف كل الصفحات ولا يمكن التراجع.</p>
+            <div class="pdfe-modal-btns">
+                <button class="pdfe-modal-btn pdfe-modal-cancel" id="pdfe-modal-clear-cancel" data-lang="pdfe_cancel">إلغاء</button>
+                <button class="pdfe-modal-btn pdfe-modal-confirm-danger" id="pdfe-modal-clear-confirm" data-lang="pdfe_confirm">تأكيد</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: تقسيم -->
+    <div class="pdfe-modal-overlay" id="pdfe-modal-split" style="display:none;">
+        <div class="pdfe-modal">
+            <div class="pdfe-modal-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"></path><path d="M8 3H3v5"></path><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"></path><path d="m15 9 6-6"></path></svg>
+            </div>
+            <h3 class="pdfe-modal-title" data-lang="pdfe_split_title">تقسيم الملف</h3>
+            <p class="pdfe-modal-msg" data-lang="pdfe_split_msg">اختر طريقة التقسيم:</p>
+            <div class="pdfe-split-options">
+                <label class="pdfe-radio-label"><input type="radio" name="split-mode" value="each" checked><span data-lang="pdfe_split_each">كل صفحة ملف منفصل</span></label>
+                <label class="pdfe-radio-label"><input type="radio" name="split-mode" value="range"><span data-lang="pdfe_split_range">نطاق محدد</span></label>
+                <div class="pdfe-range-inputs" id="pdfe-range-inputs" style="display:none;">
+                    <input type="number" id="pdfe-range-from" class="pdfe-range-input" placeholder="من" min="1">
+                    <span>—</span>
+                    <input type="number" id="pdfe-range-to" class="pdfe-range-input" placeholder="إلى" min="1">
+                </div>
+            </div>
+            <div class="pdfe-modal-btns">
+                <button class="pdfe-modal-btn pdfe-modal-cancel" id="pdfe-split-cancel" data-lang="pdfe_cancel">إلغاء</button>
+                <button class="pdfe-modal-btn pdfe-modal-confirm" id="pdfe-split-confirm" data-lang="pdfe_confirm">تأكيد</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: استخراج نطاق -->
+    <div class="pdfe-modal-overlay" id="pdfe-modal-extract" style="display:none;">
+        <div class="pdfe-modal">
+            <div class="pdfe-modal-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+            <h3 class="pdfe-modal-title" data-lang="pdfe_extract_title">استخراج نطاق</h3>
+            <p class="pdfe-modal-msg" data-lang="pdfe_extract_msg">أدخل نطاق الصفحات:</p>
+            <div class="pdfe-range-inputs">
+                <input type="number" id="pdfe-extract-from" class="pdfe-range-input" placeholder="من" min="1">
+                <span>—</span>
+                <input type="number" id="pdfe-extract-to" class="pdfe-range-input" placeholder="إلى" min="1">
+            </div>
+            <div class="pdfe-modal-btns">
+                <button class="pdfe-modal-btn pdfe-modal-cancel" id="pdfe-extract-cancel" data-lang="pdfe_cancel">إلغاء</button>
+                <button class="pdfe-modal-btn pdfe-modal-confirm" id="pdfe-extract-confirm" data-lang="pdfe_confirm">استخراج</button>
+            </div>
+        </div>
+    </div>
+
+</div>

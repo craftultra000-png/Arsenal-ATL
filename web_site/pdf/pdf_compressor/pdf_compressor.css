@@ -1,0 +1,254 @@
+/* ══════════════════════════════════════════════
+   PDF COMPRESSOR — Unified Design System
+══════════════════════════════════════════════ */
+
+html, body {
+    background: var(--bg);
+    color: var(--c1, #f0f0f0);
+    margin: 0;
+}
+
+.pdfc-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+    overflow: visible;
+}
+
+/* ── هيدر ── */
+.pdfc-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.pdfc-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(0, 212, 170, 0.12);
+    color: var(--acc2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.pdfc-title { font-size: 22px; font-weight: 700; color: var(--c1); margin: 0 0 4px; }
+.pdfc-sub   { font-size: 13px; color: var(--c2); margin: 0; line-height: 1.5; }
+
+/* ── sections ── */
+.pdfc-section {
+    margin-bottom: 16px;
+    position: relative;
+    overflow: visible;
+}
+
+.pdfc-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 8px;
+}
+
+/* ── البطاقة ── */
+.pdfc-card {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    overflow: visible;
+    transition: background 0.25s, border-color 0.25s;
+}
+
+.pdfc-mt-14 { margin-top: 14px; }
+
+/* ── منطقة رفع الملف ── */
+.pdfc-drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 28px 16px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--bd);
+    transition: all 0.2s;
+}
+
+.pdfc-drop-zone:hover {
+    border-color: var(--acc2);
+    background: rgba(0,212,170,0.04);
+}
+
+.pdfc-drop-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: rgba(0,212,170,0.10);
+    color: var(--acc2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pdfc-drop-text { font-size: 14px; font-weight: 600; color: var(--c2); word-break: break-all; }
+
+/* ── بطاقة الخصوصية (Toggle) ── */
+.pdfc-toggle-card { text-align: start; }
+
+.pdfc-toggle-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pdfc-toggle-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--c1);
+    font-weight: 700;
+}
+
+.pdfc-toggle-note {
+    margin: 8px 0 0;
+    font-size: 11px;
+    color: var(--c2);
+}
+
+/* Checkbox مخصص — حالة مفعّلة إجبارياً */
+.pdfc-checkbox {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+.pdfc-checkbox-disabled {
+    background-color: var(--acc);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* ── الأزرار الرئيسية ── */
+.pdfc-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-sizing: border-box;
+}
+
+.pdfc-btn:disabled { opacity: 0.4; cursor: not-allowed; filter: grayscale(0.5); }
+
+.pdfc-btn-primary {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124,92,252,0.25);
+}
+.pdfc-btn-primary:not(:disabled):hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+.pdfc-btn-success {
+    background: var(--acc2);
+    color: #000;
+    box-shadow: 0 4px 16px rgba(0,212,170,0.25);
+}
+.pdfc-btn-success:not(:disabled):hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+/* ── لوحة الحالة (تقدّم + إحصائيات) ── */
+.pdfc-status-card { animation: fadeInTab 0.3s ease; }
+
+.pdfc-status-header {
+    text-align: center;
+    font-size: 13px;
+    color: var(--c1);
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.pdfc-progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--sf);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.pdfc-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--acc), var(--acc2));
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.pdfc-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.pdfc-stat-box {
+    background: rgba(255,255,255,0.03);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--bd);
+    text-align: center;
+}
+
+.pdfc-stat-title {
+    display: block;
+    font-size: 11px;
+    color: var(--c2);
+    margin-bottom: 5px;
+}
+
+.pdfc-stat-val {
+    display: block;
+    font-size: 17px;
+    font-family: monospace, 'Tajawal';
+}
+
+.pdfc-old-size  { color: #ff4b4b; }
+.pdfc-new-size  { color: var(--acc2); }
+.pdfc-save-pct  { color: var(--acc); font-size: 19px; }
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Light Mode ── */
+body.light .pdfc-card           { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .pdfc-drop-zone      { background: var(--bg2, #fff); }
+body.light .pdfc-title          { color: var(--c1, #111); }
+body.light .pdfc-sub            { color: var(--c2, #555); }
+body.light .pdfc-section-label  { color: var(--c2, #555); }
+body.light .pdfc-toggle-note    { color: var(--c2, #555); }
+body.light .pdfc-drop-text      { color: var(--c2, #555); }
+body.light .pdfc-progress-track { background: rgba(0,0,0,0.08); }
+body.light .pdfc-stat-box       { background: rgba(0,0,0,0.03); }
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

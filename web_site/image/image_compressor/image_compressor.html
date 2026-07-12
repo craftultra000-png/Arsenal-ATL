@@ -1,0 +1,94 @@
+<div class="imc-page">
+
+    <!-- ── هيدر ── -->
+    <div class="imc-header">
+        <div class="imc-header-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+        </div>
+        <div>
+            <h1 class="imc-title" data-lang="img_title">ضاغط الصور</h1>
+            <p class="imc-sub" data-lang="imgc_batch_desc">ضغط دفعي للصور محلياً بالكامل وبدون إنترنت.</p>
+        </div>
+    </div>
+
+    <!-- ── قسم الرفع ── -->
+    <div class="imc-section">
+        <div class="imc-section-label" data-lang="im_com_file">الملفات</div>
+        <div class="imc-card imc-drop-zone" id="upload-box">
+            <div class="imc-drop-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                </svg>
+            </div>
+            <span class="imc-drop-text" id="uploadText" data-lang="img_drop">اضغط هنا لاختيار الصور</span>
+            <input type="file" id="imageInput" accept="image/jpeg, image/png, image/webp" multiple style="display:none">
+            <input type="file" id="folderInput" webkitdirectory directory multiple style="display:none">
+        </div>
+        <!-- زر المجلد منفصل تحت الـ card -->
+        <div class="imc-folder-row">
+            <span class="imc-folder-or" data-lang="ima_fol_or">أو</span>
+            <button class="imc-folder-btn" id="imc-btn-folder">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                <span data-lang="ima_btn_folder">اختر مجلداً كاملاً</span>  
+            </button>
+        </div>
+    </div>
+
+    <!-- ── ملخص الملفات ── -->
+    <div class="queue-list" id="queueList" style="display:none;"></div>
+
+    <!-- ── قسم الجودة ── -->
+    <div class="imc-section">
+        <div class="imc-section-label" data-lang="ima_sect_label">مستوى الجودة</div>
+        <div class="imc-card imc-quality-card">
+            <div class="imc-ctrl-row">
+                <span class="imc-ctrl-label" data-lang="img_quality_lbl">جودة الصورة</span>
+                <span class="imc-ctrl-val" id="qualityVal">80%</span>
+            </div>
+            <input type="range" id="qualitySlider" class="imc-slider" min="10" max="100" value="80">
+            <div class="imc-slider-marks">
+                <span>10%</span><span>30%</span><span>50%</span><span>70%</span><span>100%</span>
+            </div>
+            <div class="imc-quality-hint" data-lang="img_quality_desc">كلما زادت النسبة، زادت الدقة وزاد حجم الملف.</div>
+        </div>
+    </div>
+
+    <!-- ── شريط التقدم ── -->
+    <div class="imc-section" id="overallProgressWrap" style="display:none;">
+        <div class="imc-card">
+            <div class="imc-progress-text" id="overallProgressText"></div>
+            <div class="imc-progress-track">
+                <div class="imc-progress-fill" id="overallProgressFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── زر الضغط ── -->
+    <div class="imc-section">
+        <button id="compressBtn" class="imc-btn imc-btn-primary" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            <span data-lang="imgc_btn_compress_all">اضغط كل الصور الآن</span>
+        </button>
+    </div>
+
+    <!-- ── زر التحميل ── -->
+    <div class="imc-section" id="downloadAllWrap" style="display:none;">
+        <button id="downloadAllBtn" class="imc-btn imc-btn-success">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span data-lang="imgc_btn_download_zip">تحميل الكل (ZIP)</span>
+        </button>
+    </div>
+
+</div>

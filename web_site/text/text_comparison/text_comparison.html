@@ -1,0 +1,87 @@
+<div class="smart-text-container">
+
+    <!-- ── هيدر ── -->
+    <div class="smt-header">
+        <div class="smt-header-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+                <line x1="12" y1="3" x2="12" y2="21" opacity=".35"></line>
+            </svg>
+        </div>
+        <div>
+            <h1 class="smt-title" data-lang="smt_title">مقارنة النصوص والكود</h1>
+            <p class="smt-sub" data-lang="smt_desc">كشف الفروقات كلمةً بكلمة — يعمل محلياً بالكامل</p>
+        </div>
+    </div>
+
+    <!-- ── وضع المقارنة ── -->
+    <div class="smt-mode-row">
+        <span class="smt-mode-label" data-lang="smt_dd_mode">وضع المقارنة</span>
+        <div class="smt-mode-toggle">
+            <button class="smt-mode-btn active" onclick="setCompareMode('text', this)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="12" x2="3" y2="12"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+                <span data-lang="smt_mode_text">نصوص (كلمة + حرف)</span>
+            </button>
+            <button class="smt-mode-btn" onclick="setCompareMode('code', this)">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span data-lang="smt_mode_code">&lt;&gt; كود برمجي</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ── النص الأصلي ── -->
+    <label class="smt-input-label" data-lang="smt_comp_label_a">النص الأصلي (المرجع):</label>
+    <div class="smt-ta-wrap" id="wrap-a">
+        <textarea id="comp-text-a" class="smt-textarea"
+            placeholder="أدخل النص الأساسي القديم هنا..." data-lang-placeholder="smt_comp_placeholder_a"
+            oninput="updateLineCount(this,'lines-a')"></textarea>
+        <span class="smt-line-badge" id="lines-a" data-lang-prefix="smt_lines_count">0 سطر</span>
+    </div>
+
+    <!-- ── النص المعدّل ── -->
+    <label class="smt-input-label" data-lang="smt_comp_label_b">النص الجديد المعدل:</label>
+    <div class="smt-ta-wrap" id="wrap-b">
+        <textarea id="comp-text-b" class="smt-textarea"
+            placeholder="أدخل النص الجديد بعد التعديل..." data-lang-placeholder="smt_comp_placeholder_b"
+            oninput="updateLineCount(this,'lines-b')"></textarea>
+        <span class="smt-line-badge" id="lines-b" data-lang-prefix="smt_lines_count">0 سطر</span>
+    </div>
+
+    <!-- ── زر المقارنة ── -->
+    <button class="smt-compare-btn" onclick="compareTexts()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span data-lang="smt_btn_compare">ابدأ المقارنة وإظهار الفروقات</span>
+    </button>
+
+    <!-- ── شريط الأدوات ── -->
+    <div class="smt-diff-toolbar">
+        <div class="smt-legend">
+            <span class="smt-legend-item smt-leg-del">
+                <span class="smt-leg-dot"></span>
+                <span data-lang="smt_diff_del">محذوف</span>
+            </span>
+            <span class="smt-legend-item smt-leg-add">
+                <span class="smt-leg-dot"></span>
+                <span data-lang="smt_diff_add">مضاف</span>
+            </span>
+            <span class="smt-legend-item smt-leg-eq">
+                <span class="smt-leg-dot"></span>
+                <span data-lang="smt_diff_equal">بدون تغيير</span>
+            </span>
+        </div>
+        <div id="smt-diff-stats"></div>
+    </div>
+
+    <!-- ── لوحة النتائج ── -->
+    <div class="smt-diff-output" id="diff-container">
+        <span class="smt-diff-empty" data-lang="smt_diff_empty">أدخل نصين للمقارنة</span>
+    </div>
+
+    <!-- ── نسخ ── -->
+    <button class="smt-copy-btn" onclick="copyDiffResult(this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span data-lang="smt_btn_copy_diff">نسخ نتيجة المقارنة</span>
+    </button>
+
+</div>

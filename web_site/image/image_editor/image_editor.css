@@ -1,0 +1,538 @@
+/* ══════════════════════════════════════════════
+   IMAGE EDITOR — نمط MIUI
+══════════════════════════════════════════════ */
+
+html, body {
+    color: #fff;
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.ied-app {
+    font-family: 'Tajawal', sans-serif;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    overflow: hidden;
+    max-width: 100%;
+    min-height: 0;
+}
+
+/* ── شاشة الرفع ── */
+.ied-upload-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.ied-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.ied-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(124,92,252,0.12);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ied-title { font-size: 22px; font-weight: 700; color: var(--c1, #fff); margin: 0 0 4px; }
+.ied-sub   { font-size: 13px; color: var(--c2, #888); margin: 0; line-height: 1.5; }
+
+.ied-drop-zone {
+    flex: 1;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 40px 20px;
+    cursor: pointer;
+    transition: all 0.25s;
+    min-height: 240px;
+}
+
+.ied-drop-zone:hover {
+    border-color: var(--acc);
+    background: rgba(124,92,252,0.05);
+}
+
+.ied-drop-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    background: rgba(124,92,252,0.10);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ied-drop-text { font-size: 16px; font-weight: 700; color: var(--c1, #fff); }
+.ied-drop-sub  { font-size: 12px; color: var(--c2, #888); }
+
+/* ── واجهة التحرير ── */
+.ied-editor {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 0;
+}
+
+/* ── Canvas ── */
+.ied-canvas-area {
+    flex: 1;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    min-height: 0;
+}
+
+#ied-canvas {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* ── طبقة القص ── */
+.ied-crop-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#ied-crop-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+/* ── اللوحة النشطة ── */
+.ied-active-panel {
+    background: #0a0a0a;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    min-height: 80px;
+}
+
+/* لوحة السلايدر */
+.ied-slider-panel {
+    padding: 12px 20px 8px;
+}
+
+.ied-slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ied-slider-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+}
+
+.ied-slider-val {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--acc2, #00d4aa);
+    font-family: monospace;
+    background: rgba(0,212,170,0.08);
+    padding: 2px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,212,170,0.15);
+    min-width: 48px;
+    text-align: center;
+}
+
+.ied-main-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.12);
+    outline: none;
+    direction: ltr;
+    accent-color: var(--acc);
+}
+
+.ied-main-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--acc);
+    box-shadow: 0 0 8px rgba(124,92,252,0.4);
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.ied-main-slider::-webkit-slider-thumb:active {
+    transform: scale(1.2);
+}
+
+/* لوحة القص */
+.ied-crop-panel { padding: 12px 16px; }
+
+.ied-crop-ratios {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+}
+
+.ied-ratio-btn {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ied-ratio-btn.active, .ied-ratio-btn:hover {
+    background: var(--acc);
+    border-color: var(--acc);
+    color: #fff;
+}
+
+.ied-crop-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.ied-crop-cancel {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.ied-crop-apply {
+    flex: 2;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background: var(--acc);
+    color: #fff;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* لوحة التصدير */
+.ied-export-panel { padding: 10px 16px; }
+
+.ied-export-row { margin-bottom: 8px; }
+
+.ied-export-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.ied-format-btns, .ied-size-btns {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.ied-fmt-btn, .ied-size-btn {
+    flex-shrink: 0;
+    padding: 5px 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ied-fmt-btn.active, .ied-size-btn.active {
+    background: rgba(124,92,252,0.2);
+    border-color: var(--acc);
+    color: var(--acc);
+}
+
+.ied-custom-size {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    flex-wrap: wrap;
+}
+
+.ied-custom-size input {
+    width: 80px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    text-align: center;
+    outline: none;
+}
+
+.ied-custom-size span { color: rgba(255,255,255,0.4); }
+
+.ied-lock-ratio {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+}
+
+.ied-export-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: var(--acc2, #00d4aa);
+    color: #000;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.25s;
+}
+
+.ied-export-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+/* ── Tabs ── */
+.ied-tabs {
+    display: flex;
+    background: #0a0a0a;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    direction: rtl;
+}
+
+.ied-tab {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.4);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.ied-tab.active {
+    color: var(--acc2, #00d4aa);
+}
+
+.ied-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 2px;
+    background: var(--acc2, #00d4aa);
+    border-radius: 2px 2px 0 0;
+}
+
+/* ── شريط الأدوات ── */
+.ied-toolbar-wrap {
+    background: #0a0a0a;
+    overflow: hidden;
+}
+
+.ied-toolbar {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 8px 12px;
+    gap: 4px;
+    direction: rtl;
+}
+
+.ied-toolbar::-webkit-scrollbar { display: none; }
+
+.ied-tools-group {
+    display: flex;
+    gap: 4px;
+    direction: rtl;
+}
+
+.ied-tool-btn {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.6);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 64px;
+}
+
+.ied-tool-btn:hover {
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.9);
+}
+
+.ied-tool-btn.active {
+    background: rgba(255,200,0,0.12);
+    color: #ffc800;
+    border: 1px solid rgba(255,200,0,0.25);
+}
+
+.ied-tool-btn.modified {
+    color: var(--acc2, #00d4aa);
+}
+
+.ied-tool-btn.modified .ied-tool-dot {
+    display: block;
+}
+
+.ied-tool-dot {
+    display: none;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--acc2, #00d4aa);
+    position: absolute;
+    bottom: 4px;
+}
+
+.ied-tool-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.ied-tool-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+/* ── شريط الإجراءات ── */
+.ied-bottom-bar {
+    display: flex;
+    background: #000;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 8px 4px;
+    padding-bottom: env(safe-area-inset-bottom, 8px);
+    direction: rtl;
+}
+
+.ied-bar-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 4px;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 8px;
+}
+
+.ied-bar-btn:hover { color: rgba(255,255,255,0.9); }
+
+.ied-bar-btn.active { color: #fff; }
+
+.ied-bar-btn-save {
+    color: var(--acc2, #00d4aa) !important;
+}
+
+/* Light Mode */
+body.light .ied-app      { background: #f5f5f5; color: #111; }
+body.light .ied-canvas-area { background: #e8e8e8; }
+body.light .ied-tabs,
+body.light .ied-toolbar-wrap,
+body.light .ied-bottom-bar,
+body.light .ied-active-panel { background: #fff; border-color: #e0e0e0; }
+body.light .ied-tool-btn  { background: rgba(0,0,0,0.04); color: rgba(0,0,0,0.5); }
+body.light .ied-tool-btn:hover { background: rgba(0,0,0,0.08); color: #111; }
+body.light .ied-tab       { color: rgba(0,0,0,0.4); }
+body.light .ied-bar-btn   { color: rgba(0,0,0,0.4); }
+body.light .ied-title     { color: #111; }
+body.light .ied-sub       { color: #666; }
+body.light .ied-drop-zone { }
+body.light .ied-main-slider { background: rgba(0,0,0,0.12); }
+body.light .ied-fmt-btn,
+body.light .ied-size-btn  { border-color: rgba(0,0,0,0.12); color: rgba(0,0,0,0.5); }
+body.light .ied-custom-size input { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.12); color: #111; }
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

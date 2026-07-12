@@ -1,0 +1,356 @@
+/* ══════════════════════════════════════════════
+   VIDEO → AUDIO EXTRACTOR — نمط Arsenal الموحّد
+══════════════════════════════════════════════ */
+
+html, body {
+    background: var(--bg);
+    color: var(--c1, #f0f0f0);
+    margin: 0;
+}
+
+.vcv-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+}
+
+/* ── هيدر ── */
+.vcv-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.vcv-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(124, 92, 252, 0.12);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.vcv-title { font-size: 22px; font-weight: 700; color: var(--c1); margin: 0 0 4px; }
+.vcv-sub   { font-size: 13px; color: var(--c2); margin: 0; line-height: 1.5; }
+
+/* ── sections ── */
+.vcv-section {
+    margin-bottom: 16px;
+    overflow: visible;
+}
+
+.vcv-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 8px;
+}
+
+/* ── بطاقة عامة ── */
+.vcv-card {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    overflow: visible;
+}
+
+/* ── Drop Zone ── */
+.vcv-drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 32px 16px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    background: var(--bg2);
+    transition: all 0.2s;
+    margin-bottom: 16px;
+}
+
+.vcv-drop-zone:hover,
+.vcv-drop-zone:active {
+    border-color: var(--acc);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.vcv-drop-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: rgba(124, 92, 252, 0.10);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vcv-drop-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c1);
+}
+
+.vcv-drop-hint {
+    font-size: 11px;
+    color: var(--c2);
+    opacity: 0.7;
+}
+
+/* ── شريط التقدم ── */
+.vcv-status-box {
+    display: none;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.vcv-status-msg {
+    color: var(--acc);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.vcv-bar-bg {
+    background: rgba(0, 0, 0, 0.3);
+    height: 6px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.vcv-bar-fill {
+    background: linear-gradient(90deg, var(--acc), var(--acc2));
+    height: 100%;
+    width: 0%;
+    transition: width 0.2s ease;
+    border-radius: 4px;
+}
+
+.vcv-status-pct {
+    font-size: 12px;
+    color: var(--c2);
+    font-family: monospace;
+}
+
+/* ── الإحصائيات ── */
+.vcv-stats-row {
+    display: none;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.vcv-stat-card {
+    flex: 1;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+}
+
+.vcv-stat-label {
+    display: block;
+    font-size: 11px;
+    color: var(--c2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.vcv-stat-val {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: monospace;
+}
+
+.vcv-val-del { color: #ff4b4b; }
+.vcv-val-add { color: var(--acc2); }
+
+/* ── معاينة الصوت ── */
+.vcv-preview-box {
+    display: none;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.vcv-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: var(--acc2);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.vcv-page audio {
+    width: 100%;
+    display: block;
+    outline: none;
+    border-radius: 8px;
+    accent-color: var(--acc);
+}
+
+/* ── زر التشغيل ── */
+.vcv-btn-play {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124, 92, 252, 0.25);
+    margin-bottom: 12px;
+}
+.vcv-btn-play:not(:disabled):hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+/* ── Timeline (نفس نمط audio_rate) ── */
+.vcv-timeline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 14px 16px;
+    user-select: none;
+    transition: border-color 0.2s;
+    touch-action: none;
+    direction: ltr;
+}
+
+.vcv-timeline:hover   { border-color: var(--acc2); }
+.vcv-timeline.scrubbing { border-color: var(--acc2); }
+
+.vcv-time {
+    font-size: 12px;
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--c2);
+    min-width: 38px;
+    text-align: center;
+}
+
+.vcv-progress-track {
+    flex: 1;
+    height: 8px;
+    background: var(--sf, rgba(255,255,255,0.08));
+    border-radius: 4px;
+    overflow: visible;
+    position: relative;
+    cursor: pointer;
+    direction: ltr;
+}
+
+.vcv-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--acc2), var(--acc));
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+.vcv-progress-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--acc2);
+    box-shadow: 0 0 8px rgba(0,0,0,0.35);
+    cursor: grab;
+    transition: transform 0.1s, box-shadow 0.1s;
+    pointer-events: none;
+}
+
+.vcv-timeline.scrubbing .vcv-progress-thumb {
+    transform: translate(-50%, -50%) scale(1.3);
+    box-shadow: 0 0 0 6px rgba(0,212,170,0.2);
+    cursor: grabbing;
+}
+
+/* ── Light Mode (timeline) ── */
+body.light .vcv-timeline { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .vcv-progress-track { background: rgba(0,0,0,0.08); }
+
+/* ── Download Wrap — عمود عمودي حتى الـ dropdown فوق الزر بعرض كامل ── */
+#vc-download-wrap {
+    flex-direction: column;
+}
+
+/* ── Dropdown container ── */
+.vcv-section-dd {
+    position: relative;
+    overflow: visible;
+    z-index: 10;
+    margin-bottom: 0;
+}
+
+#vcv-dd-format,
+#vcv-dd-format .asl-dropdown,
+#vcv-dd-format .asl-dropdown-btn {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+.vcv-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 12px;
+}
+
+.vcv-btn:active { transform: scale(0.98); }
+.vcv-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none !important; filter: none !important; }
+
+.vcv-btn-success {
+    background: var(--acc2);
+    color: #000;
+    box-shadow: 0 4px 16px rgba(0, 212, 170, 0.28);
+}
+.vcv-btn-success:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+/* ── Light Mode ── */
+body.light .vcv-drop-zone   { background: var(--bg2, #fff); }
+body.light .vcv-card        { background: var(--bg2, #fff); }
+body.light .vcv-status-box  { background: var(--bg2, #fff); }
+body.light .vcv-stat-card   { background: var(--bg2, #fff); }
+body.light .vcv-preview-box { background: var(--bg2, #fff); }
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

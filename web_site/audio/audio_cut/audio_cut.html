@@ -1,0 +1,114 @@
+<div class="acut-page">
+
+    <!-- ── هيدر الصفحة ── -->
+    <div class="acut-header">
+        <div class="acut-header-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3"></circle>
+                <circle cx="6" cy="18" r="3"></circle>
+                <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+                <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+                <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+            </svg>
+        </div>
+        <div>
+            <h1 class="acut-title" data-lang="cut_title">مقص الصوت التفاعلي</h1>
+            <p class="acut-sub" data-lang="cut_desc">تحكم بالخط الزمني عبر نقطة البداية والنهاية بدقة الميلي ثانية وبشكل محلي.</p>
+        </div>
+    </div>
+
+    <!-- ── قسم رفع الملف ── -->
+    <div class="acut-section">
+        <div class="acut-section-label" data-lang="cut_section_file">الملف الصوتي</div>
+        <div class="acut-card acut-drop-zone" id="file-input-container" onclick="document.getElementById('audioFile').click()">
+            <div class="acut-drop-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+            </div>
+            <span class="acut-drop-text" id="file-status" data-lang="cut_drop">اضغط هنا لإدخال الملف الصوتي المراد قصه</span>
+            <input type="file" id="audioFile" accept="audio/*" style="display:none" onchange="processAudioFile(this)">
+        </div>
+    </div>
+
+    <!-- ── قسم مساحة العمل (الشريط المزدوج) ── -->
+    <div class="acut-section">
+        <div class="acut-section-label" data-lang="cut_section_range">تحديد المقطع</div>
+        <div class="acut-card acut-workspace">
+
+            <div class="dual-range-wrapper">
+                <div class="slider-track-bg"></div>
+                <div class="slider-track-fill" id="track-fill"></div>
+                <input type="range" class="range-slider" id="slide-start" min="0" value="0" step="0.01" disabled oninput="moveStartSlider()">
+                <input type="range" class="range-slider" id="slide-end" min="0" value="100" step="0.01" disabled oninput="moveEndSlider()">
+            </div>
+
+            <div class="acut-total-zone">
+                <span class="acut-badge-total" id="lbl-total" data-lang="cut_lbl_total">المدة المقتطعة: 00:00.00</span>
+            </div>
+
+            <div class="acut-time-row">
+                <span class="acut-badge-start" id="lbl-start" data-lang="cut_lbl_start">البداية: 00:00.00</span>
+                <span class="acut-badge-end" id="lbl-end" data-lang="cut_lbl_end">النهاية: 00:00.00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── قسم صيغة التصدير ── -->
+    <div class="acut-section">
+        <div class="acut-section-label" data-lang="cut_section_format">صيغة التصدير</div>
+        <div class="acut-card acut-format-card">
+            <div id="acut-dd-format"></div>
+            <input type="hidden" id="target-format" value="WAV">
+        </div>
+    </div>
+
+    <!-- ── زر الاستماع ── -->
+    <div class="acut-section">
+        <button class="acut-btn acut-btn-secondary" id="btn-play" disabled onclick="togglePlayPreview()">
+            <svg id="playIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span id="playText" data-lang="cut_play_btn">استمع للمنطقة المقصوصة للتجربة</span>
+        </button>
+    </div>
+
+    <!-- ── زر القص والتصدير ── -->
+    <div class="acut-section">
+        <button class="acut-btn acut-btn-primary" id="btn-save" disabled onclick="cutAndExportAudio()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3"></circle>
+                <circle cx="6" cy="18" r="3"></circle>
+                <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+                <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+                <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+            </svg>
+            <span data-lang="cut_btn_save">قص وتصدير المقطع النهائي</span>
+        </button>
+    </div>
+
+    <!-- ── شريط الحالة ── -->
+    <div id="output-box" class="acut-section acut-status" style="display:none;">
+        <div class="acut-card">
+            <div class="acut-status-text" id="status-text" data-lang="cut_status_wait">جاري إعداد بايتات الملف الموجي...</div>
+            <div class="acut-progress-track">
+                <div id="p-bar" class="acut-progress-fill" style="width:0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── زر التحميل ── -->
+    <div id="download-wrap" class="acut-section" style="display:none;">
+        <a id="download-link" class="acut-btn acut-btn-success" style="text-decoration:none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span data-lang="cut_btn_download">تحميل المقطع المقصوص</span>
+        </a>
+    </div>
+
+</div>

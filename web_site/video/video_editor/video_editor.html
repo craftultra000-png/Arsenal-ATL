@@ -1,0 +1,176 @@
+<div class="ve-app">
+
+    <svg style="width:0;height:0;position:absolute;overflow:hidden;">
+        <filter id="ve-svg-sharpen">
+            <feConvolveMatrix id="ve-sharp-matrix" order="3 3" preserveAlpha="true" kernelMatrix="0 0 0 0 1 0 0 0 0"/>
+        </filter>
+    </svg>
+
+    <!-- ══ TOP BAR ══ -->
+    <div class="ve-topbar">
+        <div class="ve-topbar-left">
+            <div class="ve-file-pill" id="ve-video-pill" onclick="document.getElementById('ve-video-input').click()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                <span id="ve-video-label" data-lang="ve_drop_vid">فيديو</span>
+                <input type="file" id="ve-video-input" accept="video/*" style="display:none">
+            </div>
+            <div class="ve-file-pill ve-audio-pill" id="ve-audio-pill" onclick="document.getElementById('ve-audio-input').click()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                <span id="ve-audio-label" data-lang="ve_drop_aud">صوت</span>
+                <input type="file" id="ve-audio-input" accept="audio/*" style="display:none">
+            </div>
+        </div>
+        <div class="ve-topbar-right">
+            <button class="ve-export-btn" id="ve-export-btn" disabled>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span data-lang="ve_btn_export">تصدير</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ══ PREVIEW ══ -->
+    <div class="ve-preview">
+        <canvas id="ve-canvas"></canvas>
+        <div class="ve-no-video" id="ve-no-video">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+            <span data-lang="ve_drop_vid">اختر فيديو</span>
+        </div>
+        <div class="ve-time-overlay" id="ve-time-display">00:00 / 00:00</div>
+        <button class="ve-play-btn" id="ve-play-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+    </div>
+
+    <!-- ══ TIMELINE ══ -->
+    <div class="ve-timeline-area">
+        <div class="ve-tl-labels">
+            <span class="ve-tl-lbl"><span data-lang="ve_lbl_start">بداية</span> <strong id="ve-lbl-start">0.0</strong>ث</span>
+            <span class="ve-tl-lbl ve-tl-aud"><span data-lang="ve_lbl_aud">صوت</span> <strong id="ve-lbl-aud">0.0</strong>ث</span>
+            <span class="ve-tl-lbl"><span data-lang="ve_lbl_end">نهاية</span> <strong id="ve-lbl-end">0.0</strong>ث</span>
+        </div>
+        <div class="ve-range-track">
+            <div class="ve-track-fill" id="ve-track-fill"></div>
+            <input type="range" class="ve-slider ve-slider-start" id="ve-t-start" min="0" max="100" value="0"   step="0.01">
+            <input type="range" class="ve-slider ve-slider-end"   id="ve-t-end"   min="0" max="100" value="100" step="0.01">
+            <input type="range" class="ve-slider ve-slider-aud"   id="ve-a-start" min="0" max="100" value="0"   step="0.01">
+        </div>
+    </div>
+
+    <!-- ══ BOTTOM PANEL ══ -->
+    <div class="ve-bottom">
+
+        <!-- Active Slider -->
+        <div class="ve-active-slider" id="ve-active-slider" style="display:none;">
+            <div class="ve-slider-header">
+                <span class="ve-slider-name" id="ve-slider-name"></span>
+                <span class="ve-slider-badge" id="ve-slider-val">0</span>
+            </div>
+            <input type="range" class="ve-main-slider" id="ve-main-slider" min="-100" max="100" step="1" value="0">
+        </div>
+
+        <!-- Tabs -->
+        <div class="ve-tabs">
+            <button class="ve-tab active" data-tab="light" data-lang="ve_tab_light">الإضاءة</button>
+            <button class="ve-tab" data-tab="color" data-lang="ve_tab_color">الألوان</button>
+            <button class="ve-tab" data-tab="detail" data-lang="ve_tab_detail">التفاصيل</button>
+            <button class="ve-tab" data-tab="export" data-lang="ve_exp_settings">التصدير</button>
+        </div>
+
+        <!-- Tools: الإضاءة -->
+        <div class="ve-tools-group" data-group="light">
+            <button class="ve-tool-btn" data-tool="brightness" data-lang-label="ve_flt_br" data-min="50" data-max="150" data-default="100" data-unit="%">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
+                <span data-lang="ve_flt_br">السطوع</span>
+            </button>
+            <button class="ve-tool-btn" data-tool="contrast" data-lang-label="ve_flt_contrast" data-min="50" data-max="150" data-default="100" data-unit="%">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg></div>
+                <span data-lang="ve_flt_contrast">التباين</span>
+            </button>
+            <button class="ve-tool-btn" data-tool="exposure" data-lang-label="ve_flt_exposure" data-min="-100" data-max="100" data-default="0">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+                <span data-lang="ve_flt_exposure">التعرض</span>
+            </button>
+            <button class="ve-tool-btn" data-tool="highlights" data-lang-label="ve_flt_highlights" data-min="-100" data-max="100" data-default="0">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20"/></svg></div>
+                <span data-lang="ve_flt_highlights">تمييزات</span>
+            </button>
+            <button class="ve-tool-btn" data-tool="shadows" data-lang-label="ve_flt_shadows" data-min="-100" data-max="100" data-default="0">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 22a10 10 0 0 0 0-20"/></svg></div>
+                <span data-lang="ve_flt_shadows">ظلال</span>
+            </button>
+            <button class="ve-tool-btn" data-tool="vignette" data-lang-label="ve_flt_vignette" data-min="0" data-max="100" data-default="0">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="10"/><circle cx="12" cy="12" r="4"/></svg></div>
+                <span data-lang="ve_flt_vignette">حواف</span>
+            </button>
+        </div>
+
+        <!-- Tools: الألوان -->
+        <div class="ve-tools-group" data-group="color" style="display:none;">
+            <button class="ve-tool-btn" data-tool="saturation" data-lang-label="ve_flt_sat" data-min="0" data-max="200" data-default="100" data-unit="%">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+                <span data-lang="ve_flt_sat">التشبع</span>
+            </button>
+            <button class="ve-tool-btn" data-tool="hue" data-lang-label="ve_flt_hue" data-min="-180" data-max="180" data-default="0" data-unit="°">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 7.07 17.07"/></svg></div>
+                <span data-lang="ve_flt_hue">درجة اللون</span>
+            </button>
+            <button class="ve-tool-btn" data-tool="warmth" data-lang-label="ve_flt_warmth" data-min="-100" data-max="100" data-default="0">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div>
+                <span data-lang="ve_flt_warmth">الدفء</span>
+            </button>
+            <button class="ve-tool-btn" data-tool="fade" data-lang-label="ve_flt_fade" data-min="0" data-max="100" data-default="0">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg></div>
+                <span data-lang="ve_flt_fade">تلاشي</span>
+            </button>
+        </div>
+
+        <!-- Tools: التفاصيل -->
+        <div class="ve-tools-group" data-group="detail" style="display:none;">
+            <button class="ve-tool-btn" data-tool="sharpness" data-lang-label="ve_flt_shp" data-min="0" data-max="100" data-default="0">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                <span data-lang="ve_flt_shp">الحدة</span>
+            </button>
+            <button class="ve-tool-btn" data-tool="noise" data-lang-label="ve_flt_noise" data-min="0" data-max="100" data-default="0">
+                <div class="ve-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 7h.01M12 7h.01M17 7h.01M7 12h.01M12 12h.01M17 12h.01M7 17h.01M12 17h.01M17 17h.01"/></svg></div>
+                <span data-lang="ve_flt_noise">ضوضاء</span>
+            </button>
+        </div>
+
+        <!-- Tools: التصدير -->
+        <div class="ve-tools-group ve-export-group" data-group="export" style="display:none;">
+            <div class="ve-export-row">
+                <span class="ve-export-label" data-lang="ve_exp_res">الدقة</span>
+                <div id="ve-dd-res"></div>
+                <input type="hidden" id="ve-sel-res" value="original">
+            </div>
+            <div class="ve-export-row">
+                <span class="ve-export-label" data-lang="ve_exp_vol">صوت الفيديو</span>
+                <span class="ve-export-badge" id="ve-val-vol">100%</span>
+                <input type="range" class="ve-vol-slider" id="ve-a-vol" min="0" max="100" value="100">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ══ STATUS OVERLAY ══ -->
+    <div class="ve-status-overlay" id="ve-status-overlay" style="display:none;">
+        <div class="ve-status-box">
+            <div class="ve-status-msg" id="ve-status-msg">جاري التهيئة...</div>
+            <div class="ve-bar-bg"><div class="ve-bar-fill" id="ve-bar-fill"></div></div>
+            <div class="ve-status-pct" id="ve-status-pct">0%</div>
+        </div>
+    </div>
+
+    <!-- ══ DOWNLOAD TOAST ══ -->
+    <div class="ve-toast" id="ve-toast" style="display:none;">
+        <div class="ve-toast-info">
+            <span data-lang="ve_stat_new">حجم الناتج</span>
+            <strong id="ve-new-size">—</strong>
+        </div>
+        <button class="ve-download-btn" id="ve-download-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span data-lang="ve_btn_download">تحميل</span>
+        </button>
+    </div>
+
+</div>

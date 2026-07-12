@@ -1,0 +1,110 @@
+<div class="enc-page encrypted-texts-container">
+
+    <!-- ── هيدر ── -->
+    <div class="enc-header">
+        <div class="enc-header-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+        </div>
+        <div>
+            <h1 class="enc-title" data-lang="enc_title">مشفّر النصوص الآمن</h1>
+            <p class="enc-sub" data-lang="enc_desc">تشفير وفك تشفير عسكري (AES-256-GCM) مع نظام التحقق من سلامة البيانات محلياً.</p>
+        </div>
+    </div>
+
+    <!-- ── أزرار التبويب ── -->
+    <div class="enc-section">
+        <div class="enc-modes-row">
+            <button class="enc-mode-btn tab-btn active" onclick="switchCryptoTab('encryptPanel', this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span data-lang="enc_tab_encrypt">تشفير نص</span>
+            </button>
+            <button class="enc-mode-btn tab-btn" onclick="switchCryptoTab('decryptPanel', this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                </svg>
+                <span data-lang="enc_tab_decrypt">فك التشفير</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ══ لوحة التشفير ══ -->
+    <div id="encryptPanel" class="panel active">
+
+        <div class="enc-section">
+            <div class="enc-section-label" data-lang="enc_label_input">النص المراد تشفيره وحمايته</div>
+            <div class="enc-card">
+                <textarea id="encInputText" class="enc-textarea" placeholder="اكتب أو الصق النص السري هنا..." data-lang-placeholder="enc_input_placeholder"></textarea>
+            </div>
+        </div>
+
+        <div class="enc-section">
+            <div class="enc-section-label" data-lang="enc_label_key">المفتاح السري</div>
+            <div class="enc-card">
+                <div class="enc-key-row">
+                    <input type="text" id="encKey" class="enc-input" placeholder="اكتب مفتاحك هنا، أو قم بتوليد مفتاح معقد..." autocomplete="off" data-lang-placeholder="enc_key_placeholder">
+                    <button class="enc-side-btn enc-btn-gen" onclick="generateRandomKey('encKey')" title="توليد مفتاح عشوائي">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><circle cx="15.5" cy="8.5" r="1.5"></circle><circle cx="15.5" cy="15.5" r="1.5"></circle><circle cx="8.5" cy="15.5" r="1.5"></circle></svg>
+                    </button>
+                    <button class="enc-side-btn enc-btn-copy-key" onclick="copyFieldText('encKey', this)" title="نسخ المفتاح">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    </button>
+                </div>
+                <p class="enc-helper" data-lang="enc_helper_share">* شارك هذا المفتاح مع الطرف الآخر عبر قناة آمنة ليتمكن من فك النص.</p>
+            </div>
+        </div>
+
+        <div class="enc-section">
+            <button class="enc-btn enc-btn-primary" id="btn-do-encrypt" onclick="handleEncrypt()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                <span data-lang="enc_btn_encrypt">تشفير وقفل النص</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ══ لوحة فك التشفير ══ -->
+    <div id="decryptPanel" class="panel">
+
+        <div class="enc-section">
+            <div class="enc-section-label" data-lang="enc_label_decrypt_input">النص المشفّر المراد فتحه</div>
+            <div class="enc-card">
+                <textarea id="decInputText" class="enc-textarea enc-textarea-mono" placeholder="الصق النص المعقد (الكود) هنا..." data-lang-placeholder="enc_decrypt_input_placeholder"></textarea>
+            </div>
+        </div>
+
+        <div class="enc-section">
+            <div class="enc-section-label" data-lang="enc_label_decrypt_key">المفتاح الخاص لفك التشفير</div>
+            <div class="enc-card">
+                <input type="text" id="decKey" class="enc-input" placeholder="أدخل المفتاح السري لفتح النص..." autocomplete="off" data-lang-placeholder="enc_decrypt_key_placeholder">
+            </div>
+        </div>
+
+        <div class="enc-section">
+            <button class="enc-btn enc-btn-success" id="btn-do-decrypt" onclick="handleDecrypt()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+                <span data-lang="enc_btn_decrypt">فتح وفك التشفير</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ══ بطاقة النتيجة ══ -->
+    <div class="enc-result-card" id="globalResultArea">
+        <div class="enc-result-header">
+            <span class="enc-result-title" id="globalResultTitle" data-lang="enc_result_default">النتيجة:</span>
+            <button class="enc-result-copy-btn" onclick="copyResultText(this)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span data-lang="enc_btn_copy_result">نسخ الناتج</span>
+            </button>
+        </div>
+        <div class="enc-result-output" id="globalResultText"></div>
+    </div>
+
+</div>

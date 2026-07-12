@@ -1,0 +1,100 @@
+<div class="vcm-page">
+
+    <div class="vcm-header">
+        <div class="vcm-header-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            </svg>
+        </div>
+        <div>
+            <h1 class="vcm-title" data-lang="vcm_title">ضاغط الفيديو الذكي</h1>
+            <p class="vcm-sub" data-lang="vcm_desc">ضغط احترافي متعدد الأنوية عبر FFmpeg — محلي بالكامل بدون إنترنت.</p>
+        </div>
+    </div>
+
+    <div class="vcm-section">
+        <div class="vcm-card vcm-drop-zone" id="vcm-upload-box">
+            <div class="vcm-drop-icon">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                </svg>
+            </div>
+            <span class="vcm-drop-text" id="vcm-upload-text" data-lang="vcm_drop">اضغط أو اسحب ملف الفيديو هنا</span>
+            <span class="vcm-drop-loading" id="vcm-waiting-text" data-lang="vcm_waiting" style="display:none;">الرجاء الانتظار...</span>
+            <span class="vcm-drop-loading" id="vcm-loading-text" data-lang="vcm_uploading" style="display:none;">يتم الرفع، الرجاء الانتظار...</span>
+            <span class="vcm-drop-meta" id="vcm-file-meta" style="display:none;"></span>
+            <input type="file" id="vcm-file-input" accept="video/*" style="display:none;">
+        </div>
+    </div>
+
+    <div class="vcm-section">
+        <div class="vcm-section-label" data-lang="vcm_section_settings">إعدادات الضغط</div>
+        <div class="vcm-card vcm-settings-card">
+
+            <div class="vcm-setting-row">
+                <span class="vcm-setting-label" data-lang="vcm_label_res">الدقة:</span>
+                <div id="vcm-resolution-dd" class="vcm-dd-container"></div>
+                <input type="hidden" id="vcm-resolution" value="original">
+            </div>
+
+            <div class="vcm-setting-row">
+                <span class="vcm-setting-label" data-lang="vcm_label_crf">جودة الصورة:</span>
+                <div id="vcm-crf-dd" class="vcm-dd-container"></div>
+                <input type="hidden" id="vcm-crf" value="28">
+            </div>
+
+            <div class="vcm-setting-row">
+                <span class="vcm-setting-label" data-lang="vcm_label_preset">سرعة الضغط:</span>
+                <div id="vcm-preset-dd" class="vcm-dd-container"></div>
+                <input type="hidden" id="vcm-preset" value="fast">
+            </div>
+
+            <div class="vcm-setting-row">
+                <span class="vcm-setting-label" data-lang="vcm_label_threads">عدد الأنوية:</span>
+                <div id="vcm-threads-dd" class="vcm-dd-container"></div>
+                <input type="hidden" id="vcm-threads" value="auto">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="vcm-section">
+        <button id="vcm-start-btn" class="vcm-btn vcm-btn-primary" disabled>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span data-lang="vcm_btn_start">ابدأ الضغط</span>
+        </button>
+    </div>
+
+    <div class="vcm-section" id="vcm-status-wrap" style="display:none;">
+        <div class="vcm-card vcm-status-card">
+            <div class="vcm-status-header">
+                <span id="vcm-status-text" class="vcm-status-text" data-lang="vcm_status_init">جاري التهيئة...</span>
+                <span id="vcm-pct-text" class="vcm-pct">0%</span>
+            </div>
+            <div class="vcm-progress-track">
+                <div id="vcm-progress-bar" class="vcm-progress-fill"></div>
+            </div>
+            <div class="vcm-stats-row" id="vcm-stats-row" style="display:none;">
+                <div class="vcm-stat-box"><span data-lang="vcm_stat_original">الحجم الأصلي:</span> <strong id="vcm-size-orig">-</strong></div>
+                <div class="vcm-stat-box"><span data-lang="vcm_stat_new">الحجم الجديد:</span> <strong id="vcm-size-new" class="vcm-green">-</strong></div>
+                <div class="vcm-stat-box vcm-full-width"><span data-lang="vcm_stat_saved">نسبة التوفير:</span> <strong id="vcm-size-pct" class="vcm-accent">-</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="vcm-section" id="vcm-download-wrap" style="display:none;">
+        <button id="vcm-download-btn" class="vcm-btn vcm-btn-success">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span data-lang="vcm_btn_download">تحميل الفيديو المضغوط</span>
+        </button>
+    </div>
+
+</div>

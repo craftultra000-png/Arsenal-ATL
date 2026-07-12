@@ -1,0 +1,94 @@
+<div class="txf-page">
+
+    <!-- ── هيدر ── -->
+    <div class="txf-header">
+        <div class="txf-header-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+            </svg>
+        </div>
+        <div>
+            <h1 class="txf-title" data-lang="etx_title">مِصفاة النصوص الذكية</h1>
+            <p class="txf-sub" data-lang="etx_desc">استخراج البيانات، تنظيف الفوضى تراكمياً، وترميز العبارات بلمحة عين.</p>
+        </div>
+    </div>
+
+    <!-- ── المدخلات ── -->
+    <div class="txf-section">
+        <input type="checkbox" id="expand-input" class="txf-expand-cb">
+        <div class="txf-section-label">
+            <span data-lang="etx_input_label">المدخلات</span>
+            <label for="expand-input" class="txf-expand-btn">
+                <svg class="txf-expand-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                <svg class="txf-collapse-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="10" y1="14" x2="3" y2="21"></line><line x1="21" y1="3" x2="14" y2="10"></line></svg>
+                <span class="txf-expand-txt" data-lang="etx_expand">توسيع</span>
+                <span class="txf-collapse-txt" data-lang="etx_collapse">طي</span>
+            </label>
+        </div>
+        <div class="txf-card">
+            <textarea id="main-input" class="txf-textarea txf-textarea-expandable" placeholder="ألصق مقالاً، أو نصوصاً تحتوي على روابط، إيميلات، مسافات زائدة، أو رموز تعبيرية..." data-lang-placeholder="etx_input_placeholder"></textarea>
+        </div>
+    </div>
+
+    <!-- ── استخراج البيانات ── -->
+    <div class="txf-section">
+        <div class="txf-section-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span data-lang="etx_section_extract">استخراج وعزل البيانات</span>
+        </div>
+        <div class="txf-card">
+            <div id="etx-dd-extract"></div>
+        </div>
+    </div>
+
+    <!-- ── تنظيف وتصفية ── -->
+    <div class="txf-section">
+        <div class="txf-section-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.24l-3.42-3.42"></path></svg>
+            <span data-lang="etx_section_clean">تنظيف وتصفية العبارات (تفعيل تراكمي)</span>
+        </div>
+        <div class="txf-card">
+            <div id="etx-dd-clean"></div>
+            <div class="txf-action-row txf-mt-12">
+                <button class="txf-btn txf-btn-danger" onclick="clearBoxes()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    <span data-lang="etx_btn_clear_boxes">تفريغ الصناديق</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── الترميز ── -->
+    <div class="txf-section">
+        <div class="txf-section-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span data-lang="etx_section_encoding">الترميز وبايتات الخصوصية (Encoding)</span>
+        </div>
+        <div class="txf-card">
+            <div id="etx-dd-encode"></div>
+        </div>
+    </div>
+
+    <!-- ── المخرجات ── -->
+    <div class="txf-section">
+        <input type="checkbox" id="expand-output" class="txf-expand-cb">
+        <div class="txf-section-label txf-label-acc">
+            <span data-lang="etx_output_label">المخرجات والنتائج الصافية</span>
+            <label for="expand-output" class="txf-expand-btn txf-expand-btn-acc">
+                <svg class="txf-expand-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                <svg class="txf-collapse-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="10" y1="14" x2="3" y2="21"></line><line x1="21" y1="3" x2="14" y2="10"></line></svg>
+                <span class="txf-expand-txt" data-lang="etx_expandv">توسيع</span>
+                <span class="txf-collapse-txt" data-lang="etx_collapsev">طي</span>
+            </label>
+        </div>
+        <div class="txf-card txf-output-card">
+            <textarea id="main-output" class="txf-textarea txf-textarea-output txf-textarea-expandable" readonly placeholder="النتائج المصفّاة ستظهر هنا تلقائياً..." data-lang-placeholder="etx_output_placeholder"></textarea>
+            <button class="txf-btn txf-btn-primary txf-mt-12" onclick="copyOutput()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span data-lang="etx_btn_copy">نسخ النتيجة الصافية فوراً</span>
+            </button>
+            <div class="txf-status-msg" id="status-toast" data-lang="etx_status_copied">تم النسخ إلى الحافظة بنجاح!</div>
+        </div>
+    </div>
+
+</div>

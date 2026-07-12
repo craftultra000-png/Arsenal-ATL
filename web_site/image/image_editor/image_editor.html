@@ -1,0 +1,239 @@
+<div class="ied-app" id="ied-app">
+
+    <!-- ── شاشة الرفع (تظهر قبل تحميل صورة) ── -->
+    <div class="ied-upload-screen" id="ied-upload-screen">
+        <div class="ied-header">
+            <div class="ied-header-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="3"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                </svg>
+            </div>
+            <div>
+                <h1 class="ied-title" data-lang="img_edit_title">محرر الصور</h1>
+                <p class="ied-sub" data-lang="img_edit_desc">تعديل احترافي للصور محلياً — بدون رفع أو إنترنت.</p>
+            </div>
+        </div>
+        <div class="ied-drop-zone" id="ied-drop-zone" onclick="document.getElementById('ied-file-input').click()">
+            <div class="ied-drop-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="3"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                </svg>
+            </div>
+            <span class="ied-drop-text" data-lang="img_edit_drop">اضغط هنا لرفع صورة</span>
+            <span class="ied-drop-sub">PNG · JPG · WEBP · GIF</span>
+            <input type="file" id="ied-file-input" accept="image/*" style="display:none">
+        </div>
+    </div>
+
+    <!-- ── واجهة التحرير (تظهر بعد تحميل صورة) ── -->
+    <div class="ied-editor" id="ied-editor" style="display:none;">
+
+        <!-- Canvas منطقة الصورة -->
+        <div class="ied-canvas-area" id="ied-canvas-area">
+            <canvas id="ied-canvas"></canvas>
+            <!-- طبقة القص -->
+            <div class="ied-crop-overlay" id="ied-crop-overlay" style="display:none;">
+                <canvas id="ied-crop-canvas"></canvas>
+            </div>
+        </div>
+
+        <!-- شريط التحكم النشط (يتغير حسب الأداة) -->
+        <div class="ied-active-panel" id="ied-active-panel">
+
+            <!-- لوحة ضبط الأدوات (السلايدر) -->
+            <div class="ied-slider-panel" id="ied-slider-panel" style="display:none;">
+                <div class="ied-slider-header">
+                    <span class="ied-slider-name" id="ied-slider-name"></span>
+                    <span class="ied-slider-val" id="ied-slider-val">0</span>
+                </div>
+                <input type="range" class="ied-main-slider" id="ied-main-slider" min="-100" max="100" step="1" value="0">
+            </div>
+
+            <!-- لوحة القص -->
+            <div class="ied-crop-panel" id="ied-crop-panel" style="display:none;">
+                <div class="ied-crop-ratios" id="ied-crop-ratios">
+                    <button class="ied-ratio-btn active" data-ratio="free" data-lang="img_edit_crop_free">حر</button>
+                    <button class="ied-ratio-btn" data-ratio="1:1">1:1</button>
+                    <button class="ied-ratio-btn" data-ratio="4:3">4:3</button>
+                    <button class="ied-ratio-btn" data-ratio="16:9">16:9</button>
+                    <button class="ied-ratio-btn" data-ratio="9:16">9:16</button>
+                    <button class="ied-ratio-btn" data-ratio="3:4">3:4</button>
+                </div>
+                <div class="ied-crop-actions">
+                    <button class="ied-crop-cancel" id="ied-crop-cancel" data-lang="img_edit_crop_cancel">إلغاء</button>
+                    <button class="ied-crop-apply" id="ied-crop-apply" data-lang="img_edit_crop_apply">تطبيق القص</button>
+                </div>
+            </div>
+
+            <!-- لوحة التصدير -->
+            <div class="ied-export-panel" id="ied-export-panel" style="display:none;">
+                <div class="ied-export-row">
+                    <div class="ied-export-group">
+                        <span class="ied-export-label">الصيغة</span>
+                        <div class="ied-format-btns">
+                            <button class="ied-fmt-btn active" data-fmt="original">أصلي</button>
+                            <button class="ied-fmt-btn" data-fmt="image/png">PNG</button>
+                            <button class="ied-fmt-btn" data-fmt="image/jpeg">JPG</button>
+                            <button class="ied-fmt-btn" data-fmt="image/webp">WEBP</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ied-export-row">
+                    <div class="ied-export-group">
+                        <span class="ied-export-label">الأبعاد</span>
+                        <div class="ied-size-btns">
+                            <button class="ied-size-btn active" data-size="original">أصلي</button>
+                            <button class="ied-size-btn" data-size="2560">2K</button>
+                            <button class="ied-size-btn" data-size="1920">FHD</button>
+                            <button class="ied-size-btn" data-size="1280">HD</button>
+                            <button class="ied-size-btn" data-size="800">800</button>
+                            <button class="ied-size-btn" data-size="custom">مخصص</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ied-custom-size" id="ied-custom-size" style="display:none;">
+                    <input type="number" id="ied-custom-w" placeholder="العرض" min="1" max="8000">
+                    <span>×</span>
+                    <input type="number" id="ied-custom-h" placeholder="الارتفاع" min="1" max="8000">
+                    <label class="ied-lock-ratio">
+                        <input type="checkbox" id="ied-lock-ratio" checked>
+                        <span data-lang="img_edit_lock_ratio">تأمين النسبة</span>
+                    </label>
+                </div>
+                <button class="ied-export-btn" id="ied-export-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span>حفظ وتحميل</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Tabs العلوية -->
+        <div class="ied-tabs" id="ied-tabs">
+            <button class="ied-tab active" data-tab="adjust" data-lang="img_edit_tab_light">ضبط</button>
+            <button class="ied-tab" data-tab="color" data-lang="img_edit_tab_color">ألوان</button>
+            <button class="ied-tab" data-tab="detail" data-lang="img_edit_tab_detail">تفاصيل</button>
+        </div>
+
+        <!-- شريط الأدوات السفلي -->
+        <div class="ied-toolbar-wrap">
+            <div class="ied-toolbar" id="ied-toolbar">
+
+                <!-- Tab: ضبط -->
+                <div class="ied-tools-group active" data-group="adjust">
+                    <button class="ied-tool-btn" data-tool="brightness" data-lang-label="img_edit_brightness" data-min="-100" data-max="100" data-default="0" data-label="السطوع">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></div>
+                        <span data-lang="img_edit_brightness">السطوع</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="contrast" data-lang-label="img_edit_contrast" data-min="-100" data-max="100" data-default="0" data-label="التباين">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20z"/></svg></div>
+                        <span data-lang="img_edit_contrast">التباين</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="exposure" data-lang-label="img_edit_exposure" data-min="-100" data-max="100" data-default="0" data-label="التعرض">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+                        <span data-lang="img_edit_exposure">التعرض</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="highlights" data-lang-label="img_edit_highlights" data-min="-100" data-max="100" data-default="0" data-label="التمييزات">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20"/></svg></div>
+                        <span data-lang="img_edit_highlights">تمييزات</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="shadows" data-lang-label="img_edit_shadows" data-min="-100" data-max="100" data-default="0" data-label="الظلال">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 22a10 10 0 0 0 0-20"/></svg></div>
+                        <span data-lang="img_edit_shadows">ظلال</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="whites" data-lang-label="img_edit_whites" data-min="-100" data-max="100" data-default="0" data-label="نطاق الفاتح">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M12 3v9l9 9"/></svg></div>
+                        <span data-lang="img_edit_whites">نطاق الفاتح</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="blacks" data-lang-label="img_edit_blacks" data-min="-100" data-max="100" data-default="0" data-label="نطاق الغامق">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18"/><path d="M12 3v9L3 21"/></svg></div>
+                        <span data-lang="img_edit_blacks">نطاق الغامق</span>
+                    </button>
+                </div>
+
+                <!-- Tab: ألوان -->
+                <div class="ied-tools-group" data-group="color" style="display:none;">
+                    <button class="ied-tool-btn" data-tool="saturation" data-lang-label="img_edit_saturation" data-min="-100" data-max="100" data-default="0" data-label="تشبع اللون">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+                        <span data-lang="img_edit_saturation">تشبع اللون</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="hue" data-lang-label="img_edit_hue" data-min="-180" data-max="180" data-default="0" data-label="درجة اللون">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 7.07 17.07"/></svg></div>
+                        <span data-lang="img_edit_hue">درجة اللون</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="warmth" data-lang-label="img_edit_warmth" data-min="-100" data-max="100" data-default="0" data-label="الدفء">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></div>
+                        <span data-lang="img_edit_warmth">دافئ</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="vibrance" data-lang-label="img_edit_vibrance" data-min="-100" data-max="100" data-default="0" data-label="الحيوية">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                        <span data-lang="img_edit_vibrance">حيوي</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="fade" data-lang-label="img_edit_fade" data-min="0" data-max="100" data-default="0" data-label="تلاشي">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+                        <span data-lang="img_edit_fade">تلاشي</span>
+                    </button>
+                </div>
+
+                <!-- Tab: تفاصيل -->
+                <div class="ied-tools-group" data-group="detail" style="display:none;">
+                    <button class="ied-tool-btn" data-tool="sharpness" data-lang-label="img_edit_sharpness" data-min="0" data-max="100" data-default="0" data-label="الحدة">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                        <span data-lang="img_edit_sharpness">حاد</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="clarity" data-lang-label="img_edit_clarity" data-min="-100" data-max="100" data-default="0" data-label="الوضوح">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                        <span data-lang="img_edit_clarity">الوضوح</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="noise" data-lang-label="img_edit_noise" data-min="0" data-max="100" data-default="0" data-label="حبيبات الفيلم">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 7h.01M12 7h.01M17 7h.01M7 12h.01M12 12h.01M17 12h.01M7 17h.01M12 17h.01M17 17h.01"/></svg></div>
+                        <span data-lang="img_edit_noise">حبيبات الفيلم</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="vignette" data-lang-label="img_edit_vignette" data-min="-100" data-max="100" data-default="0" data-label="مصغرة">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="10"/><circle cx="12" cy="12" r="4"/></svg></div>
+                        <span data-lang="img_edit_vignette">مصغرة</span>
+                    </button>
+                    <button class="ied-tool-btn" data-tool="denoise" data-lang-label="img_edit_denoise" data-min="0" data-max="100" data-default="0" data-label="إزالة الضوضاء">
+                        <div class="ied-tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div>
+                        <span data-lang="img_edit_denoise">إزالة الضوضاء</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- شريط الإجراءات السفلي (قص، تصدير، تراجع، إعادة ضبط) -->
+        <div class="ied-bottom-bar">
+            <button class="ied-bar-btn" id="ied-btn-reset" title="إعادة ضبط">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                <span data-lang="img_edit_reset">إعادة ضبط</span>
+            </button>
+            <button class="ied-bar-btn" id="ied-btn-undo" title="تراجع">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+                <span data-lang="img_edit_undo">تراجع</span>
+            </button>
+            <button class="ied-bar-btn" id="ied-btn-crop" title="قص">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>
+                <span data-lang="img_edit_crop">قص</span>
+            </button>
+            <button class="ied-bar-btn ied-bar-btn-save" id="ied-btn-export" title="تصدير">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span data-lang="img_edit_export">تصدير</span>
+            </button>
+            <button class="ied-bar-btn" id="ied-btn-new" title="صورة جديدة">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                <span data-lang="img_edit_new">صورة جديدة</span>
+            </button>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,117 @@
+<div class="imr-page">
+
+    <!-- ── هيدر ── -->
+    <div class="imr-header">
+        <div class="imr-header-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <circle cx="12" cy="12" r="4"></circle>
+            </svg>
+        </div>
+        <div>
+            <h1 class="imr-title" data-lang="rem_title">محرر الخلفية الشفاف</h1>
+            <p class="imr-sub" data-lang="rem_desc">تفريغ انسيابي ناعم مع عدسة مكبرة ديناميكية وإزالة تلقائية بالذكاء الاصطناعي.</p>
+        </div>
+    </div>
+
+    <!-- ── قسم الرفع ── -->
+    <div class="imr-section">
+        <div class="imr-section-label" data-lang="im_rm_image">الصورة</div>
+        <div class="imr-card imr-drop-zone" id="upload-box">
+            <div class="imr-drop-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                </svg>
+            </div>
+            <span class="imr-drop-text" id="uploadText" data-lang="rem_drop">اضغط هنا لرفع الصورة</span>
+            <input type="file" id="imageInput" accept="image/*" style="display:none">
+        </div>
+    </div>
+
+    <!-- ── منطقة المحرر ── -->
+    <div class="imr-editor" id="editorZone" style="display:none;">
+
+        <!-- أزرار الأوضاع + زر AI -->
+        <div class="imr-section">
+            <div class="imr-modes-row">
+                <div class="imr-modes-btns">
+                    <button class="imr-mode-btn active" id="eraseModeBtn">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 20H7L3 16C2.5 15.5 2.5 14.5 3 14L13 4C13.5 3.5 14.5 3.5 15 4L20 9C20.5 9.5 20.5 10.5 20 11L11 20"></path>
+                        </svg>
+                        <span data-lang="rem_mode_erase">الممحاة</span>
+                    </button>
+                    <button class="imr-mode-btn" id="restoreModeBtn">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                            <circle cx="11" cy="11" r="2"></circle>
+                        </svg>
+                        <span data-lang="rem_mode_restore">الاسترجاع</span>
+                    </button>
+                    <!-- undo / redo -->
+                    <button class="imr-mode-btn" id="undoBtn" disabled title="تراجع">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 7v6h6"/><path d="M3 13C5 8 9 5 14 5a9 9 0 0 1 0 18c-4 0-7.4-2-9-5"/>
+                        </svg>
+                    </button>
+                    <button class="imr-mode-btn" id="redoBtn" disabled title="إعادة">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 7v6h-6"/><path d="M21 13c-2 5-6 8-11 8a9 9 0 0 1 0-18c4 0 7.4 2 9 5"/>
+                        </svg>
+                    </button>
+                </div>
+                <!-- زر AI — سطر منفصل -->
+                <button class="imr-ai-btn" id="aiBgRemoveBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    <span id="aiBtnText" data-lang="rem_ai_remover">إزالة AI</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Canvas -->
+        <div class="imr-section">
+            <div class="imr-canvas-wrap">
+                <div class="imr-canvas-bg">
+                    <canvas id="editorCanvas"></canvas>
+                </div>
+                <!-- العدسة الديناميكية -->
+                <div class="imr-zoom" id="zoomOverlay" style="display:none;">
+                    <canvas id="zoomCanvas" width="120" height="120"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- حجم الفرشاة -->
+        <div class="imr-section">
+            <div class="imr-card imr-brush-card">
+                <div class="imr-ctrl-row">
+                    <span class="imr-ctrl-label" data-lang="rem_brush_size">حجم الأداة</span>
+                    <span class="imr-ctrl-val" id="brushVal">45px</span>
+                </div>
+                <input type="range" class="imr-slider" id="brushSlider" min="5" max="150" value="45">
+                <div class="imr-slider-marks">
+                    <span>5</span><span>40</span><span>80</span><span>120</span><span>150</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر التحميل -->
+        <div class="imr-section" id="downloadWrap" style="display:none;">
+            <button id="downloadBtn" class="imr-btn imr-btn-success">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span data-lang="rem_btn_download">تحميل الصورة (PNG شفاف)</span>
+            </button>
+        </div>
+
+    </div>
+
+</div>

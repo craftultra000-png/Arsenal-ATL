@@ -1,0 +1,165 @@
+/* ══════════════════════════════════════════════
+   VIDEO COMPRESSOR — Unified Design System
+══════════════════════════════════════════════ */
+
+html, body { background: var(--bg); color: var(--c1); margin: 0; }
+
+.vcm-page {
+    max-width: 600px; margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+    overflow: visible;
+}
+
+/* ── هيدر ── */
+.vcm-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.vcm-header-icon {
+    width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+    background: rgba(124,92,252,0.12); color: var(--acc);
+    display: flex; align-items: center; justify-content: center;
+}
+.vcm-title { font-size: 22px; font-weight: 700; color: var(--c1); margin: 0 0 4px; }
+.vcm-sub   { font-size: 13px; color: var(--c2); margin: 0; line-height: 1.5; }
+
+/* ── Sections ── */
+.vcm-section { margin-bottom: 16px; position: relative; overflow: visible; }
+.vcm-section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--c2); padding: 0 4px; margin-bottom: 8px;
+}
+
+/* ── Card ── */
+.vcm-card {
+    background: var(--bg2); border: 1px solid var(--bd);
+    border-radius: 8px; padding: 16px;
+    transition: background 0.25s, border-color 0.25s;
+    overflow: visible;
+}
+
+/* ── Drop Zone ── */
+.vcm-drop-zone {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    padding: 28px 16px; cursor: pointer; text-align: center;
+    border: 1px solid var(--bd); transition: all 0.2s;
+}
+.vcm-drop-zone:hover, .vcm-drop-zone.drag-active {
+    border-color: var(--acc); background: rgba(124,92,252,0.04);
+}
+.vcm-drop-zone.has-file {
+    border-color: var(--acc2); background: rgba(0,212,170,0.04);
+}
+.vcm-drop-zone.loading {
+    border-color: var(--acc); background: rgba(124,92,252,0.06);
+    pointer-events: none;
+}
+.vcm-drop-zone.loading .vcm-drop-icon {
+    background: rgba(124,92,252,0.15); color: var(--acc);
+    animation: vcm-pulse 1s ease-in-out infinite;
+}
+.vcm-drop-zone.loading .vcm-drop-text {
+    color: var(--acc);
+}
+
+@keyframes vcm-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(0.93); }
+}
+.vcm-drop-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: rgba(124,92,252,0.10); color: var(--acc);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+.vcm-drop-zone.has-file .vcm-drop-icon { background: rgba(0,212,170,0.10); color: var(--acc2); }
+.vcm-drop-text { font-size: 14px; font-weight: 600; color: var(--c2); }
+.vcm-drop-loading {
+    font-size: 13px; font-weight: 700; color: var(--acc);
+    animation: vcm-blink 1.2s ease-in-out infinite;
+}
+@keyframes vcm-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+}
+.vcm-drop-meta { font-size: 11px; color: var(--acc2); font-family: monospace; font-weight: 700; }
+
+/* ── Settings Card ── */
+.vcm-settings-card { display: flex; flex-direction: column; gap: 14px; }
+
+.vcm-setting-row {
+    display: flex; align-items: center; gap: 10px; flex-wrap: nowrap;
+}
+.vcm-setting-label {
+    font-size: 13px; font-weight: 700; color: var(--c2);
+    white-space: nowrap; min-width: 90px; flex-shrink: 0;
+}
+.vcm-dd-container {
+    flex: 1; position: relative; overflow: visible; min-width: 0;
+}
+
+/* ── Buttons ── */
+.vcm-btn {
+    width: 100%; display: flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 14px; border: none; border-radius: 8px;
+    font-family: 'Tajawal', sans-serif; font-size: 14px; font-weight: 700;
+    cursor: pointer; transition: all 0.25s; box-sizing: border-box;
+}
+.vcm-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.vcm-btn-primary {
+    background: var(--acc); color: #fff;
+    box-shadow: 0 4px 16px rgba(124,92,252,0.25);
+}
+.vcm-btn-primary:not(:disabled):hover { filter: brightness(1.1); transform: translateY(-1px); }
+.vcm-btn-success {
+    background: var(--acc2); color: #000;
+    box-shadow: 0 4px 16px rgba(0,212,170,0.25);
+}
+.vcm-btn-success:not(:disabled):hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+/* ── Status Card ── */
+.vcm-status-card { padding: 14px 16px; }
+.vcm-status-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+}
+.vcm-status-text { font-size: 13px; font-weight: 700; color: var(--c1); font-family: monospace, 'Tajawal'; }
+.vcm-pct { font-size: 13px; font-weight: 800; color: var(--acc); font-family: monospace; }
+
+.vcm-progress-track {
+    width: 100%; height: 6px; background: var(--sf);
+    border-radius: 3px; overflow: hidden;
+}
+.vcm-progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--acc), var(--acc2));
+    border-radius: 3px; transition: width 0.3s ease;
+}
+
+/* ── إحصائيات الحجم ── */
+.vcm-stats-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px; margin-top: 12px;
+}
+.vcm-full-width { grid-column: span 2; }
+.vcm-stat-box {
+    background: rgba(255,255,255,0.03); padding: 9px 12px;
+    border-radius: 8px; font-size: 12px; color: var(--c2);
+    border: 1px solid var(--bd); display: flex; justify-content: space-between; align-items: center;
+}
+.vcm-stat-box strong { font-family: monospace; font-size: 13px; color: var(--c1); }
+.vcm-green  { color: var(--acc2) !important; }
+.vcm-accent { color: var(--acc)  !important; font-size: 15px !important; }
+
+/* ── Light Mode ── */
+body.light .vcm-card         { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .vcm-drop-zone    { background: var(--bg2, #fff); }
+body.light .vcm-stat-box     { background: rgba(0,0,0,0.03); }
+body.light .vcm-title        { color: var(--c1, #111); }
+body.light .vcm-sub          { color: var(--c2, #555); }
+body.light .vcm-setting-label { color: var(--c2, #555); }
+body.light .vcm-progress-track { background: rgba(0,0,0,0.08); }
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

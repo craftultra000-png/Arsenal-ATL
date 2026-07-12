@@ -1,0 +1,172 @@
+<div class="pdfm-page">
+
+    <!-- ── هيدر ── -->
+    <div class="pdfm-header">
+        <div class="pdfm-header-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+        </div>
+        <div>
+            <h1 class="pdfm-title" data-lang="pdfm_title">إدارة وصناعة الـ PDF</h1>
+            <p class="pdfm-sub" data-lang="pdfm_desc">بناء مستندات جديدة من الصفر أو قراءة وتصفح ملفات الـ PDF محلياً بأمان تام.</p>
+        </div>
+    </div>
+
+    <!-- ── Tabs رئيسية ── -->
+    <div class="pdfm-section">
+        <div class="pdfm-tabs">
+            <button class="pdfm-tab-btn active" id="tab-btn-build" onclick="switchPdfTab('build')">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                <span data-lang="pdfm_tab_build">صانع المستندات</span>
+            </button>
+            <button class="pdfm-tab-btn" id="tab-btn-read" onclick="switchPdfTab('read')">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                <span data-lang="pdfm_tab_read">قارئ المستندات</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ════════════════ تبويب: صانع المستندات ════════════════ -->
+    <div id="build-tab" class="pdfm-tab-content active">
+
+        <!-- شريط أدوات المنشئ -->
+        <div class="pdfm-section">
+            <div class="pdfm-toolbar-card">
+                <!-- أسم المستند -->
+                <input type="text" id="doc-name-input" class="pdfm-input pdfm-doc-name" placeholder="اسم المستند..." data-lang-placeholder="pdfm_ph_docname">
+
+                <div class="pdfm-toolbar-row">
+                    <!-- إضافة عناصر -->
+                    <button id="add-text-btn" class="pdfm-tool-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+                        <span data-lang="pdfm_add_text">نص</span>
+                    </button>
+                    <button id="add-image-btn" class="pdfm-tool-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        <span data-lang="pdfm_add_img">صورة</span>
+                    </button>
+
+                    <div class="pdfm-toolbar-divider"></div>
+
+                    <!-- إعدادات الصفحة -->
+                    <div id="page-size-dd-container" style="position:relative; overflow:visible;"></div>
+                    <input type="hidden" id="page-size-select" value="a4">
+                    <button id="orientation-toggle-btn" class="pdfm-tool-btn" data-val="p">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect></svg>
+                        <span class="pdfm-orient-label" data-lang="pdfm_orient_portrait">عمودي</span>
+                    </button>
+
+                    <div class="pdfm-toolbar-divider"></div>
+
+                    <!-- تصدير ومسح -->
+                    <button id="export-pdf-btn" class="pdfm-tool-btn pdfm-tool-btn-primary" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <span data-lang="pdfm_export">تصدير PDF</span>
+                    </button>
+                    <button id="clear-doc-btn" class="pdfm-tool-btn pdfm-tool-btn-danger">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        <span data-lang="pdfm_clear">مسح الكل</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- شريط التقدم + رسائل الحالة -->
+        <div class="pdfm-section">
+            <div id="pdf-status-box" class="pdfm-status-box" style="display:none;"></div>
+            <div class="pdfm-progress-track"><div class="pdfm-progress-fill" id="pdf-progress-fill"></div></div>
+        </div>
+
+        <!-- مساحة العمل -->
+        <div class="pdfm-section">
+            <div class="pdfm-workspace-wrap">
+                <div id="pdf-workspace" class="pdfm-workspace"></div>
+            </div>
+        </div>
+
+        <!-- شريط الـ Thumbnails للمنشئ (أسفل) -->
+        <div class="pdfm-section">
+            <div class="pdfm-section-label" data-lang="pdfm_pages_label">الصفحات</div>
+            <div class="pdfm-thumbs-scroll">
+                <div id="thumbs-build-row" class="pdfm-thumbs-row"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ════════════════ تبويب: قارئ المستندات ════════════════ -->
+    <div id="read-tab" class="pdfm-tab-content">
+
+        <!-- منطقة رفع الملف -->
+        <div class="pdfm-section">
+            <div class="pdfm-drop-zone" id="reader-drop-zone">
+                <div class="pdfm-drop-icon pdfm-drop-icon-acc2">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                </div>
+                <span class="pdfm-drop-text" data-lang="pdfm_reader_drop">اضغط أو اسحب ملف PDF هنا</span>
+                <input type="file" id="reader-file-input" accept="application/pdf" style="display:none;">
+            </div>
+        </div>
+
+        <!-- Loading Overlay (يظهر أثناء التحميل) -->
+        <div id="reader-overlay" class="pdfm-reader-overlay" style="display:none;">
+            <div class="pdfm-reader-overlay-inner">
+                <div class="pdfm-reader-spinner"></div>
+                <span id="reader-spinner-text" class="pdfm-reader-spinner-text" data-lang="pdfm_reader_loading">جاري فتح الملف...</span>
+            </div>
+        </div>
+
+        <!-- لوحة العرض -->
+        <div id="reader-view-panel" style="display:none;">
+
+            <!-- شريط التحكم -->
+            <div class="pdfm-section">
+                <div class="pdfm-reader-controls">
+                    <button id="reader-prev-btn" class="pdfm-nav-btn" disabled>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <span class="pdfm-page-info">
+                        <span id="reader-page-num">1</span>
+                        <span> / </span>
+                        <span id="reader-page-total">1</span>
+                    </span>
+                    <button id="reader-next-btn" class="pdfm-nav-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                    <div class="pdfm-toolbar-divider"></div>
+                    <button id="reader-zoom-out" class="pdfm-nav-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </button>
+                    <button id="reader-zoom-in" class="pdfm-nav-btn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Canvas العرض -->
+            <div class="pdfm-section">
+                <div class="pdfm-reader-canvas-wrap">
+                    <canvas id="reader-canvas" class="pdfm-reader-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- شريط Thumbnails القارئ -->
+            <div class="pdfm-section">
+                <div class="pdfm-section-label" data-lang="pdfm_pages_label">الصفحات</div>
+                <div class="pdfm-thumbs-scroll">
+                    <div id="thumbs-read-row" class="pdfm-thumbs-row"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

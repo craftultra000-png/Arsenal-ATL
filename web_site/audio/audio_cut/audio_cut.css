@@ -1,0 +1,354 @@
+/* ══════════════════════════════════════════════
+   AUDIO CUT — نمط صفحة الإعدادات
+══════════════════════════════════════════════ */
+
+html, body {
+    background: var(--bg);
+    color: var(--c1, #f0f0f0);
+    margin: 0;
+}
+
+.acut-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+    overflow: visible;
+}
+
+/* ── هيدر ── */
+.acut-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.acut-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(124, 92, 252, 0.12);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.acut-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--c1);
+    margin: 0 0 4px;
+}
+
+.acut-sub {
+    font-size: 13px;
+    color: var(--c2);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ── sections ── */
+.acut-section {
+    margin-bottom: 16px;
+    position: relative;
+    overflow: visible;
+}
+
+.acut-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 8px;
+}
+
+/* ── البطاقة ── */
+.acut-card {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    overflow: visible;
+    transition: background 0.25s, border-color 0.25s;
+}
+
+/* ── منطقة الرفع ── */
+.acut-drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 32px 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.acut-drop-zone:hover,
+.acut-drop-zone:active {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-color: var(--acc);
+}
+
+.acut-drop-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: rgba(124, 92, 252, 0.10);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.acut-drop-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c2);
+    word-break: break-word;
+}
+
+/* ── مساحة العمل (الشريط المزدوج) ── */
+.acut-workspace {
+    padding: 20px 16px;
+}
+
+.dual-range-wrapper {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 16px;
+    direction: ltr !important;
+}
+
+.slider-track-bg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 10px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.slider-track-fill {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 10px;
+    background: linear-gradient(90deg, var(--acc), var(--acc2));
+    border-radius: 5px;
+    z-index: 2;
+    transition: width 0.1s, left 0.1s;
+}
+
+.range-slider {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    top: 0;
+    left: 0;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    z-index: 3;
+    outline: none;
+}
+
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: grab;
+    pointer-events: auto;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transition: transform 0.1s;
+}
+
+.range-slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.2);
+}
+
+#slide-start::-webkit-slider-thumb { background-color: var(--acc); }
+#slide-end::-webkit-slider-thumb   { background-color: var(--acc2); }
+
+/* ── التوقيت ── */
+.acut-total-zone {
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.acut-badge-total {
+    color: var(--acc2);
+    font-weight: bold;
+    background: rgba(0,212,170,0.08);
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: monospace, 'Tajawal';
+    border: 1px solid rgba(0,212,170,0.25);
+    display: inline-block;
+}
+
+.acut-time-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-family: monospace, 'Tajawal';
+    border-top: 1px solid var(--bd);
+    padding-top: 14px;
+}
+
+.acut-badge-start { color: var(--acc);  font-weight: bold; }
+.acut-badge-end   { color: var(--acc2); font-weight: bold; }
+
+/* ── صيغة التصدير ── */
+.acut-format-card {
+    padding: 0;
+    overflow: visible;
+    position: relative;
+    border: none;
+    background: transparent;
+    min-height: 46px;
+}
+
+.acut-format-card .asl-dropdown {
+    position: relative;
+    z-index: 50;
+}
+
+/* ── الأزرار ── */
+.acut-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
+}
+
+.acut-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.acut-btn-primary {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124,92,252,0.25);
+}
+
+.acut-btn-primary:not(:disabled):hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.acut-btn-secondary {
+    background: var(--bg2);
+    color: var(--c1);
+    border: 1px solid var(--bd);
+}
+
+.acut-btn-secondary:not(:disabled):hover {
+    border-color: var(--acc);
+    background: rgba(124,92,252,0.08);
+    transform: translateY(-1px);
+}
+
+.acut-btn-success {
+    background: var(--acc2);
+    color: #000;
+    box-shadow: 0 4px 16px rgba(0,212,170,0.25);
+}
+
+.acut-btn-success:not(:disabled):hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+}
+
+/* ── الحالة والتقدم ── */
+.acut-status .acut-card {
+    padding: 14px 16px;
+}
+
+.acut-status-text {
+    font-size: 13px;
+    color: var(--c1);
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: monospace, 'Tajawal';
+}
+
+.acut-progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--sf);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.acut-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--acc), var(--acc2));
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* ── Light Mode ── */
+body.light .acut-card {
+    background: var(--bg2, #ffffff);
+    border-color: var(--bd, #e0e0e0);
+}
+
+body.light .acut-drop-zone {
+    background: var(--bg2, #ffffff);
+}
+
+body.light .acut-workspace {
+    background: var(--bg2, #ffffff);
+}
+
+body.light .acut-drop-zone:hover {
+    background: rgba(124,92,252,0.04);
+    border-color: var(--acc);
+}
+
+body.light .acut-drop-text  { color: var(--c2, #555); }
+body.light .acut-title       { color: var(--c1, #111); }
+body.light .acut-sub         { color: var(--c2, #555); }
+body.light .acut-section-label { color: var(--c2, #555); }
+body.light .acut-btn-secondary {
+    background: var(--bg2, #fff);
+    border-color: var(--bd, #ddd);
+    color: var(--c1, #111);
+}
+body.light .slider-track-bg {
+    background: rgba(0,0,0,0.08);
+}
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

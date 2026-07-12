@@ -1,0 +1,399 @@
+/* ══════════════════════════════════════════════
+   AUDIO RATE — Slowed Studio
+══════════════════════════════════════════════ */
+
+html, body {
+    background: var(--bg);
+    color: var(--c1, #f0f0f0);
+    margin: 0;
+}
+
+.arat-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+    overflow: visible;
+}
+
+/* ── هيدر ── */
+.arat-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.arat-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(124, 92, 252, 0.12);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.arat-title { font-size: 22px; font-weight: 700; color: var(--c1); margin: 0 0 4px; }
+.arat-sub   { font-size: 13px; color: var(--c2); margin: 0; line-height: 1.5; }
+
+/* ── sections ── */
+.arat-section {
+    margin-bottom: 16px;
+    position: relative;
+    overflow: visible;
+}
+
+.arat-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 8px;
+}
+
+/* ── البطاقة ── */
+.arat-card {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    overflow: visible;
+    transition: background 0.25s, border-color 0.25s;
+}
+
+/* ── منطقة الرفع ── */
+.arat-drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 28px 16px;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid var(--bd);
+}
+
+.arat-drop-zone:hover {
+    border-color: var(--acc);
+    background: rgba(124,92,252,0.04);
+}
+
+.arat-drop-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: rgba(124,92,252,0.10);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arat-drop-text { font-size: 14px; font-weight: 600; color: var(--c2); }
+
+/* ── بطاقة التحكم ── */
+.arat-control-card { padding: 18px 16px 12px; }
+
+.arat-ctrl-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.arat-ctrl-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--c2);
+    font-weight: 600;
+}
+
+.arat-ctrl-val {
+    font-size: 13px;
+    font-weight: 700;
+    font-family: monospace, 'Tajawal';
+    color: var(--acc2);
+    background: rgba(0,212,170,0.08);
+    padding: 2px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,212,170,0.15);
+    white-space: nowrap;
+}
+
+.arat-speed-desc {
+    font-size: 11px;
+    color: var(--c2);
+    opacity: 0.6;
+    text-align: center;
+    margin-top: 4px;
+    min-height: 16px;
+    font-style: italic;
+}
+
+/* ── Slider ── */
+.arat-slider {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--sf, rgba(255,255,255,0.08));
+    accent-color: var(--acc);
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 6px;
+}
+
+.arat-slider:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.arat-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--acc);
+    border: 2px solid #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.35);
+    cursor: pointer;
+    transition: transform 0.15s;
+}
+
+.arat-slider:not(:disabled)::-webkit-slider-thumb:active {
+    transform: scale(1.25);
+}
+
+.arat-slider-marks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--c2);
+    opacity: 0.5;
+    padding: 0 2px;
+    margin-bottom: 4px;
+}
+
+/* ── Reverb ── */
+.arat-reverb-card { padding: 16px; }
+
+.arat-reverb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.arat-reverb-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--c1);
+}
+
+.arat-reverb-controls { transition: opacity 0.3s; }
+.arat-reverb-controls.arat-disabled { opacity: 0.35; pointer-events: none; }
+
+/* ── Switch ── */
+.arat-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.arat-switch input { opacity: 0; width: 0; height: 0; }
+
+.arat-switch-knob {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: var(--sf, rgba(255,255,255,0.1));
+    border: 1px solid var(--bd);
+    border-radius: 24px;
+    transition: 0.25s;
+}
+
+.arat-switch-knob::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--c2);
+    top: 3px;
+    left: 3px;
+    transition: 0.25s;
+}
+
+.arat-switch input:checked + .arat-switch-knob {
+    background: var(--acc);
+    border-color: var(--acc);
+}
+
+.arat-switch input:checked + .arat-switch-knob::before {
+    background: #fff;
+    transform: translateX(20px);
+}
+
+/* ── Timeline ── */
+.arat-timeline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 14px 16px;
+    user-select: none;
+    transition: border-color 0.2s;
+    touch-action: none;
+    direction: ltr;
+}
+
+.arat-timeline:hover { border-color: var(--acc); }
+.arat-timeline.scrubbing { border-color: var(--acc); }
+
+.arat-time {
+    font-size: 12px;
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--c2);
+    min-width: 38px;
+    text-align: center;
+}
+
+.arat-progress-track {
+    flex: 1;
+    height: 8px;
+    background: var(--sf, rgba(255,255,255,0.08));
+    border-radius: 4px;
+    overflow: visible;
+    position: relative;
+    cursor: pointer;
+    direction: ltr;
+}
+
+.arat-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--acc2), var(--acc));
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+/* ── Thumb قابل للسحب ── */
+.arat-progress-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--acc);
+    box-shadow: 0 0 8px rgba(0,0,0,0.35);
+    cursor: grab;
+    transition: transform 0.1s, box-shadow 0.1s;
+    pointer-events: none;
+}
+
+.arat-timeline.scrubbing .arat-progress-thumb {
+    transform: translate(-50%, -50%) scale(1.3);
+    box-shadow: 0 0 0 6px rgba(124,92,252,0.2);
+    cursor: grabbing;
+}
+
+/* ── أزرار ── */
+.arat-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-sizing: border-box;
+}
+
+.arat-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.arat-btn-primary {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124,92,252,0.25);
+}
+.arat-btn-primary:not(:disabled):hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+.arat-btn-success {
+    background: var(--acc2);
+    color: #000;
+    box-shadow: 0 4px 16px rgba(0,212,170,0.25);
+}
+.arat-btn-success:not(:disabled):hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+.arat-btn-secondary {
+    background: var(--bg2);
+    color: var(--c1);
+    border: 1px solid var(--bd);
+}
+.arat-btn-secondary:not(:disabled):hover {
+    border-color: var(--acc);
+    background: rgba(124,92,252,0.06);
+    transform: translateY(-1px);
+}
+
+.arat-export-row { display: flex; gap: 10px; }
+.arat-export-row .arat-btn { flex: 1; }
+
+/* ── ملاحظة ── */
+.arat-note-card {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: rgba(0,212,170,0.04);
+    border: 1px solid rgba(0,212,170,0.18);
+    border-radius: 8px;
+    padding: 14px;
+    color: var(--acc2);
+}
+
+.arat-note-title { font-size: 13px; font-weight: 700; margin: 0 0 4px; color: var(--acc2); }
+.arat-note-desc  { font-size: 12px; color: var(--c2); margin: 0; line-height: 1.6; }
+
+/* ── Light Mode ── */
+body.light .arat-card          { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .arat-drop-zone     { background: var(--bg2, #fff); }
+body.light .arat-timeline      { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .arat-title         { color: var(--c1, #111); }
+body.light .arat-sub           { color: var(--c2, #555); }
+body.light .arat-section-label { color: var(--c2, #555); }
+body.light .arat-ctrl-label    { color: var(--c2, #555); }
+body.light .arat-drop-text     { color: var(--c2, #555); }
+body.light .arat-slider        { background: rgba(0,0,0,0.08); }
+body.light .arat-progress-track { background: rgba(0,0,0,0.08); }
+body.light .arat-btn-secondary {
+    background: var(--bg2, #fff);
+    border-color: var(--bd, #ddd);
+    color: var(--c1, #111);
+}
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

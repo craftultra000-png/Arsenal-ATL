@@ -1,0 +1,291 @@
+/* ══════════════════════════════════════════════
+   ENCRYPTED TEXTS — نمط Arsenal الموحّد
+══════════════════════════════════════════════ */
+
+html, body {
+    background: var(--bg);
+    color: var(--c1, #f0f0f0);
+    margin: 0;
+}
+
+.enc-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+    overflow: visible;
+}
+
+/* ── هيدر ── */
+.enc-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.enc-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(124, 92, 252, 0.12);
+    color: var(--acc);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.enc-title { font-size: 22px; font-weight: 700; color: var(--c1); margin: 0 0 4px; }
+.enc-sub   { font-size: 13px; color: var(--c2); margin: 0; line-height: 1.5; }
+
+/* ── sections ── */
+.enc-section {
+    margin-bottom: 16px;
+    overflow: visible;
+}
+
+.enc-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 8px;
+}
+
+/* ── بطاقة ── */
+.enc-card {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    transition: background 0.25s, border-color 0.25s;
+}
+
+/* ── أزرار التبويب ── */
+.enc-modes-row {
+    display: flex;
+    gap: 8px;
+}
+
+.enc-mode-btn {
+    flex: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 8px;
+    border-radius: 8px;
+    border: 1px solid var(--bd);
+    background: var(--bg2);
+    color: var(--c2);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.enc-mode-btn:hover { border-color: var(--acc); color: var(--acc); }
+.enc-mode-btn.active {
+    background: rgba(124, 92, 252, 0.10);
+    border-color: var(--acc);
+    color: var(--acc);
+}
+
+/* ── panels ── */
+.enc-page .panel { display: none; animation: fadeInTool 0.25s ease; }
+.enc-page .panel.active { display: block; }
+
+/* ── textarea و input ── */
+.enc-textarea {
+    width: 100%;
+    min-height: 120px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    color: var(--c1);
+    padding: 13px 15px;
+    font-size: 14px;
+    font-family: 'Tajawal', sans-serif;
+    box-sizing: border-box;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.enc-textarea-mono {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    direction: ltr;
+    text-align: left;
+}
+
+.enc-textarea:focus { border-color: var(--acc); }
+.enc-textarea::placeholder { color: var(--c2); opacity: 0.5; }
+
+.enc-input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    color: var(--c1);
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: monospace, 'Tajawal';
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+    min-width: 0;
+}
+
+.enc-input:focus { border-color: var(--acc); }
+.enc-input::placeholder { color: var(--c2); opacity: 0.5; }
+
+/* ── صف المفتاح ── */
+.enc-key-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.enc-side-btn {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid var(--bd);
+    background: var(--bg2);
+    color: var(--c2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.enc-btn-gen:hover       { border-color: var(--acc);  color: var(--acc); }
+.enc-btn-copy-key:hover  { border-color: var(--acc2); color: var(--acc2); }
+
+.enc-helper {
+    font-size: 12px;
+    color: var(--c2);
+    margin: 10px 0 0;
+    line-height: 1.5;
+    padding: 0 2px;
+}
+
+/* ── الأزرار الرئيسية ── */
+.enc-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.enc-btn:active { transform: scale(0.98); }
+
+.enc-btn-primary {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124, 92, 252, 0.28);
+}
+.enc-btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.enc-btn-primary:disabled { opacity: 0.55; cursor: not-allowed; transform: none; filter: none; }
+
+.enc-btn-success {
+    background: var(--acc2);
+    color: #000;
+    box-shadow: 0 4px 16px rgba(0, 212, 170, 0.28);
+}
+.enc-btn-success:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.enc-btn-success:disabled { opacity: 0.55; cursor: not-allowed; transform: none; filter: none; }
+
+/* ── بطاقة النتيجة ── */
+.enc-result-card {
+    display: none;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 4px;
+    animation: fadeInTool 0.3s ease;
+}
+
+.enc-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--bd);
+}
+
+.enc-result-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--acc2);
+}
+
+.enc-result-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid var(--acc2);
+    color: var(--acc2);
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+.enc-result-copy-btn:hover { background: var(--acc2); color: #000; }
+
+.enc-result-output {
+    color: var(--c1);
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    word-break: break-all;
+    white-space: pre-wrap;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid var(--bd);
+    direction: ltr;
+    text-align: left;
+    line-height: 1.7;
+}
+
+/* ── Light Mode ── */
+body.light .enc-card           { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .enc-result-card    { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .enc-mode-btn       { background: var(--bg2, #fff); border-color: var(--bd, #ddd); color: var(--c2, #555); }
+body.light .enc-textarea       { background: rgba(0,0,0,0.03); color: var(--c1, #111); }
+body.light .enc-input          { background: rgba(0,0,0,0.03); color: var(--c1, #111); }
+body.light .enc-side-btn       { background: var(--bg2, #fff); border-color: var(--bd, #ddd); }
+body.light .enc-result-output  { background: rgba(0,0,0,0.04); }
+
+/* ── تجاوب ── */
+@media (max-width: 420px) {
+    .enc-modes-row { flex-direction: column; }
+}
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

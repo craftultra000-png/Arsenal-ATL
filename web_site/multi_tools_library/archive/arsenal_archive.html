@@ -1,0 +1,211 @@
+<div class="arc-page">
+
+    <!-- ── هيدر ── -->
+    <div class="arc-header">
+        <div class="arc-header-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+        </div>
+        <div>
+            <h1 class="arc-title" data-lang="arc_title">أرشفة وتشفير الملفات</h1>
+            <p class="arc-sub" data-lang="arc_desc">أداة محلية بالكامل لضغط وتشفير ملفاتك ومجلداتك بمعيار AES-256-GCM العسكري دون اتصال بالإنترنت.</p>
+        </div>
+    </div>
+
+    <!-- ── Tabs ── -->
+    <div class="arc-section">
+        <div class="arc-tabs">
+            <button class="arc-tab-btn active" id="tabCompressBtn" onclick="switchArchiveTab('compress')">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                <span data-lang="arc_tab_compress">إنشاء أرشيف وتشفير</span>
+            </button>
+            <button class="arc-tab-btn" id="tabExtractBtn" onclick="switchArchiveTab('extract')">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                </svg>
+                <span data-lang="arc_tab_extract">استخراج وفك التشفير</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ════════════════ تبويب: إنشاء أرشيف ════════════════ -->
+    <div id="compress-tab" class="arc-tab-content active">
+
+        <!-- رفع الملفات -->
+        <div class="arc-section">
+            <div class="arc-section-label" data-lang="arc_section_files">الملفات</div>
+            <div class="arc-card arc-drop-zone" id="createDropZone">
+                <div class="arc-drop-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                </div>
+                <span class="arc-drop-text" data-lang="arc_drop_compress">اسحب الملفات هنا أو اضغط للاختيار</span>
+                <input type="file" id="archiveFiles" class="arc-drop-input" multiple>
+
+                <div class="arc-folder-row">
+                    <span class="arc-divider-text" data-lang="arc_or">أو</span>
+                    <label class="arc-inline-btn">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span data-lang="arc_btn_folder">اختر مجلداً كاملاً</span>
+                        <input type="file" id="archiveFolder" class="arc-drop-input" webkitdirectory directory multiple>
+                    </label>
+                </div>
+            </div>
+            <div id="selectedFilesCount" class="arc-files-badge" data-lang="arc_no_files">لم يتم تحديد ملفات</div>
+        </div>
+
+        <!-- اسم الأرشيف -->
+        <div class="arc-section">
+            <div class="arc-section-label" data-lang="arc_section_name">اسم الأرشيف</div>
+            <div class="arc-card">
+                <input type="text" id="archiveName" class="arc-input" placeholder="مثال: project_backup" data-lang-placeholder="arc_ph_name">
+            </div>
+        </div>
+
+        <!-- مستوى الضغط -->
+        <div class="arc-section">
+            <div class="arc-section-label" data-lang="arc_section_level">مستوى الضغط</div>
+            <div class="arc-card">
+                <div id="compressionLevelDD"></div>
+                <input type="hidden" id="compressionLevel" value="6">
+            </div>
+        </div>
+
+        <!-- مفتاح الحماية -->
+        <div class="arc-section">
+            <div class="arc-section-label" data-lang="arc_section_key">مفتاح الحماية</div>
+            <div class="arc-card">
+                <label class="arc-field-label" for="archivePassword" data-lang="arc_lbl_pass">مفتاح الحماية المشفر:</label>
+                <div class="arc-input-row">
+                    <input type="text" id="archivePassword" class="arc-input" oninput="if(typeof checkKeyStrength === 'function') checkKeyStrength()" placeholder="اكتب كلمة مرور قوية أو ولد مفتاحاً..." data-lang-placeholder="arc_ph_pass">
+                    <button type="button" class="arc-inline-btn" onclick="generateSecureHexKey('archivePassword')" title="توليد مفتاح" data-lang-title="arc_title_gen">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+                        </svg>
+                        <span data-lang="arc_btn_gen">توليد</span>
+                    </button>
+                    <button type="button" class="arc-inline-btn arc-inline-icon-only" onclick="copyArchiveKey()" title="نسخ المفتاح" data-lang-title="arc_title_copy">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                        </svg>
+                    </button>
+                </div>
+                <div id="keyStrengthText" class="arc-key-strength"></div>
+            </div>
+        </div>
+
+        <!-- أزرار التنفيذ -->
+        <div class="arc-section">
+            <div class="arc-action-row">
+                <button class="arc-btn arc-btn-secondary" onclick="compressNormal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                    <span data-lang="arc_btn_zip">ضغط عادي (ZIP)</span>
+                </button>
+                <button class="arc-btn arc-btn-primary" onclick="compressAndEncrypt()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span data-lang="arc_btn_ars">ضغط وتشفير قوي (.ars)</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ════════════════ تبويب: استخراج ════════════════ -->
+    <div id="extract-tab" class="arc-tab-content">
+
+        <div class="arc-section">
+            <div class="arc-section-label" data-lang="arc_section_file_extract">الملف المشفّر</div>
+            <div class="arc-card arc-drop-zone" id="extractDropZone">
+                <div class="arc-drop-icon arc-drop-icon-acc2">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <span class="arc-drop-text" data-lang="arc_drop_extract">اسحب ملف الترسانة المشفر (.ars) هنا</span>
+                <input type="file" id="secureArchiveFile" class="arc-drop-input" accept=".ars, .zip">
+            </div>
+            <div id="selectedExtractFileCount" class="arc-files-badge" data-lang="arc_no_file">لم يتم تحديد ملف</div>
+        </div>
+
+        <div class="arc-section">
+            <div class="arc-section-label" data-lang="arc_section_decrypt_key">مفتاح فك التشفير</div>
+            <div class="arc-card">
+                <label class="arc-field-label" for="decryptPassword" data-lang="arc_lbl_decrypt_pass">مفتاح فك التشفير الخاص:</label>
+                <input type="password" id="decryptPassword" class="arc-input" placeholder="أدخل مفتاح المرور الصحيح لفك القفل..." data-lang-placeholder="arc_ph_decrypt_pass">
+            </div>
+        </div>
+
+        <div class="arc-section">
+            <button class="arc-btn arc-btn-success" onclick="decryptAndExtract()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
+                    <path d="M12 15v2"></path>
+                </svg>
+                <span data-lang="arc_btn_decrypt">فك التشفير واستخراج</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ── حالة العملية ── -->
+    <div class="arc-section">
+        <div class="arc-card arc-status-card">
+            <div class="arc-status-text" id="archiveStatusText" data-lang="arc_status_wait">بانتظار الطلب</div>
+            <div class="arc-progress-track">
+                <div id="archiveProgressBar" class="arc-progress-fill" style="width: 0%;"></div>
+            </div>
+            <div class="arc-size-stats" id="archiveSizeStats" style="display:none;">
+                <span class="arc-size-badge" id="originalSizeBadge"></span>
+                <span class="arc-size-badge arc-size-badge-acc2" id="finalSizeBadge" style="display:none;"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── المستخرج المحمول ── -->
+    <div class="arc-section">
+        <div class="arc-card arc-portable-card">
+            <div class="arc-portable-info">
+                <div class="arc-portable-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="9" y1="18" x2="15" y2="18"></line>
+                        <line x1="10" y1="22" x2="14" y2="22"></line>
+                        <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path>
+                    </svg>
+                    <span data-lang="arc_port_title">هل تريد إرسال الملف لشخص لا يملك "الترسانة"؟</span>
+                </div>
+                <p class="arc-portable-desc" data-lang="arc_port_desc">قم بتحميل "المستخرج المحمول" (ملف HTML مستقل يعمل بدون إنترنت) وأرسله مع الأرشيف المشفر ليتمكن الطرف الآخر من فكه بآمان.</p>
+            </div>
+            <button class="arc-btn arc-btn-outline" onclick="downloadPortableExtractor()">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                </svg>
+                <span data-lang="arc_btn_port">تحميل المستخرج المحمول (Portable)</span>
+            </button>
+        </div>
+    </div>
+
+</div>

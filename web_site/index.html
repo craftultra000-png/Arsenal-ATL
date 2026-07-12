@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- ── SEO Primary ── -->
+  <title>Arsenal | أدواتك الرقمية في مكان واحد — بدون سيرفرات</title>
+  <meta name="description" content="الترسانة — منصة أدوات رقمية احترافية تعمل 100% في متصفحك. محرر فيديو، مزيل خلفية بالذكاء الاصطناعي، ضاغط PDF، تشفير نصوص وأكثر من 16 أداة مجانية بخصوصية تامة.">
+  <meta name="keywords" content="أدوات رقمية, محرر فيديو مجاني, مزيل خلفية, ضاغط صور, تشفير نصوص, PDF, أدوات صوت, QR, arsenal tools">
+  <meta name="author" content="Arsenal ATL">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://arsenal-atl.pages.dev/">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://arsenal-atl.pages.dev/">
+  <meta property="og:title" content="Arsenal | أدواتك الرقمية في مكان واحد">
+  <meta property="og:description" content="منصة أدوات رقمية احترافية تعمل بالكامل في متصفحك — بدون سيرفرات، بدون رفع ملفات، خصوصية 100%.">
+  <meta property="og:image" content="https://arsenal-atl.pages.dev/core/style_and_sound/arsenal.png">
+  <meta property="og:locale" content="ar_AR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="Arsenal ATL">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://arsenal-atl.pages.dev/">
+  <meta name="twitter:title" content="Arsenal | أدواتك الرقمية في مكان واحد">
+  <meta name="twitter:description" content="منصة أدوات رقمية احترافية تعمل بالكامل في متصفحك — بدون سيرفرات، خصوصية 100%.">
+  <meta name="twitter:image" content="https://arsenal-atl.pages.dev/core/style_and_sound/arsenal.png">
+
+  <!-- ── Schema Markup ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Arsenal",
+    "alternateName": "الترسانة",
+    "url": "https://arsenal-atl.pages.dev",
+    "description": "منصة أدوات رقمية احترافية تعمل 100% في المتصفح — بدون سيرفرات، بدون رفع ملفات.",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "محرر فيديو",
+      "ضاغط فيديو",
+      "تحويل فيديو إلى صوت",
+      "محول صوت",
+      "قص صوت",
+      "مزيل خلفية بالذكاء الاصطناعي",
+      "محرر صور",
+      "ضاغط صور",
+      "إنشاء PDF",
+      "ضغط PDF",
+      "محرر PDF",
+      "تشفير نصوص AES-256",
+      "مصفاة نصوص",
+      "مقارنة نصوص",
+      "مولد QR",
+      "أرشفة وتشفير الملفات",
+      "مشاركة ملفات محلية"
+    ],
+    "inLanguage": ["ar", "en", "ru", "zh"],
+    "isAccessibleForFree": true,
+    "browserRequirements": "Requires JavaScript. Works in Chrome, Firefox, Safari, Edge."
+  }
+  </script>
+  <script src="coi-serviceworker.js"></script>
+  <link rel="prefetch" href="arsenal_home/arsenal.html">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+    /* ── VARIABLES ── */
+    :root{
+      --bg:#000000;--bg2:#070707;--c1:#f0f0f0;--c2:#8a9aaa;--c3:#3a3660;
+      --sf:rgba(255,255,255,0.05);--sfh:rgba(255,255,255,0.09);
+      --bd:rgba(30,127,212,0.20);--acc:#367cee;--acc2:#00d4aa;--acc3:#f5a623;
+    }
+    body.light{
+      --bg:#f7f7fc;--bg2:#ffffff;--c1:#0d0d14;--c2:#6060a0;--c3:#c0c0e0;
+      --sf:rgba(0,0,0,0.04);--sfh:rgba(0,0,0,0.08);--bd:rgba(30,127,212,0.15);
+    }
+
+    html,body{height:100%;min-height:100dvh;background:var(--bg);color:var(--c1);
+      font-family:'Tajawal',system-ui,sans-serif;overflow:hidden;transition:background .3s,color .3s}
+
+    /* ── ORBS ── */
+    .orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+    .orb{position:absolute;border-radius:50%;filter:blur(120px);animation:float 18s ease-in-out infinite}
+    .o1{width:650px;height:650px;background:radial-gradient(circle,#367cee,transparent);
+        top:-220px;right:-180px;opacity:.2}
+    .o2{width:550px;height:550px;background:radial-gradient(circle,#00d4aa,transparent);
+        bottom:-180px;left:-180px;opacity:.15;animation-delay:-9s}
+    .o3{width:400px;height:400px;background:radial-gradient(circle,#f5a623,transparent);
+        top:45%;left:25%;opacity:.07;animation-delay:-5s}
+    @keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-28px) scale(1.04)}}
+
+    /* ── SPLASH ── */
+    #splash{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);
+      flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+    #splash.visible{display:flex}
+    #splash.hide{animation:fadeOut .5s ease forwards}
+
+    /* الحلقات الخلفية */
+    .spl-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+    .spl-ring{position:absolute;border-radius:50%;border:1px solid rgba(54,124,238,0.12);animation:ringPulse 3s ease-in-out infinite}
+    .spl-ring:nth-child(1){width:180px;height:180px;animation-delay:0s}
+    .spl-ring:nth-child(2){width:300px;height:300px;animation-delay:.4s;border-color:rgba(54,124,238,0.07)}
+    .spl-ring:nth-child(3){width:440px;height:440px;animation-delay:.8s;border-color:rgba(0,212,170,0.05)}
+    .spl-ring:nth-child(4){width:600px;height:600px;animation-delay:1.2s;border-color:rgba(0,212,170,0.03)}
+    @keyframes ringPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.06);opacity:.5}}
+
+    /* المحتوى المركزي */
+    .spl-center{position:relative;display:flex;flex-direction:column;align-items:center;gap:0;z-index:2}
+
+    /* الشعار */
+    .spl-logo-wrap{position:relative;width:90px;height:90px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+    .spl-logo-glow{position:absolute;inset:-20px;border-radius:50%;
+      background:radial-gradient(circle,rgba(54,124,238,.25),transparent 70%);
+      animation:glowPulse 2s ease-in-out infinite}
+    @keyframes glowPulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.2);opacity:1}}
+    .spl-logo{width:72px;height:72px;object-fit:contain;
+      filter:drop-shadow(0 0 20px rgba(54,124,238,.6));
+      animation:popIn .7s cubic-bezier(.34,1.56,.64,1) .2s both}
+
+    /* الاسم */
+    .spl-name{font-size:clamp(2rem,7vw,2.8rem);font-weight:900;letter-spacing:-.5px;
+      background:linear-gradient(135deg,var(--c1) 0%,var(--acc) 50%,var(--acc2) 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      animation:popIn .7s cubic-bezier(.34,1.56,.64,1) .35s both;margin-bottom:4px}
+
+    /* الـ tagline */
+    .spl-tagline{font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+      color:var(--c2);animation:popIn .5s ease .55s both;margin-bottom:32px}
+
+    /* شريط التحميل */
+    .spl-bar-wrap{width:120px;display:flex;flex-direction:column;align-items:center;gap:8px;
+      animation:popIn .4s ease .65s both}
+    .spl-bar{width:100%;height:2px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden}
+    .spl-fill{height:100%;width:0;border-radius:99px;
+      background:linear-gradient(90deg,var(--acc),var(--acc2));
+      animation:loadBar 2s cubic-bezier(.4,0,.2,1) .7s forwards}
+    @keyframes loadBar{0%{width:0}60%{width:75%}100%{width:100%}}
+    .spl-pct{font-size:11px;font-weight:700;color:var(--c2);
+      font-variant-numeric:tabular-nums;min-width:36px;text-align:center}
+
+    /* الـ tagline السفلي */
+    .spl-bottom{position:absolute;bottom:env(safe-area-inset-bottom,28px);
+      font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+      color:rgba(255,255,255,.15);animation:fadeIn .5s ease 1s both;display:flex;align-items:center;gap:6px}
+    .spl-bottom-dot{width:4px;height:4px;border-radius:50%;background:var(--acc2);opacity:.5}
+
+    /* ── ONBOARDING SHELL ── */
+    #ob{display:none;position:fixed;inset:0;z-index:100;flex-direction:column;
+      align-items:center;justify-content:space-between;
+      padding:env(safe-area-inset-top,28px) 20px env(safe-area-inset-bottom,20px)}
+    #ob.visible{display:flex}
+
+    /* ── SCREENS ── */
+    .screen{display:none;flex-direction:column;align-items:center;justify-content:center;
+      width:100%;max-width:460px;flex:1;padding:16px 0;
+      animation:screenIn .38s cubic-bezier(.34,1.1,.64,1) both}
+    .screen.active{display:flex}
+    @keyframes screenIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+    /* ── EYEBROW ── */
+    .eyebrow{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+      color:var(--acc2);margin-bottom:8px;text-align:center;
+      display:flex;align-items:center;justify-content:center;gap:6px}
+    .eyebrow::before,.eyebrow::after{content:'';width:24px;height:1px;background:var(--acc2);opacity:.4}
+
+    /* ── HEADINGS ── */
+    .ob-h{font-size:clamp(1.7rem,6vw,2.3rem);font-weight:900;text-align:center;
+      line-height:1.2;color:var(--c1);margin-bottom:8px}
+    .ob-h .hl{background:linear-gradient(135deg,var(--acc),var(--acc2));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .ob-sub{font-size:13px;color:var(--c2);text-align:center;line-height:1.7;
+      margin-bottom:24px;max-width:340px}
+
+    /* ── SCREEN 1 LAYOUT ── */
+    .s1-header{text-align:center;margin-bottom:28px}
+    .s1-section{width:100%;margin-bottom:20px}
+    .s1-section-label{font-size:10px;font-weight:700;letter-spacing:2px;
+      text-transform:uppercase;color:var(--c2);margin-bottom:10px;
+      padding-inline-start:2px}
+
+    /* ── LANG GRID ── */
+    .lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .lang-card{display:flex;align-items:center;gap:10px;padding:14px 16px;
+      border-radius:14px;border:1.5px solid var(--bd);background:var(--sf);
+      cursor:pointer;transition:all .2s;user-select:none}
+    .lang-card:hover{border-color:rgba(54,124,238,.5);background:rgba(54,124,238,.07)}
+    .lang-card.sel{border-color:var(--acc);background:rgba(54,124,238,.12);
+      box-shadow:0 0 0 3px rgba(54,124,238,.1)}
+    .lang-flag{font-size:22px;line-height:1;flex-shrink:0}
+    .lang-name{font-size:14px;font-weight:700;color:var(--c1)}
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .theme-opt{display:flex;align-items:center;justify-content:center;gap:9px;
+      padding:14px 16px;border-radius:14px;border:1.5px solid var(--bd);
+      background:var(--sf);cursor:pointer;font-family:'Tajawal',sans-serif;
+      font-size:14px;font-weight:700;color:var(--c2);transition:all .25s;width:100%}
+    .theme-opt:hover{border-color:rgba(54,124,238,.5);color:var(--c1);background:rgba(54,124,238,.07)}
+    .theme-opt.sel{border-color:var(--acc);background:rgba(54,124,238,.12);
+      color:var(--c1);box-shadow:0 0 0 3px rgba(54,124,238,.1)}
+    .theme-opt.light-opt.sel{border-color:var(--acc2);background:rgba(0,212,170,.1);
+      color:var(--acc2);box-shadow:0 0 0 3px rgba(0,212,170,.1)}
+
+    /* ── FEATURES ── */
+    .feats{width:100%;display:flex;flex-direction:column;gap:13px;margin-bottom:6px}
+    .feat{display:flex;align-items:flex-start;gap:13px;
+      animation:featIn .4s ease both;padding:12px 14px;border-radius:14px;
+      border:1px solid transparent;transition:border-color .2s,background .2s}
+    .feat:hover{border-color:var(--bd);background:var(--sf)}
+    .feat:nth-child(1){animation-delay:.05s}.feat:nth-child(2){animation-delay:.1s}
+    .feat:nth-child(3){animation-delay:.15s}.feat:nth-child(4){animation-delay:.2s}
+    .feat:nth-child(5){animation-delay:.25s}
+    @keyframes featIn{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+    .ficon{width:40px;height:40px;border-radius:11px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center}
+    .ic-g{background:rgba(0,212,170,.12);color:var(--acc2)}
+    .ic-b{background:rgba(54,124,238,.12);color:var(--acc)}
+    .ic-o{background:rgba(245,166,35,.12);color:var(--acc3)}
+    .ft{flex:1}
+    .ft-h{font-size:13.5px;font-weight:700;color:var(--c1);margin-bottom:2px}
+    .ft-d{font-size:11.5px;color:var(--c2);line-height:1.55}
+
+    /* ── AUTH SCREEN ── */
+    .auth-brand{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:22px}
+    .auth-brand img{width:48px;filter:drop-shadow(0 0 14px rgba(54,124,238,.45))}
+    .auth-brand-name{font-size:18px;font-weight:900;color:var(--c1)}
+    .auth-card{width:100%;background:var(--bg2);border:1px solid var(--bd);
+      border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:10px}
+    .btn-google{width:100%;padding:13px 20px;border-radius:99px;
+      border:1.5px solid var(--bd);background:var(--sf);color:var(--c1);
+      font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;gap:10px;transition:all .2s}
+    .btn-google:hover{border-color:var(--acc);background:var(--sfh)}
+    .auth-divider{display:flex;align-items:center;gap:10px}
+    .auth-divider span{font-size:11px;color:var(--c2);white-space:nowrap}
+    .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--bd)}
+    .btn-guest{width:100%;padding:13px 20px;border-radius:99px;border:none;
+      background:var(--acc);color:#fff;font-family:'Tajawal',sans-serif;
+      font-size:14px;font-weight:700;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s;
+      box-shadow:0 4px 20px rgba(54,124,238,.32)}
+    .btn-guest:hover{filter:brightness(1.1);transform:translateY(-1px)}
+    .privacy{font-size:11px;color:var(--c2);text-align:center;line-height:1.7;padding:0 4px}
+    .privacy a{color:var(--acc);text-decoration:none}
+    .privacy a:hover{text-decoration:underline}
+
+    /* ── BOTTOM NAV ── */
+    .ob-nav{width:100%;max-width:460px;display:flex;flex-direction:column;
+      align-items:center;gap:8px;padding-top:10px}
+    .dots{display:flex;gap:5px;margin-bottom:2px}
+    .dot{width:5px;height:5px;border-radius:99px;background:var(--bd);transition:all .3s}
+    .dot.on{width:16px;background:var(--acc)}
+    .btn-next{width:100%;padding:14px;border-radius:99px;border:none;
+      background:var(--acc);color:#fff;font-family:'Tajawal',sans-serif;
+      font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;
+      box-shadow:0 4px 20px rgba(54,124,238,.3)}
+    .btn-next:hover{filter:brightness(1.1);transform:translateY(-1px)}
+    .btn-back{background:none;border:none;color:var(--c2);font-family:'Tajawal',sans-serif;
+      font-size:13px;font-weight:600;cursor:pointer;padding:4px 12px;transition:color .2s}
+    .btn-back:hover{color:var(--c1)}
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeOut{to{opacity:0;pointer-events:none}}
+    @keyframes popIn{from{opacity:0;transform:scale(.82) translateY(12px)}to{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+<div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+
+<!-- ══ SPLASH ══ -->
+<div id="splash">
+  <!-- حلقات خلفية -->
+  <div class="spl-rings">
+    <div class="spl-ring"></div>
+    <div class="spl-ring"></div>
+    <div class="spl-ring"></div>
+    <div class="spl-ring"></div>
+  </div>
+
+  <!-- المحتوى المركزي -->
+  <div class="spl-center">
+    <div class="spl-logo-wrap">
+      <div class="spl-logo-glow"></div>
+      <img class="spl-logo" src="core/style_and_sound/arsenal.png" onerror="this.style.display='none'" alt="">
+    </div>
+    <div class="spl-name">Arsenal</div>
+    <div class="spl-tagline">Digital Toolkit</div>
+    <div class="spl-bar-wrap">
+      <div class="spl-bar"><div class="spl-fill"></div></div>
+      <div class="spl-pct" id="spl-pct">0%</div>
+    </div>
+  </div>
+
+  <!-- أسفل الشاشة -->
+  <div class="spl-bottom">
+    <div class="spl-bottom-dot"></div>
+    <span>ARSENAL · ثقتكم وجودنا</span>
+    <div class="spl-bottom-dot"></div>
+  </div>
+</div>
+
+<!-- ══ ONBOARDING ══ -->
+<div id="ob">
+
+  <!-- Screen 1: Lang + Theme -->
+  <div class="screen" data-s="1">
+
+    <!-- الهيدر -->
+    <div class="s1-header">
+      <div class="eyebrow" id="s1e">Welcome</div>
+      <h1 class="ob-h" id="s1h">Choose your <span class="hl">language</span><br>&amp; theme</h1>
+      <p class="ob-sub" id="s1s">You can change these anytime in Settings</p>
+    </div>
+
+    <!-- قسم اللغة -->
+    <div class="s1-section">
+      <div class="s1-section-label" id="s1-lang-lbl">Language</div>
+      <div class="lang-grid" id="lang-pills">
+        <div class="lang-card sel" onclick="selLang('en',this)">
+          <span class="lang-flag">🇺🇸</span>
+          <span class="lang-name">English</span>
+        </div>
+        <div class="lang-card" onclick="selLang('ar',this)">
+          <span class="lang-flag">🇸🇦</span>
+          <span class="lang-name">العربية</span>
+        </div>
+        <div class="lang-card" onclick="selLang('ru',this)">
+          <span class="lang-flag">🇷🇺</span>
+          <span class="lang-name">Русский</span>
+        </div>
+        <div class="lang-card" onclick="selLang('zh',this)">
+          <span class="lang-flag">🇨🇳</span>
+          <span class="lang-name">中文</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- قسم الثيم -->
+    <div class="s1-section">
+      <div class="s1-section-label" id="s1-theme-lbl">Theme</div>
+      <div class="theme-toggle-wrap">
+        <button class="theme-opt sel" id="theme-dark" onclick="selTheme('dark',this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <span id="tdl">Dark</span>
+        </button>
+        <button class="theme-opt light-opt" id="theme-light" onclick="selTheme('light',this)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <span id="tll">Light</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Screen 2: Features -->
+  <div class="screen" data-s="2">
+    <div class="eyebrow" id="s2e">All-in-one toolkit</div>
+    <h1 class="ob-h" id="s2h">Everything you need,<br><span class="hl">nothing you don't</span></h1>
+    <p class="ob-sub" id="s2s">Works entirely on your device</p>
+    <div class="feats">
+      <div class="feat">
+        <div class="ficon ic-g"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="ft"><div class="ft-h" id="f1t">100% Private</div><div class="ft-d" id="f1d">Your files never leave your device. Zero uploads, zero servers.</div></div>
+      </div>
+      <div class="feat">
+        <div class="ficon ic-b"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16"/><path d="M16 6v16"/></svg></div>
+        <div class="ft"><div class="ft-h" id="f2t">Works Offline</div><div class="ft-d" id="f2d">After the first load, Arsenal runs fully offline — no internet needed.</div></div>
+      </div>
+      <div class="feat">
+        <div class="ficon ic-o"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+        <div class="ft"><div class="ft-h" id="f3t">Audio · Video · Image · Text</div><div class="ft-d" id="f3d">20+ professional tools covering all your media needs in one place.</div></div>
+      </div>
+      <div class="feat">
+        <div class="ficon ic-g"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <div class="ft"><div class="ft-h" id="f4t">Military-grade Encryption</div><div class="ft-d" id="f4d">AES-256-GCM encryption for your sensitive texts, locally.</div></div>
+      </div>
+      <div class="feat">
+        <div class="ficon ic-b"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="ft"><div class="ft-h" id="f5t">4 Languages</div><div class="ft-d" id="f5d">Full support for Arabic, English, Russian and Chinese with RTL.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen 3: Auth -->
+  <div class="screen" data-s="3">
+    <div class="auth-brand">
+      <img src="core/style_and_sound/arsenal.png" onerror="this.style.display='none'" alt="">
+      <div class="auth-brand-name">Arsenal</div>
+    </div>
+    <p class="ob-sub" id="s3s" style="margin-bottom:18px;">Sign in to sync usage limits across devices, or jump right in as a guest.</p>
+    <div class="auth-card">
+      <button class="btn-google" onclick="doGoogle()">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        <span id="s3g">Continue with Google</span>
+      </button>
+      <div class="auth-divider"><span id="s3or">or</span></div>
+      <button class="btn-guest" onclick="doGuest()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span id="s3u">Continue as Guest</span>
+      </button>
+    </div>
+    <p class="privacy" id="s3p" style="margin-top:12px;">By continuing you agree to our <a href="#" onclick="return false">Terms of Use</a> and <a href="#" onclick="return false">Privacy Policy</a>.<br>Arsenal does not collect or share your personal data.</p>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="ob-nav">
+    <div class="dots"><div class="dot" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div></div>
+    <button class="btn-next" id="bnext" onclick="nextS()">Continue</button>
+    <button class="btn-back" id="bback" onclick="prevS()" style="display:none">Back</button>
+  </div>
+
+</div>
+
+<script>
+const ARSENAL='arsenal_home/arsenal.html',OB_KEY='asl_onboarded',LK='arsenal_lang',TK='asl_theme';
+let lang='en',theme='dark',cur=1;
+
+const tx={
+  en:{e1:'Welcome',h1:'Choose your {hl}language{/hl}\n& theme',s1:'You can change these anytime in Settings',
+      lbl_lang:'Language',lbl_theme:'Theme',
+      tdl:'Dark',tll:'Light',or:'or',
+      e2:'All-in-one toolkit',h2:'Everything you need,\n{hl}nothing you don\'t{/hl}',s2:'Works entirely on your device',
+      f1t:'100% Private',f1d:'Your files never leave your device. Zero uploads, zero servers.',
+      f2t:'Works Offline',f2d:'After the first load, Arsenal runs fully offline — no internet needed.',
+      f3t:'Audio · Video · Image · Text',f3d:'20+ professional tools covering all your media needs in one place.',
+      f4t:'Military-grade Encryption',f4d:'AES-256-GCM encryption for your sensitive texts, locally.',
+      f5t:'4 Languages',f5d:'Full support for Arabic, English, Russian and Chinese with RTL.',
+      s3:'Sign in to sync across devices, or jump right in as a guest.',
+      g:'Continue with Google',u:'Continue as Guest',
+      p:'By continuing you agree to our <a href="#" onclick="return false">Terms of Use</a> and <a href="#" onclick="return false">Privacy Policy</a>.<br>Arsenal does not collect or share your personal data.',
+      nx:'Continue',bk:'Back'},
+  ar:{e1:'أهلاً بك',h1:'اختر {hl}لغتك{/hl}\nومظهرك',s1:'يمكنك تغيير هذا في أي وقت من الإعدادات',
+      lbl_lang:'اللغة',lbl_theme:'المظهر',
+      tdl:'داكن',tll:'فاتح',or:'أو',
+      e2:'مجموعة أدوات متكاملة',h2:'كل ما تحتاجه\n{hl}في مكان واحد{/hl}',s2:'تعمل ترسانة بالكامل على جهازك',
+      f1t:'خصوصية 100%',f1d:'ملفاتك لا تغادر جهازك أبداً. لا رفع، لا خوادم.',
+      f2t:'تعمل بدون إنترنت',f2d:'بعد أول تحميل، ترسانة تعمل بشكل كامل دون اتصال بالإنترنت.',
+      f3t:'صوت · فيديو · صورة · نص',f3d:'أكثر من 20 أداة احترافية تغطي جميع احتياجاتك.',
+      f4t:'تشفير عسكري المستوى',f4d:'تشفير AES-256-GCM لنصوصك الحساسة، محلياً وبدون شبكة.',
+      f5t:'4 لغات',f5d:'دعم كامل للعربية والإنجليزية والروسية والصينية مع RTL.',
+      s3:'سجّل دخولك لمزامنة الإعدادات، أو تابع مباشرة كزائر.',
+      g:'تسجيل عبر Google',u:'تابع كزائر',
+      p:'بالمتابعة توافق على <a href="#" onclick="return false">شروط الاستخدام</a> و<a href="#" onclick="return false">سياسة الخصوصية</a>.<br>ترسانة لا تجمع أو تشارك بياناتك الشخصية.',
+      nx:'التالي',bk:'رجوع'},
+  ru:{e1:'Добро пожаловать',h1:'Выберите {hl}язык{/hl}\nи тему',s1:'Вы можете изменить это в Настройках',
+      lbl_lang:'Язык',lbl_theme:'Тема',
+      tdl:'Тёмная',tll:'Светлая',or:'или',
+      e2:'Всё в одном',h2:'Всё необходимое\n{hl}в одном месте{/hl}',s2:'Arsenal работает полностью на вашем устройстве',
+      f1t:'100% Приватность',f1d:'Ваши файлы никогда не покидают устройство. Никаких загрузок.',
+      f2t:'Работает офлайн',f2d:'После первой загрузки Arsenal работает полностью без интернета.',
+      f3t:'Аудио · Видео · Изображение · Текст',f3d:'20+ профессиональных инструментов для всех медиапотребностей.',
+      f4t:'Шифрование военного уровня',f4d:'Шифрование AES-256-GCM для ваших текстов, локально.',
+      f5t:'4 языка',f5d:'Полная поддержка арабского, английского, русского и китайского.',
+      s3:'Войдите для синхронизации или продолжите как гость.',
+      g:'Войти через Google',u:'Продолжить как гость',
+      p:'Продолжая, вы соглашаетесь с <a href="#" onclick="return false">Условиями использования</a> и <a href="#" onclick="return false">Политикой конфиденциальности</a>.',
+      nx:'Продолжить',bk:'Назад'},
+  zh:{e1:'欢迎使用',h1:'选择{hl}语言{/hl}\n和主题',s1:'您可以随时在设置中更改',
+      lbl_lang:'语言',lbl_theme:'主题',
+      tdl:'深色',tll:'浅色',or:'或',
+      e2:'一体化工具包',h2:'您所需的一切\n{hl}尽在一处{/hl}',s2:'Arsenal 完全在您的设备上运行',
+      f1t:'100% 隐私保护',f1d:'您的文件永远不会离开您的设备。无上传，无服务器。',
+      f2t:'离线使用',f2d:'首次加载后，Arsenal 可完全离线运行，无需网络。',
+      f3t:'音频 · 视频 · 图像 · 文本',f3d:'20多款专业工具，满足您所有媒体需求。',
+      f4t:'军事级加密',f4d:'AES-256-GCM 本地加密，保护您的敏感文本。',
+      f5t:'4种语言',f5d:'完整支持阿拉伯语、英语、俄语和中文（含RTL布局）。',
+      s3:'登录以跨设备同步，或直接以访客身份继续。',
+      g:'通过 Google 继续',u:'以访客身份继续',
+      p:'继续即表示您同意我们的<a href="#" onclick="return false">使用条款</a>和<a href="#" onclick="return false">隐私政策</a>。',
+      nx:'继续',bk:'返回'}
+};
+
+function $(i){return document.getElementById(i)}
+function set(i,v){const e=$(i);if(e)e.textContent=v}
+function html(i,v){const e=$(i);if(e)e.innerHTML=v}
+function hl(t){return t.replace('{hl}','<span class="hl">').replace('{/hl}','</span>')}
+
+function applyLang(l){
+  const s=tx[l]||tx.en,rtl=l==='ar';
+  document.documentElement.lang=l;
+  document.documentElement.dir=rtl?'rtl':'ltr';
+  set('s1e',s.e1);
+  const h1=$('s1h');if(h1)h1.innerHTML=hl(s.h1).replace('\n','<br>');
+  set('s1s',s.s1);
+  set('s1-lang-lbl',s.lbl_lang||'Language');
+  set('s1-theme-lbl',s.lbl_theme||'Theme');
+  set('tdl',s.tdl);set('tll',s.tll);
+  set('s2e',s.e2);
+  const h2=$('s2h');if(h2)h2.innerHTML=hl(s.h2).replace('\n','<br>');
+  set('s2s',s.s2);
+  set('f1t',s.f1t);set('f1d',s.f1d);set('f2t',s.f2t);set('f2d',s.f2d);
+  set('f3t',s.f3t);set('f3d',s.f3d);set('f4t',s.f4t);set('f4d',s.f4d);
+  set('f5t',s.f5t);set('f5d',s.f5d);
+  set('s3s',s.s3);set('s3g',s.g);set('s3u',s.u);
+  if($('s3or'))$('s3or').textContent=s.or||'or';
+  html('s3p',s.p);
+  set('bnext',s.nx);set('bback',s.bk);
+}
+
+function applyTheme(t){
+  theme=t;
+  document.body.classList.toggle('light',t==='light');
+}
+
+function selLang(l,el){
+  lang=l;
+  document.querySelectorAll('#lang-pills .lang-card').forEach(p=>p.classList.remove('sel'));
+  el.classList.add('sel');
+  applyLang(l);
+}
+
+function selTheme(t,el){
+  applyTheme(t);
+  document.querySelectorAll('.theme-opt').forEach(p=>p.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function showS(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelector(`.screen[data-s="${n}"]`).classList.add('active');
+  for(let i=1;i<=3;i++)$('d'+i).classList.toggle('on',i<=n);
+  $('bback').style.display=n>1?'block':'none';
+  $('bnext').style.display=n<3?'block':'none';
+  cur=n;
+}
+
+function nextS(){if(cur<3)showS(cur+1);}
+function prevS(){if(cur>1)showS(cur-1);}
+function doGoogle(){finish();}
+function doGuest(){finish();}
+
+function finish(){
+  localStorage.setItem(LK,lang);
+  localStorage.setItem(TK,theme);
+  localStorage.setItem(OB_KEY,'1');
+  location.href=ARSENAL;
+}
+
+function init(){
+  if(localStorage.getItem(OB_KEY)){
+    const sp=$('splash');sp.classList.add('visible');
+    // عداد النسبة المئوية
+    let pct=0;
+    const pctEl=$('spl-pct');
+    const counter=setInterval(()=>{
+      pct=Math.min(pct+Math.floor(Math.random()*8)+3,99);
+      if(pctEl)pctEl.textContent=pct+'%';
+      if(pct>=99)clearInterval(counter);
+    },80);
+    setTimeout(()=>{
+      if(pctEl)pctEl.textContent='100%';
+      clearInterval(counter);
+      sp.classList.add('hide');
+      setTimeout(()=>location.href=ARSENAL,500);
+    },1900);
+  } else {
+    const bl=(navigator.language||navigator.userLanguage||'en').toLowerCase();
+    let dl='en';
+    if(bl.startsWith('ar'))dl='ar';
+    else if(bl.startsWith('ru'))dl='ru';
+    else if(bl.startsWith('zh'))dl='zh';
+    lang=dl;
+    const pillMap={'en':0,'ar':1,'ru':2,'zh':3};
+    const pills=document.querySelectorAll('#lang-pills .lang-card');
+    pills.forEach(p=>p.classList.remove('sel'));
+    if(pills[pillMap[dl]])pills[pillMap[dl]].classList.add('sel');
+    $('ob').classList.add('visible');
+    showS(1);
+    applyLang(dl);
+  }
+}
+init();
+</script>
+</body>
+</html>
