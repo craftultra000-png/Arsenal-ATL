@@ -364,7 +364,7 @@
     '/core/core_app/core_ffmpeg/814.ffmpeg.js',
     '/core/core_app/core_ffmpeg/ffmpeg.js',
     '/core/core_app/core_ffmpeg/ffmpeg-core.js',
-    '/core/core_app/core_ffmpeg/ffmpeg-core.wasm',
+    'https://raw.githubusercontent.com/craftultra000-png/Arsenal-ATL/refs/heads/cdn/ffmpeg-core.wasm',
     '/core/core_app/core_ffmpeg/ffmpeg-core.worker.js',
     // ── مكتبات أخرى ──
     '/core/core_app/argon2.js', '/core/core_app/argon2.wasm',
@@ -375,7 +375,7 @@
     '/core/core_app/html5-qrcode.min.js', '/core/core_app/easy.qrcode.min.js',
     '/core/core_app/ort.min.js',
     '/core/core_app/ort-wasm-simd-threaded.mjs', '/core/core_app/ort-wasm-simd-threaded.wasm',
-    '/core/core_app/isnet_general/isnet-general-use-q8.onnx',
+    'https://raw.githubusercontent.com/craftultra000-png/Arsenal-ATL/refs/heads/cdn/isnet-general-use-q8.onnx',
     // ── أدوات الفيديو ──
     '/video/video_compressor/video_compressor.html', '/video/video_compressor/video_compressor.css', '/video/video_compressor/video_compressor.js',
     '/video/video_editor/video_editor.html', '/video/video_editor/video_editor.css', '/video/video_editor/video_editor.js',
