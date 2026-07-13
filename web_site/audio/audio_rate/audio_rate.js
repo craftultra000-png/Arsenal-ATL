@@ -87,7 +87,7 @@ speedSlider.addEventListener('input', (e) => {
 
 function updateSpeedUI(val) {
     if (Math.abs(val - 1.0) < 0.005) {
-        speedValEl.innerText  = t('rate_speed_normal') ;
+        speedValEl.innerText  = t('rate_speed_normal') || 'طبيعي (1.00x)';
         speedDescEl.innerText = '';
     } else if (val < 1.0) {
         speedValEl.innerText  = val.toFixed(2) + 'x';
