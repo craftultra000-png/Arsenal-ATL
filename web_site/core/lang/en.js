@@ -452,7 +452,6 @@ window.arsenalTranslations = {
     //========================================
     "rate_status_init": "Initializing audio engine...",
     "rate_err_decode": "An error occurred while decoding the audio track",
-    "rate_speed_normal": "Normal (1.00x)",
     "rate_mode_normal": "Original default mode",
     "rate_mode_slow": "Ambient Slowed mode -{pct}%",
     "rate_mode_fast": "Sped Up mode +{pct}%",
