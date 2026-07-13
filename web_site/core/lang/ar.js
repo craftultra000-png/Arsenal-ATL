@@ -954,5 +954,7 @@ window.arsenalTranslations = {
     "settings_offline_btn":         "تحميل للاستخدام Offline",
     "settings_offline_downloading": "جاري التحميل...",
     "settings_offline_ready":       "!Arsenal جاهز للعمل بدون إنترنت ✓",
-    "settings_offline_ready_desc":  "جميع الملفات محفوظة محلياً"
+    "settings_offline_ready_desc":  "جميع الملفات محفوظة محلياً",
+    "rate_slow_desc": "تبطيئ {pct}% — السرعة والطبقة تنخفضان معاً",
+    "rate_fast_desc": "تسريع {pct}% — السرعة والطبقة ترتفعان معاً"
 };
