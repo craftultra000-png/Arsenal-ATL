@@ -452,7 +452,6 @@ window.arsenalTranslations = {
     //========================================
     "rate_status_init": "جاري تهيئة هندسة الصوت...",
     "rate_err_decode": "حدث خطأ أثناء فك تشفير مسار الصوت",
-    "rate_speed_normal": "طبيعي (1.00x)",
     "rate_mode_normal": "الوضع الافتراضي الأصلي",
     "rate_mode_slow": "وضع التبطيئ المحيطي (Slowed) -{pct}%",
     "rate_mode_fast": "وضع التسريع الحركي (Sped Up) +{pct}%",
