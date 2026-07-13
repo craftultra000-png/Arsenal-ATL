@@ -966,5 +966,7 @@ window.arsenalTranslations = {
     "settings_offline_btn":         "下载以供离线使用",
     "settings_offline_downloading": "正在下载...",
     "settings_offline_ready":       "Arsenal 已可离线使用 ✓",
-    "settings_offline_ready_desc":  "所有文件已保存到本地"
+    "settings_offline_ready_desc":  "所有文件已保存到本地",
+    "rate_slow_desc": "减速 {pct}% — 速度和音调同时降低",
+    "rate_fast_desc": "加速 {pct}% — 速度和音调同时升高"
 };
