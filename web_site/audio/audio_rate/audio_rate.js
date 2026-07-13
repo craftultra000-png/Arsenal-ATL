@@ -91,10 +91,10 @@ function updateSpeedUI(val) {
         speedDescEl.innerText = '';
     } else if (val < 1.0) {
         speedValEl.innerText  = val.toFixed(2) + 'x';
-        speedDescEl.innerText = `تبطيئ ${Math.round((1 - val) * 100)}% — السرعة والطبقة تنخفضان معاً`;
+        speedDescEl.innerText = t('rate_slow_desc').replace('{pct}', Math.round((1 - val) * 100));
     } else {
         speedValEl.innerText  = val.toFixed(2) + 'x';
-        speedDescEl.innerText = `تسريع ${Math.round((val - 1) * 100)}% — السرعة والطبقة ترتفعان معاً`;
+        speedDescEl.innerText = t('rate_fast_desc').replace('{pct}', Math.round((val - 1) * 100));
     }
 }
 
