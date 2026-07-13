@@ -992,5 +992,7 @@ window.arsenalTranslations = {
     "settings_offline_btn":         "Загрузить для офлайн-использования",
     "settings_offline_downloading": "Загрузка...",
     "settings_offline_ready":       "Arsenal готов к работе офлайн ✓",
-    "settings_offline_ready_desc":  "Все файлы сохранены локально"
+    "settings_offline_ready_desc":  "Все файлы сохранены локально",
+    "rate_slow_desc": "Замедление {pct}% — скорость и тон снижаются вместе",
+    "rate_fast_desc": "Ускорение {pct}% — скорость и тон повышаются вместе"
 };
