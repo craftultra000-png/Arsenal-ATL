@@ -494,7 +494,6 @@ window.arsenalTranslations = {
 
     "rate_status_init": "Инициализация аудиодвижка...",
     "rate_err_decode": "Произошла ошибка при декодировании аудиодорожки",
-    "rate_speed_normal": "Нормальный (1.00x)",
     "rate_mode_normal": "Исходный режим по умолчанию",
     "rate_mode_slow": "Режим замедления (Slowed) -{pct}%",
     "rate_mode_fast": "Режим ускорения (Sped Up) +{pct}%",
