@@ -468,7 +468,6 @@ window.arsenalTranslations = {
 
     "rate_status_init": "正在初始化音频引擎...",
     "rate_err_decode": "解码音轨时发生错误",
-    "rate_speed_normal": "正常 (1.00x)",
     "rate_mode_normal": "原始默认模式",
     "rate_mode_slow": "环境慢速模式 -{pct}%",
     "rate_mode_fast": "加速模式 +{pct}%",
