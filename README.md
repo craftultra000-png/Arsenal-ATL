@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="core/style_and_sound/arsenal_Silver.png" alt="Arsenal Logo" width="100"/>
+<img src="web_site/core/style_and_sound/arsenal_Silver.png" alt="Arsenal Logo" width="100"/>
 
 # Arsenal — الترسانة
 
