@@ -22,7 +22,7 @@ const CORE_ASSETS = [
     '/core/toolLoader.js',
     '/core/style_and_sound/arsenal-dropdown.css',
     '/core/style_and_sound/arsenal-dropdown.js',
-    '/core/style_and_sound/arsenal.png',
+    '/core/style_and_sound/arsenal_Silver.png',
     '/core/style_and_sound/click.wav',
     '/core/icons/icon-192.png',
     '/core/icons/icon-512.png',
