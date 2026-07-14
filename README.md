@@ -23,67 +23,62 @@
 
 ## Vision & Overview (English)
 
-> **Arsenal ATL** is a professional-grade, all-in-one digital ecosystem designed to empower users with powerful web tools while maintaining absolute data sovereignty. 
+**Arsenal ATL** is a professional-grade, all-in-one digital ecosystem designed to empower users with powerful web tools while maintaining absolute data sovereignty. 
 
-Unlike traditional online services that compromise your privacy by requiring file uploads to remote servers, Arsenal ATL operates strictly on a **Local-First** philosophy. Every single byte of your audio, video, image, or document data is processed directly inside your browser's secure sandbox. Your data never leaves your device.
+Unlike traditional online services that compromise privacy by requiring file uploads to remote servers, Arsenal ATL operates strictly on a **Local-First** philosophy. Every single byte of data is processed directly inside the browser's secure sandbox.
 
-### Core Pillars
+### Core Architecture & Capabilities
 
-*   **Absolute Privacy (Zero-Knowledge):** True serverless architecture where your files remain yours.
-*   **Near-Native Performance:** Leveraging local system hardware for lightning-fast processing speeds.
-*   **Full Offline Capability:** The entire ecosystem functions flawlessly without any internet connection once loaded.
-*   **Military-Grade Security:** Implementing client-side AES-256-GCM encryption for sensitive data.
+*   **Zero-Knowledge Environment:** True serverless architecture ensuring data never leaves the device.
+*   **Progressive Web App (PWA):** Fully installable and offline-capable, powered by a dedicated manifest and Service Workers[span_2](start_span)[span_2](end_span).
+*   **Cross-Origin Isolation:** Integrates `coi-serviceworker.js` to enable SharedArrayBuffer for high-performance WebAssembly multithreading[span_3](start_span)[span_3](end_span).
+*   **Global Localization:** Built-in multi-language support (Arabic, English, Russian, Chinese) natively integrated into the core architecture[span_4](start_span)[span_4](end_span).
 
-### Detailed Tool Ecosystem
+### Comprehensive Tool Ecosystem
 
-#### Audio Suite
-*   **Slowed Studio (Featured):** High-fidelity local audio processing featuring real-time playback speed adjustments, customizable Reverb (Decay & Mix), interactive timeline scrubbing, and lossless WAV/MP3 rendering.
-*   **Universal Converter:** Seamless offline switching between high-quality formats (MP3, WAV, OGG).
-*   **Precision Trimmer:** Frame-accurate audio cutting with zero generation loss.
-*   **Audio Enhancer:** Gain optimization and noise filtering processed entirely client-side.
+**Audio Processing**
+*   **Audio Rate:** Advanced local playback speed modification and manipulation[span_5](start_span)[span_5](end_span).
+*   **Audio Adapter:** Universal offline format converter[span_6](start_span)[span_6](end_span).
+*   **Audio Cut:** Precision timeline-based trimmer[span_7](start_span)[span_7](end_span).
 
-#### Video Suite
-*   **Video Editor:** Non-linear web-based video editing without cloud-rendering latency.
-*   **Smart Compressor:** High-fidelity bitrate reduction using optimized local browser codecs.
-*   **Audio Extraction:** Instant, high-quality audio track separation from video files.
+**Video Engineering**
+*   **Video Editor:** Non-linear web-based editing[span_8](start_span)[span_8](end_span).
+*   **Video Compressor:** High-fidelity bitrate reduction[span_9](start_span)[span_9](end_span).
+*   **Video Converter:** Instant audio track extraction from video files[span_10](start_span)[span_10](end_span).
 
-#### Image Suite
-*   **Background Remover:** Advanced automatic masking powered by local, in-browser neural networks.
-*   **Image Editor:** Professional cropping, smart filters, and precise color correction tools.
-*   **Lossless Compressor:** Drastic file size reduction preserving 100% of the original visual fidelity.
+**Image Manipulation**
+*   **Image Remover:** AI-powered background removal utilizing Web Workers[span_11](start_span)[span_11](end_span).
+*   **Image Editor:** Client-side visual correction and cropping[span_12](start_span)[span_12](end_span).
+*   **Image Compressor:** Visual-quality preserving size reduction[span_13](start_span)[span_13](end_span).
 
-#### PDF Suite
-*   **PDF Creator & Editor:** Secure document compilation and layout editing without server tracking.
-*   **PDF Optimizer:** Smart local compression for private, hassle-free document sharing.
+**PDF Operations**
+*   **PDF Creator & Editor:** Secure document compilation[span_14](start_span)[span_14](end_span).
+*   **PDF Compressor:** Local document optimization[span_15](start_span)[span_15](end_span).
 
-#### Text & Data Suite
-*   **Text Encryption:** Industry-standard military-grade AES-256 encryption for text-based assets.
-*   **Data Cleaner:** Instant filtering, sorting, and duplicate removal for large raw datasets.
+**Text & Utilities**
+*   **Encrypted Texts:** Cryptographic text security[span_16](start_span)[span_16](end_span).
+*   **Text Comparison & Filter:** Data analysis and duplication removal[span_17](start_span)[span_17](end_span).
+*   **Multi-Tools Library:** Featuring an Archive manager, Portable Extractor, QR Generator, and Arsenal Share utilities[span_18](start_span)[span_18](end_span).
+
+### Core Technologies & Libraries
+
+Arsenal ATL relies on an advanced `core/` directory housing industry-standard local computing libraries[span_19](start_span)[span_19](end_span):
+
+| Technology | Implementation Scope |
+| :--- | :--- |
+| **FFmpeg.wasm** | Heavy video/audio encoding and decoding (`ffmpeg-core.wasm`)[span_20](start_span)[span_20](end_span) |
+| **ONNX Runtime** | Executing the `isnet-general` neural network model for AI background masking[span_21](start_span)[span_21](end_span) |
+| **Argon2** | High-security key derivation and cryptographic hashing (`argon2.wasm`)[span_22](start_span)[span_22](end_span) |
+| **Tone.js** | Interactive Web Audio API framework for the Audio Rate tool[span_23](start_span)[span_23](end_span) |
+| **PDF Core** | Utilizing `jspdf`, `pdf-lib`, and `pdf.js` for complex document processing[span_24](start_span)[span_24](end_span) |
 
 ### Quick Start & Deployment
 
 1. **Clone the repository:** `git clone https://github.com/yourusername/arsenal-atl.git`
-2. **Run locally:** Simply open `index.html` in any modern web browser, or serve it using `npx serve .`
+2. **Run locally:** Open `index.html` or serve via `npx serve .`[span_25](start_span)[span_25](end_span)
 
-### Technical Architecture & Repository Statistics
-
-| Technology | Implementation |
-| :--- | :--- |
-| **JavaScript (ES6+)** | Modular client-side business logic, tool controllers, and DOM manipulation |
-| **HTML5** | Semantic layout structure with custom design system variables |
-| **CSS3** | Responsive grid/flexbox layouts and fluid UI animation components |
-| **WebAssembly** | Intensive computational tasks (audio-processing, neural-nets, compression) |
-| **Web Crypto API** | Hardware-accelerated client-side encryption and hashing |
-
-*   **Language Distribution:** JavaScript (51.7%), HTML (31.5%), CSS (16.8%).
-*   **Tool Count:** 20+ High-Performance Applications.
-*   **Execution Model:** 100% Client-Side Processing (Zero Server Dependencies).
-
-### License & Integrity
-This repository is governed by the **Arsenal Source Available License (ASAL) v1.0**. Please refer to LICENSE.txt for full terms regarding commercial usage and modifications.
-
-### Connect & Feedback
-*   **Creator / Brand:** ATL
+### License & Contact
+*   **License:** Governed by the **Arsenal Source Available License (ASAL) v1.0**.
 *   **Official Website:** [https://arsenal-atl.pages.dev/](https://arsenal-atl.pages.dev/)
 *   **Support Email:** arsenalatl.feedback@gmail.com
 
@@ -95,71 +90,66 @@ This repository is governed by the **Arsenal Source Available License (ASAL) v1.
 
 ## الرؤية والنظرة العامة (النسخة العربية)
 
-> **Arsenal ATL** هي منظومة رقمية متكاملة واحترافية، صُممت خصيصاً لتمكين المستخدمين من أدوات ويب جبارة دون التنازل عن سيادة وخصوصية بياناتهم الشخصية.
+**Arsenal ATL** هي منظومة رقمية متكاملة واحترافية، صُممت لتمكين المستخدمين من أدوات ويب متقدمة مع الحفاظ التام على سيادة البيانات.
 
-بخلاف المواقع والخدمات التقليدية التي تتطلب رفع ملفاتك الحساسة إلى خوادم سحابية مجهولة، تعمل ترسانة Arsenal ATL بمبدأ **"المعالجة المحلية أولاً" (Local-First)**. كل بايت من بياناتك (صوت، فيديو، صور، أو نصوص) تتم معالجته بالكامل داخل البيئة الآمنة لمتصفحك الشخصي. ملفاتك لا تلمس خوادم خارجية أبداً.
+بخلاف الخدمات التقليدية التي تتطلب رفع الملفات لخوادم بعيدة، تعمل المنصة بمبدأ **"المعالجة المحلية أولاً" (Local-First)**، حيث تتم معالجة كافة البيانات داخل البيئة الآمنة لمتصفح المستخدم.
 
-### الركائز الأساسية
+### المعمارية التقنية والقدرات
 
-*   **خصوصية مطلقة (Zero-Knowledge):** معمارية برمجية خالية من الخوادم السحابية تبقي ملفاتك ملكك بالكامل.
-*   **أداء يحاكي التطبيقات المكتبية:** استغلال كامل قدرات معالج جهازك المحلي لتقديم معالجة فائقة السرعة.
-*   **العمل دون اتصال بالإنترنت:** المنصة تعمل بكفاءة تامة دون الحاجة لشبكة بمجرد تحميلها.
-*   **أمان بمستوى عسكري:** اعتماد بروتوكولات تشفير AES-256-GCM محلياً لحماية وتأمين نصوصك.
+*   **بيئة خالية من الخوادم (Zero-Knowledge):** ملفاتك لا تغادر جهازك أبداً.
+*   **تطبيق ويب تقدمي (PWA):** قابل للتثبيت ويعمل بالكامل دون إنترنت بفضل ملفات الـ Manifest و Service Workers[span_26](start_span)[span_26](end_span).
+*   **عزل النطاقات (Cross-Origin):** استخدام `coi-serviceworker.js` لدعم تعدد المسارات (Multithreading) لتقنيات WebAssembly[span_27](start_span)[span_27](end_span).
+*   **دعم اللغات:** نظام ترجمة مدمج يدعم العربية، الإنجليزية، الروسية، والصينية[span_28](start_span)[span_28](end_span).
 
-### منظومة الأدوات التفصيلية
+### منظومة الأدوات الشاملة
 
-#### حزمة الهندسة الصوتية
-*   **استوديو التبطيئ (Slowed Studio - المميز):** معالج صوتي احترافي محلي يتيح لك تعديل سرعة وطبقة الصوت بالوقت الفعلي، إدراج تأثير الصدى البيئي المخصص (Decay & Mix)، سحب وتقديم المقطع بشكل تفاعلي، وتصدير النتيجة بصيغ عالية النقاوة مثل WAV وMP3.
-*   **المحول الشامل:** تحويل فوري ومحلي بين الصيغ الصوتية الأكثر شيوعاً (MP3, WAV, OGG).
-*   **مقص الصوت الدقيق:** قص أطراف الملفات الصوتية بأجزاء من الثانية دون التأثير على جودة الصوت الأصلية.
-*   **مُحسن ومضخم الصوت:** رفع مستويات الـ Gain وتطبيق فلاتر تنقية الترددات مباشرة من طرف المتصفح.
+**المعالجة الصوتية**
+*   **معدل الصوت (Audio Rate):** تعديل سرعة ودرجة الصوت محلياً باحترافية[span_29](start_span)[span_29](end_span).
+*   **محول الصوت (Audio Adapter):** تغيير صيغ الملفات الصوتية بسلاسة[span_30](start_span)[span_30](end_span).
+*   **قاطع الصوت (Audio Cut):** قص دقيق للمسارات الصوتية[span_31](start_span)[span_31](end_span).
 
-#### حزمة الفيديو والوسائط
-*   **محرر الفيديو:** تحرير وقص غير خطي لملفات الفيديو دون انتظار رندرة السيرفرات السحابية.
-*   **الضاغط الذكي:** تقليل حجم ملفات الفيديو بكفاءة عالية مع الحفاظ على وضوح الصورة باستخدام كوديكس متصفح محلية.
-*   **استخراج الصوت:** فصل المسار الصوتي عن الفيديو بجودة عالية وبثوانٍ معدودة.
+**هندسة الفيديو**
+*   **محرر الفيديو:** تحرير متقدم وقص دون الحاجة للرندرة السحابية[span_32](start_span)[span_32](end_span).
+*   **ضاغط الفيديو:** تقليل الحجم مع الحفاظ على الجودة[span_33](start_span)[span_33](end_span).
+*   **مستخرج الصوت:** فصل المسار الصوتي عن الفيديو بضغطة زر[span_34](start_span)[span_34](end_span).
 
-#### حزمة معالجة الصور
-*   **مزيل الخلفية الذكي:** عزل فوري للعناصر والوجوه باستخدام شبكات عصبية محلية تعمل بالكامل في متصفحك.
-*   **محرر الصور:** قص احترافي، فلاتر بصرية، وتعديل وموازنة الألوان بدقة عالية.
-*   **الضاغط دون فقدان:** ضغط أحجام الصور بشكل هائل مع الحفاظ التام والكامل على دقتها البصرية الأصلية.
+**معالجة الصور**
+*   **مزيل الخلفية:** عزل ذكي يعتمد على الذكاء الاصطناعي وتقنية Web Workers[span_35](start_span)[span_35](end_span).
+*   **محرر الصور:** تصحيح وتعديل بصري شامل[span_36](start_span)[span_36](end_span).
+*   **ضاغط الصور:** تصغير الأحجام دون فقدان الجودة[span_37](start_span)[span_37](end_span).
 
-#### حزمة المستندات (PDF)
-*   **منشئ ومحرر PDF:** تعديل وبناء مستندات الـ PDF بشكل آمن ومحمي من التتبع والتحليل.
-*   **ضاغط PDF:** تحسين حجم المستندات وضغطها محلياً لتسهيل مشاركتها بشكل آمن وسريع.
+**عمليات PDF**
+*   **منشئ ومحرر PDF:** بناء المستندات بأمان تام[span_38](start_span)[span_38](end_span).
+*   **ضاغط PDF:** تحسين حجم المستندات لتسهيل المشاركة[span_39](start_span)[span_39](end_span).
 
-#### حزمة النصوص والبيانات
-*   **مُشفر النصوص:** تأمين نصوصك ورسائلك بأقوى تشفير عسكري متاح عالمياً AES-256.
-*   **مُنظف البيانات الذكي:** فرز وتصفية وحذف التكرارات من مجموعات البيانات النصية الضخمة فورياً.
+**النصوص والأدوات المساعدة**
+*   **النصوص المشفرة:** تأمين البيانات النصية الحساسة[span_40](start_span)[span_40](end_span).
+*   **مقارنة وتصفية النصوص:** تحليل البيانات وإزالة التكرارات[span_41](start_span)[span_41](end_span).
+*   **مكتبة الأدوات المتعددة:** تتضمن إدارة الأرشيف، الاستخراج المحمول، مولد رموز QR، وأداة مشاركة Arsenal[span_42](start_span)[span_42](end_span).
 
-### كيفية التشغيل والاستضافة
+### المحرك التقني والمكتبات الأساسية
+
+يعتمد المشروع على مجلد `core` يحتوي على أقوى المكتبات لمعالجة البيانات محلياً[span_43](start_span)[span_43](end_span):
+
+| التقنية البرمجية | نطاق الاستخدام |
+| :--- | :--- |
+| **FFmpeg.wasm** | ترميز ومعالجة الفيديو والصوت الثقيلة[span_44](start_span)[span_44](end_span) |
+| **ONNX Runtime** | تشغيل نموذج الذكاء الاصطناعي `isnet-general` لعزل الصور[span_45](start_span)[span_45](end_span) |
+| **Argon2** | عمليات التشفير وتأمين البيانات المعقدة[span_46](start_span)[span_46](end_span) |
+| **Tone.js** | إطار عمل متقدم للتحكم الدقيق بالصوت[span_47](start_span)[span_47](end_span) |
+| **PDF Core** | مكتبات `jspdf` و `pdf-lib` و `pdf.js` لمعالجة المستندات[span_48](start_span)[span_48](end_span) |
+
+### كيفية التشغيل
 
 1. **تحميل المستودع:** `git clone https://github.com/yourusername/arsenal-atl.git`
-2. **التشغيل الفوري:** افتح ملف `index.html` في أي متصفح، أو استخدم خادم محلي خفيف عبر `npx serve .`
+2. **التشغيل:** افتح ملف `index.html` أو استخدم خادم محلي عبر `npx serve .`[span_49](start_span)[span_49](end_span)
 
-### البنية التقنية وإحصائيات المشروع
-
-| التقنية البرمجية | دورها في المشروع |
-| :--- | :--- |
-| **JavaScript (ES6+)** | منطق برمجي معياري (Modular) لإدارة أدوات المنصة والعمليات التفاعلية |
-| **HTML5** | هيكلية دلالية ممتازة مع نظام متغيرات ألوان مرن |
-| **CSS3** | واجهة مستخدم متجاوبة تعتمد على تصاميم حديثة مع حركات ناعمة |
-| **WebAssembly** | إسناد العمليات المعقدة والثقيلة للحفاظ على السرعة العالية |
-| **Web Crypto API** | تشفير محلي سريع مدعوم هاردويرياً من معالج جهاز المستخدم |
-
-*   **توزيع اللغات:** JavaScript (51.7%)، HTML (31.5%)، CSS (16.8%).
-*   **عدد الأدوات المتاحة:** أكثر من 20 تطبيقاً محلياً عالي الأداء.
-*   **نموذج المعالجة:** 100% معالجة داخل جهاز العميل (انعدام الاعتماد على أي خوادم خارجية).
-
-### الملكية والترخيص
-المشروع محكوم ببنود رخصة **Arsenal Source Available License (ASAL) v1.0**. يرجى مراجعة ملف LICENSE.txt لمعرفة تفاصيل الاستخدام التجاري والتعديل.
-
-### للتواصل والاستفسار
-*   **المطور / العلامة التجارية:** ATL
-*   **الموقع الرسمي للمنصة:** [https://arsenal-atl.pages.dev/](https://arsenal-atl.pages.dev/)
-*   **بريد الدعم والمقترحات:** arsenalatl.feedback@gmail.com
+### الترخيص والتواصل
+*   **الترخيص:** محكوم ببنود **Arsenal Source Available License (ASAL) v1.0**.
+*   **الموقع الرسمي:** [https://arsenal-atl.pages.dev/](https://arsenal-atl.pages.dev/)
+*   **البريد الإلكتروني:** arsenalatl.feedback@gmail.com
 
 </div>
 
 ---
-<p align="center">Built with by ATL — Empowering Privacy through Innovation.</p>
+<p align="center">Built by ATL — Empowering Privacy through Innovation.</p>
