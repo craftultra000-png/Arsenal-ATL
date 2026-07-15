@@ -35,7 +35,7 @@ window.arsenalTranslations = {
     "arsenal_archive": "ضغط والتشفير",
     "arsenal_share": "مشاركة الملفات محلياً",
 
-    "menu_vip": "دعم المشروع (VIP)",
+    "menu_vip": "أشتري VIP",
     "menu_privacy": "السياسة والخصوصية",
 
     "footer_trust": "الترسانة • ثقتكم وجودنا",
