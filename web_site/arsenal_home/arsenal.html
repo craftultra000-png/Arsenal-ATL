@@ -27,12 +27,11 @@
   <meta name="twitter:description" content="أكثر من 16 أداة رقمية احترافية تعمل بالكامل في متصفحك — خصوصية 100%.">
   <meta name="twitter:image" content="https://arsenal-atl.pages.dev/core/style_and_sound/arsenal_Silver.png">
   <link rel="manifest" href="/manifest.json">
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .catch(err => console.log('SW Error:', err));
-  }
-</script>
+<meta name="theme-color" content="#0a0a14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Arsenal">
+<link rel="apple-touch-icon" href="/core/icons/icon-192.png">
 
   <!-- ── Schema: SoftwareApplication ── -->
   <script type="application/ld+json">
@@ -273,5 +272,13 @@
 
 <script src="../core/toolLoader.js"></script>
 <script src="arsenal.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .catch(err => console.warn('[SW]', err));
+    });
+}
+</script>
 </body>
 </html>
