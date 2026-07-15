@@ -79,6 +79,8 @@
   function handleGoogleLogin(response) {
     const payload = parseJwt(response.credential);
     const user = { name: payload.name, email: payload.email, picture: payload.picture };
+    const userId = payload.sub; // Google unique ID
+localStorage.setItem('arsenal_user_id', userId);
 
     // نحاول نحول الصورة لـ base64 ونخزنها محلياً لتجنب مشاكل الـ sandbox
     if (payload.picture) {
@@ -455,12 +457,79 @@
     }
   };
 
+  // ── NowPayments Integration ──────────────────────────────────────────
+const PAYMENTS_WORKER = 'https://arsenal-payment.craftultra000.workers.dev';
+let selectedPlan = 'monthly';
+
+window.selectPlan = function(plan) {
+  selectedPlan = plan;
+  document.getElementById('plan-monthly-btn')?.classList.toggle('active', plan === 'monthly');
+  document.getElementById('plan-yearly-btn')?.classList.toggle('active', plan === 'yearly');
+};
+
+window.initiatePayment = async function() {
+  const userId = localStorage.getItem('arsenal_user_id');
+  if (!userId) {
+    alert(t('pay_login_required') || 'يجب تسجيل الدخول أولاً');
+    return;
+  }
+  document.getElementById('payment-loading').style.display = 'block';
+  document.getElementById('payment-info').style.display = 'none';
+  document.getElementById('payment-error').style.display = 'none';
+  document.getElementById('pay-now-btn').disabled = true;
+  try {
+    const res = await fetch(`${PAYMENTS_WORKER}/create-payment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ plan: selectedPlan, userId })
+    });
+    const data = await res.json();
+    if (data.pay_address) {
+      document.getElementById('payment-address').textContent = data.pay_address;
+      document.getElementById('payment-amount').textContent = data.pay_amount;
+      document.getElementById('payment-info').style.display = 'block';
+    } else {
+      throw new Error(data.message || 'فشل إنشاء طلب الدفع');
+    }
+  } catch (err) {
+    document.getElementById('payment-error').style.display = 'block';
+    document.getElementById('payment-error').textContent = err.message;
+  } finally {
+    document.getElementById('payment-loading').style.display = 'none';
+    document.getElementById('pay-now-btn').disabled = false;
+  }
+};
+
+window.copyPaymentAddress = function() {
+  const addr = document.getElementById('payment-address')?.textContent;
+  if (addr) navigator.clipboard.writeText(addr);
+};
+
+async function checkSubscription(userId) {
+  try {
+    const res = await fetch(`${PAYMENTS_WORKER}/check-subscription?userId=${userId}`);
+    const data = await res.json();
+    if (data.active) {
+      localStorage.setItem('arsenal_sub_active', 'true');
+      localStorage.setItem('arsenal_sub_plan', data.plan);
+      localStorage.setItem('arsenal_sub_expiry', data.expiryDate);
+    } else {
+      localStorage.removeItem('arsenal_sub_active');
+    }
+    return data;
+  } catch (err) {
+    return { active: false };
+  }
+}
+
   // ── Init ────────────────────────────────────
   window.addEventListener('load', () => {
     syncCSSVars();
 
     const saved = localStorage.getItem('asl_user');
     updateLocalUserUI(saved ? JSON.parse(saved) : null);
+    const savedUserId = localStorage.getItem('arsenal_user_id');
+if (savedUserId) checkSubscription(savedUserId);
 
     syncThemeUI();
     syncSoundUI();
