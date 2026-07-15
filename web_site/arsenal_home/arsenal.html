@@ -26,6 +26,13 @@
   <meta name="twitter:title" content="Arsenal | أدواتك الرقمية في مكان واحد">
   <meta name="twitter:description" content="أكثر من 16 أداة رقمية احترافية تعمل بالكامل في متصفحك — خصوصية 100%.">
   <meta name="twitter:image" content="https://arsenal-atl.pages.dev/core/style_and_sound/arsenal_Silver.png">
+  <link rel="manifest" href="/manifest.json">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .catch(err => console.log('SW Error:', err));
+  }
+</script>
 
   <!-- ── Schema: SoftwareApplication ── -->
   <script type="application/ld+json">
