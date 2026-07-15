@@ -371,44 +371,62 @@
 
     </div>
 
-    <!-- قسم الدفع -->
-    <div class="pay-card" id="pay-section" style="margin-top:32px;">
-      <div class="pay-top"></div>
-      <div class="pay-body">
-        <div style="font-family:'Tajawal',sans-serif;font-size:18px;font-weight:700;color:var(--c1);margin-bottom:6px;" data-lang="pay_steps_title">
-          خطوات الدفع (USDT)
-        </div>
-        <p style="font-size:14px;color:var(--c2);margin-bottom:18px;line-height:1.75;" data-lang="pay_steps_desc">
-          حوّل المبلغ بـ USDT على شبكة BEP20 إلى العنوان أدناه، ثم تواصل معنا عبر الإيميل لتفعيل اشتراكك.
-        </p>
+<!-- قسم الدفع -->
+<div class="pay-card" id="pay-section" style="margin-top:32px;">
+  <div class="pay-top"></div>
+  <div class="pay-body">
+    <div style="font-family:'Tajawal',sans-serif;font-size:18px;font-weight:700;color:var(--c1);margin-bottom:6px;" data-lang="pay_steps_title">
+      الدفع بـ USDT
+    </div>
 
-        <div class="wallet-title" data-lang="pay_wallet_title">
-          عنوان المحفظة — USDT BEP20
-        </div>
+    <!-- اختيار الخطة -->
+    <div style="display:flex;gap:12px;margin-bottom:18px;">
+      <button class="plan-select-btn active" id="plan-monthly-btn" onclick="selectPlan('monthly')">
+        <span data-lang="plan_month_name">شهري</span> — 5$
+      </button>
+      <button class="plan-select-btn" id="plan-yearly-btn" onclick="selectPlan('yearly')">
+        <span data-lang="plan_year_name">سنوي</span> — 45$
+      </button>
+    </div>
 
-        <div class="wallet-box" id="wallet-addr">
-          0xB6E6250f8A737e140031028D5e7caB3e37029Bb8
-        </div>
+    <!-- زر الدفع -->
+    <button class="pay-now-btn" id="pay-now-btn" onclick="initiatePayment()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span data-lang="pay_now_btn">ادفع الآن</span>
+    </button>
 
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
-          <button class="copy-btn" id="copy-btn" onclick="copyWallet()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            <span data-lang="pay_copy_btn">نسخ العنوان</span>
-          </button>
-          <a href="https://bscscan.com/address/0xB6E6250f8A737e140031028D5e7caB3e37029Bb8" target="_blank" rel="noreferrer" class="bsc-link">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            BSCScan
-          </a>
-        </div>
-
-        <div class="warn-box">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--acc3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <div class="warn-txt" data-lang="pay_warn">
-            تأكد من اختيار شبكة <strong style="color:var(--acc3)">BEP20 (Binance Smart Chain)</strong> فقط.
-          </div>
+    <!-- عرض معلومات الدفع بعد الإنشاء -->
+    <div id="payment-info" style="display:none;margin-top:18px;">
+      <div class="wallet-title" data-lang="pay_wallet_title">عنوان الدفع — USDT TRC20</div>
+      <div class="wallet-box" id="payment-address"></div>
+      <div style="margin:8px 0;color:var(--c2);font-size:13px;">
+        <span data-lang="pay_amount_label">المبلغ:</span>
+        <strong id="payment-amount" style="color:var(--acc2);"></strong> USDT
+      </div>
+      <button class="copy-btn" onclick="copyPaymentAddress()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span data-lang="pay_copy_btn">نسخ العنوان</span>
+      </button>
+      <div class="warn-box" style="margin-top:12px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--acc3)" stroke-width="2" style="flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div class="warn-txt" data-lang="pay_warn_trc20">
+          تأكد من اختيار شبكة <strong style="color:var(--acc3)">TRC20 (Tron)</strong> فقط.
         </div>
       </div>
+      <p style="font-size:12px;color:var(--c2);margin-top:10px;" data-lang="pay_auto_note">
+        سيتم تفعيل اشتراكك تلقائياً بعد تأكيد الدفع.
+      </p>
     </div>
+
+    <!-- رسالة تحميل -->
+    <div id="payment-loading" style="display:none;text-align:center;padding:20px;color:var(--c2);">
+      <span data-lang="pay_loading">جاري إنشاء طلب الدفع...</span>
+    </div>
+
+    <!-- رسالة خطأ -->
+    <div id="payment-error" style="display:none;color:#ff6b6b;font-size:13px;margin-top:10px;"></div>
+  </div>
+</div>
 
   </div>
   <footer>
