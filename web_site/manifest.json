@@ -2,7 +2,7 @@
   "name": "Arsenal",
   "short_name": "Arsenal",
   "description": "كل أدواتك في مكان واحد — محلياً بدون إنترنت",
-  "start_url": "/",
+  "start_url": "index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0a0a14",
@@ -11,8 +11,8 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "core/icons/icon-192.png",
-      "sizes": "192x192",
+      "src": "core/icons/icon-any-512.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
@@ -20,7 +20,13 @@
       "src": "core/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "maskable"
+    },
+    {
+      "src": "core/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
