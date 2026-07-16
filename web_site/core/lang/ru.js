@@ -996,5 +996,14 @@ window.arsenalTranslations = {
     "rate_slow_desc": "Замедление {pct}% — скорость и тон снижаются вместе",
     "rate_fast_desc": "Ускорение {pct}% — скорость и тон повышаются вместе",
 
-  "pay_login_required": "Пожалуйста, войдите в систему для подписки"
+
+    "pay_login_required": "Пожалуйста, войдите для подписки",
+    "pay_loading": "Создание запроса на оплату...",
+    "pay_wallet_title": "Адрес оплаты — USDT BEP20",
+    "pay_address_label": "Адрес",
+    "pay_amount_label": "Сумма",
+    "pay_copy_btn": "Копировать адрес",
+    "pay_warn_bsc": "Убедитесь, что выбрана сеть BSC (BEP20).",
+    "pay_auto_note": "Подписка будет активирована автоматически после подтверждения оплаты.",
+    "pay_retry": "Повторить"
 };
