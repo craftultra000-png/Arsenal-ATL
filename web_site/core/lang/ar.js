@@ -958,5 +958,14 @@ window.arsenalTranslations = {
     "rate_slow_desc": "تبطيئ {pct}% — السرعة والطبقة تنخفضان معاً",
     "rate_fast_desc": "تسريع {pct}% — السرعة والطبقة ترتفعان معاً",
   
-  "pay_login_required": "يجب تسجيل الدخول أولاً للاشتراك"
+
+    "pay_login_required": "يجب تسجيل الدخول أولاً للاشتراك",
+    "pay_loading": "جاري إنشاء طلب الدفع...",
+    "pay_wallet_title": "عنوان الدفع — USDT BEP20",
+    "pay_address_label": "العنوان",
+    "pay_amount_label": "المبلغ",
+    "pay_copy_btn": "نسخ العنوان",
+    "pay_warn_bsc": "تأكد من اختيار شبكة BSC (BEP20) فقط.",
+    "pay_auto_note": "سيتم تفعيل اشتراكك تلقائياً بعد تأكيد الدفع.",
+    "pay_retry": "إعادة المحاولة"
 };
