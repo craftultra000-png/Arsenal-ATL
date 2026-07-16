@@ -35,7 +35,7 @@ window.arsenalTranslations = {
     "arsenal_archive": "Сжатие и шифрование",
     "arsenal_share": "Локальный обмен файлами",
 
-    "menu_vip": "Поддержать проект (VIP)",
+    "menu_vip": "Купить (VIP)",
     "menu_privacy": "Политика конфиденциальности",
 
     "footer_trust": "Арсенал • Ваше доверие — наша миссия",
