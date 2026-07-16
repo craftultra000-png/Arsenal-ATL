@@ -1,0 +1,757 @@
+<div class="settings-page">
+
+  <!-- هيدر الصفحة -->
+  <div class="settings-header">
+    <h1 class="settings-title" data-lang="settings_title">الإعدادات</h1>
+    <p class="settings-sub" data-lang="settings_sub">تحكم في تجربتك داخل الترسانة</p>
+  </div>
+
+  <!-- ── قسم الحساب ── -->
+  <div class="settings-section">
+    <div class="settings-section-label" data-lang="settings_account">الحساب</div>
+
+    <!-- حالة: غير مسجل -->
+    <div class="settings-card" id="scard-login">
+      <div class="settings-card-icon" style="color:#367cee;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="settings-card-body">
+        <div class="settings-card-title" data-lang="settings_login_title">تسجيل الدخول</div>
+        <div class="settings-card-desc" data-lang="settings_login_desc">سجّل دخولك لمزامنة إعداداتك</div>
+      </div>
+      <button class="settings-google-btn" id="google-login-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        <span data-lang="settings_google_btn">الدخول عبر Google</span>
+      </button>
+    </div>
+
+    <!-- حالة: مسجل -->
+    <div class="settings-card" id="scard-user" style="display:none">
+      <div class="settings-user-avatar" id="settings-avatar"></div>
+      <div class="settings-card-body">
+        <div class="settings-card-title" id="settings-name"></div>
+        <div class="settings-card-desc" id="settings-email"></div>
+      </div>
+      <button class="settings-logout-btn" onclick="arsenalLogout()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span data-lang="settings_logout">خروج</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── قسم المظهر ── -->
+  <div class="settings-section">
+    <div class="settings-section-label" data-lang="settings_appearance">المظهر</div>
+
+    <div class="settings-card settings-card-row" onclick="doToggleTheme()">
+      <div class="settings-card-icon" style="color:#f5a623;">
+        <div id="theme-icon-s" style="width:22px;height:22px;display:flex;align-items:center;justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </div>
+      </div>
+      <div class="settings-card-body">
+        <div class="settings-card-title" data-lang="settings_theme">وضع العرض</div>
+        <div class="settings-card-desc" id="theme-lbl-s">الوضع الداكن</div>
+      </div>
+      <div class="settings-toggle" id="theme-toggle-sw">
+        <div class="settings-toggle-knob"></div>
+      </div>
+    </div>
+
+    <div class="settings-card settings-card-row" onclick="toggleSoundSettings()">
+      <div class="settings-card-icon" style="color:#00d4aa;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="sound-icon-s"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+      </div>
+      <div class="settings-card-body">
+        <div class="settings-card-title" data-lang="settings_sound">صوت التنقل</div>
+        <div class="settings-card-desc" id="sound-lbl-s" data-lang="settings_sound_on">مفعّل</div>
+      </div>
+      <div class="settings-toggle" id="sound-toggle-sw">
+        <div class="settings-toggle-knob"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── قسم اللغة ── -->
+  <div class="settings-section">
+    <div class="settings-section-label" data-lang="settings_language">اللغة</div>
+    <div class="settings-card settings-lang-grid">
+      <button class="settings-lang-btn" onclick="parent.changeLanguage && parent.changeLanguage('ar')">
+        <span class="lang-flag">🇸🇦</span><span>العربية</span>
+      </button>
+      <button class="settings-lang-btn" onclick="parent.changeLanguage && parent.changeLanguage('en')">
+        <span class="lang-flag">🇺🇸</span><span>English</span>
+      </button>
+      <button class="settings-lang-btn" onclick="parent.changeLanguage && parent.changeLanguage('ru')">
+        <span class="lang-flag">🇷🇺</span><span>Русский</span>
+      </button>
+      <button class="settings-lang-btn" onclick="parent.changeLanguage && parent.changeLanguage('zh')">
+        <span class="lang-flag">🇨🇳</span><span>中文</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── قسم VIP ── -->
+  <div class="settings-section">
+    <div class="settings-section-label" data-lang="settings_vip">دعم المشروع</div>
+    <div class="settings-card settings-card-row" onclick="showInternalPage('sub')">
+      <div class="settings-card-icon" style="color:#f5a623;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="settings-card-body">
+        <div class="settings-card-title" data-lang="menu_vip">عضوية VIP</div>
+        <div class="settings-card-desc" data-lang="settings_vip_desc">ادعم المشروع واحصل على مزايا حصرية</div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--c2)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  </div>
+
+  <!-- ── قسم الاستخدام Offline ── -->
+  <div class="settings-section">
+    <div class="settings-section-label" data-lang="settings_offline">الاستخدام بدون إنترنت</div>
+
+    <div class="settings-card">
+      <div class="settings-card-icon" style="color:#00d4aa;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.85"/>
+          <path d="M1 1l22 22"/>
+        </svg>
+      </div>
+      <div class="settings-card-body">
+        <div class="settings-card-title" data-lang="settings_offline_title">تحميل الأدوات محلياً</div>
+        <div class="settings-card-desc" id="offline-status-desc" data-lang="settings_offline_desc">حمّل جميع الملفات لتشغيل Arsenal بدون إنترنت</div>
+      </div>
+    </div>
+
+    <!-- شريط التقدم -->
+    <div id="offline-progress-wrap" style="display:none; margin-top:10px;">
+      <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--c2); margin-bottom:6px;">
+        <span id="offline-progress-label" data-lang="settings_offline_downloading">جاري التحميل...</span>
+        <span id="offline-progress-pct" style="font-family:monospace; color:var(--acc);">0%</span>
+      </div>
+      <div style="height:6px; background:rgba(255,255,255,0.06); border-radius:99px; overflow:hidden;">
+        <div id="offline-progress-bar" style="height:100%; width:0%; background:linear-gradient(90deg,var(--acc),var(--acc2)); border-radius:99px; transition:width 0.3s ease;"></div>
+      </div>
+      <div id="offline-progress-file" style="font-size:11px; color:var(--c2); margin-top:6px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"></div>
+    </div>
+
+    <!-- حالة النجاح -->
+    <div id="offline-success" style="display:none; margin-top:10px; padding:12px 16px; background:rgba(0,212,170,0.08); border:1px solid rgba(0,212,170,0.2); border-radius:8px; display:none; align-items:center; gap:10px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span style="font-size:13px; color:var(--acc2); font-weight:600;" data-lang="settings_offline_ready">Arsenal جاهز للعمل بدون إنترنت ✓</span>
+    </div>
+
+    <button id="offline-download-btn" onclick="startOfflineCache()" style="
+      margin-top:12px; width:100%; padding:13px; border:none; border-radius:8px;
+      background:var(--acc); color:#fff; font-family:'Tajawal',sans-serif;
+      font-size:14px; font-weight:700; cursor:pointer; display:flex;
+      align-items:center; justify-content:center; gap:8px; transition:opacity 0.2s;
+    ">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      <span data-lang="settings_offline_btn">تحميل للاستخدام Offline</span>
+    </button>
+  </div>
+
+  <!-- ── قسم الخصوصية ── -->
+  <div class="settings-section">
+    <div class="settings-section-label" data-lang="settings_legal">قانوني</div>
+    <div class="settings-card settings-card-row" onclick="showInternalPage('privacy')">
+      <div class="settings-card-icon" style="color:#00d4aa;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="settings-card-body">
+        <div class="settings-card-title" data-lang="menu_privacy">السياسة والخصوصية</div>
+        <div class="settings-card-desc" data-lang="settings_privacy_desc">كيف نتعامل مع بياناتك</div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--c2)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+    <div class="settings-card settings-card-row" onclick="showInternalPage('terms')">
+      <div class="settings-card-icon" style="color:var(--acc);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div class="settings-card-body">
+        <div class="settings-card-title" data-lang="menu_terms">شروط الاستخدام</div>
+        <div class="settings-card-desc" data-lang="settings_terms_desc">حقوقك والتزاماتك عند استخدام المنصة</div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--c2)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  </div>
+
+  <!-- ── قسم الفيدباك ── -->
+  <div class="settings-section">
+    <div class="settings-section-label" data-lang="settings_feedback_label">رأيك يهمنا</div>
+    <div class="settings-card settings-card-row" id="feedback-entry-btn" onclick="openFeedbackPage()">
+      <div class="settings-card-icon" style="color:var(--acc);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="settings-card-body">
+        <div class="settings-card-title" data-lang="settings_feedback_title">أرسل رأيك</div>
+        <div class="settings-card-desc" data-lang="settings_feedback_desc">مشاركة فيدباك أو اقتراح — للمسجلين فقط</div>
+      </div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--c2)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  </div>
+
+  <div class="settings-version" data-lang="settings_version">الترسانة · v1.0.0</div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     صفحة الاشتراك والخطط
+══════════════════════════════════════════════ -->
+<div id="internal-page-sub" style="display:none;">
+  <div class="container" style="max-width:700px;padding-bottom:60px;">
+
+    <div class="stt-back-row">
+      <button class="stt-back-btn" onclick="showInternalPage(null)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        <span data-lang="settings_back">رجوع</span>
+      </button>
+    </div>
+
+    <!-- هيدر -->
+    <div class="sub-hero" style="text-align:center;padding:20px 0 32px;">
+      <h1 class="hero-h" style="font-size:clamp(1.8rem,5vw,3rem);margin-bottom:12px;">
+        <span class="wave-text wd-1" data-lang="sub_h1">اختر</span>
+        <span class="wave-text wd-3" data-lang="sub_h2">خطتك</span>
+      </h1>
+      <p class="hero-p" style="font-size:14px;max-width:420px;margin:0 auto;" data-lang="sub_desc">
+        الترسانة تعمل بالكامل على جهازك — لا إعلانات، لا رفع ملفات، خصوصية 100%
+      </p>
+    </div>
+
+    <!-- الخطط الثلاث -->
+    <div class="plans-grid-3">
+
+      <!-- ── الخطة المجانية ── -->
+      <div class="plan3-card">
+        <div class="plan3-top">
+          <div class="plan3-icon" style="background:transparent;padding:0;">
+            <img src="../core/style_and_sound/arsenal_Silver.png" width="52" height="52" style="object-fit:contain;display:block;">
+          </div>
+          <div class="plan3-name" data-lang="plan_free_name">مجاني</div>
+          <div class="plan3-price">
+            <span class="plan3-amount">0</span>
+            <span class="plan3-currency">$</span>
+          </div>
+          <div class="plan3-period" data-lang="plan_free_period">للأبد</div>
+        </div>
+        <ul class="plan3-features">
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_free_f1">معظم الأدوات بلا حدود</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_free_f2">معالجة محلية 100%</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_free_f3">بدون إعلانات</span>
+          </li>
+          <li class="plan3-feat plan3-feat-no">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span data-lang="plan_free_f4">أدوات AI المتقدمة</span>
+          </li>
+          <li class="plan3-feat plan3-feat-no">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span data-lang="plan_free_f5">ثيمات حصرية</span>
+          </li>
+          <li class="plan3-feat plan3-feat-no">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--c3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span data-lang="plan_free_f6">شارة VIP</span>
+          </li>
+        </ul>
+        <div class="plan3-btn-wrap">
+          <button class="plan3-btn plan3-btn-ghost" disabled>
+            <span data-lang="plan_free_btn">خطتك الحالية</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── الخطة الشهرية ── -->
+      <div class="plan3-card plan3-featured">
+        <div class="plan3-badge" data-lang="plan_month_badge">الأكثر شيوعاً</div>
+        <div class="plan3-top">
+          <div class="plan3-icon" style="background:transparent;padding:0;">
+            <img src="../core/style_and_sound/arsenal_golden.png" width="52" height="52" style="object-fit:contain;display:block;">
+          </div>
+          <div class="plan3-name" data-lang="plan_month_name">VIP شهري</div>
+          <div class="plan3-price">
+            <span class="plan3-amount">5</span>
+            <span class="plan3-currency">$</span>
+          </div>
+          <div class="plan3-period" data-lang="plan_month_period">/ شهرياً</div>
+        </div>
+        <ul class="plan3-features">
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f1">جميع الأدوات بلا حدود</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f2">وصول مبكر للأدوات الجديدة</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f3">ثيمات حصرية متعددة</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f4">شارة VIP ضمن المنصة</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f5">أدوات AI المتقدمة</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f6">أولوية في الدعم</span>
+          </li>
+        </ul>
+        <div class="plan3-btn-wrap">
+          <button class="plan3-btn plan3-btn-primary" onclick="openPaymentModal('monthly')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span data-lang="plan_vip_btn">اشترك الآن</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── الخطة السنوية ── -->
+      <div class="plan3-card plan3-gold">
+        <div class="plan3-badge plan3-badge-gold" data-lang="plan_year_badge">وفّر 17%</div>
+        <div class="plan3-top">
+          <div class="plan3-icon" style="background:transparent;padding:0;">
+            <img src="../core/style_and_sound/arsenal_golden.png" width="52" height="52" style="object-fit:contain;display:block;">
+          </div>
+          <div class="plan3-name" data-lang="plan_year_name">VIP سنوي</div>
+          <div class="plan3-price">
+            <span class="plan3-amount">50</span>
+            <span class="plan3-currency">$</span>
+          </div>
+          <div class="plan3-period" data-lang="plan_year_period">/ سنوياً</div>
+          <div class="plan3-saving" data-lang="plan_year_saving">بدل 60$ — توفر 10$</div>
+        </div>
+        <ul class="plan3-features">
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f1">جميع الأدوات بلا حدود</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f2">وصول مبكر للأدوات الجديدة</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f3">ثيمات حصرية متعددة</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f4">شارة VIP ضمن المنصة</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f5">أدوات AI المتقدمة</span>
+          </li>
+          <li class="plan3-feat">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-lang="plan_vip_f6">أولوية في الدعم</span>
+          </li>
+        </ul>
+        <div class="plan3-btn-wrap">
+          <button class="plan3-btn plan3-btn-gold" onclick="openPaymentModal('yearly')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span data-lang="plan_year_btn">اشترك سنوياً</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+<!-- ══ Payment Modal ══ -->
+<div id="payment-modal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:16px;">
+  <!-- Backdrop -->
+  <div onclick="closePaymentModal()" style="position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);"></div>
+  <!-- Modal Box -->
+  <div style="position:relative;width:100%;max-width:420px;background:var(--bg2);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px 24px;box-shadow:0 24px 60px rgba(0,0,0,0.5);">
+
+    <!-- Close -->
+    <button onclick="closePaymentModal()" style="position:absolute;top:16px;left:16px;background:rgba(255,255,255,0.06);border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--c2);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:22px;">
+      <div style="width:52px;height:52px;margin:0 auto 12px;background:rgba(54,124,238,0.12);border-radius:14px;display:flex;align-items:center;justify-content:center;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3 id="modal-plan-title" style="font-size:18px;font-weight:700;color:var(--c1);margin:0 0 4px;"></h3>
+      <div id="modal-plan-price" style="font-size:28px;font-weight:900;color:var(--acc);margin:0;"></div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="modal-loading" style="text-align:center;padding:24px 0;">
+      <div style="width:40px;height:40px;border:3px solid rgba(255,255,255,0.1);border-top-color:var(--acc);border-radius:50%;animation:modal-spin 0.8s linear infinite;margin:0 auto 12px;"></div>
+      <p style="color:var(--c2);font-size:13px;margin:0;" data-lang="pay_loading">جاري إنشاء طلب الدفع...</p>
+    </div>
+
+    <!-- Payment Info -->
+    <div id="modal-info" style="display:none;">
+      <div style="font-size:12px;color:var(--c2);margin-bottom:6px;text-align:center;" data-lang="pay_wallet_title">عنوان الدفع — USDT BEP20</div>
+
+      <!-- Address Box -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 14px;margin-bottom:10px;">
+        <div style="font-size:11px;color:var(--c2);margin-bottom:4px;" data-lang="pay_address_label">العنوان</div>
+        <div id="modal-address" style="font-size:12px;color:var(--c1);word-break:break-all;line-height:1.5;font-family:monospace;"></div>
+      </div>
+
+      <!-- Amount Box -->
+      <div style="background:rgba(0,212,170,0.06);border:1px solid rgba(0,212,170,0.15);border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;color:var(--c2);" data-lang="pay_amount_label">المبلغ</span>
+        <span style="font-size:16px;font-weight:700;color:var(--acc2);"><span id="modal-amount"></span> USDT</span>
+      </div>
+
+      <!-- Copy Button -->
+      <button id="modal-copy-btn" onclick="copyModalAddress()" style="width:100%;padding:13px;background:var(--acc);border:none;border-radius:10px;color:#fff;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;transition:opacity 0.2s;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <span data-lang="pay_copy_btn">نسخ العنوان</span>
+      </button>
+
+      <!-- Warning -->
+      <div style="display:flex;gap:8px;align-items:flex-start;background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.2);border-radius:8px;padding:10px 12px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--acc3)" stroke-width="2" style="flex-shrink:0;margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <p style="font-size:12px;color:var(--c2);margin:0;line-height:1.5;" data-lang="pay_warn_bsc">
+          تأكد من اختيار شبكة <strong style="color:var(--acc3)">BSC (BEP20)</strong> فقط.
+        </p>
+      </div>
+
+      <p style="font-size:11px;color:var(--c3);text-align:center;margin:12px 0 0;" data-lang="pay_auto_note">سيتم تفعيل اشتراكك تلقائياً بعد تأكيد الدفع.</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="modal-error" style="display:none;text-align:center;padding:12px 0;">
+      <p style="color:#ff6b6b;font-size:13px;margin:0 0 12px;" id="modal-error-text"></p>
+      <button onclick="retryPayment()" style="padding:10px 20px;background:rgba(255,75,75,0.1);border:1px solid rgba(255,75,75,0.3);border-radius:8px;color:#ff6b6b;font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;">
+        <span data-lang="pay_retry">إعادة المحاولة</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+  </div>
+  <footer>
+    <div class="eyebrow"><span class="blink"></span><span data-lang="footer_trust">ARSENAL · ثقتكم وجودنا</span></div>
+    <div data-lang="footer_copyright">© 2026 Arsenal</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     صفحة الفيدباك
+══════════════════════════════════════════════ -->
+<div id="internal-page-feedback" style="display:none;">
+  <div class="container" style="max-width:600px;padding-bottom:60px;">
+
+    <div class="stt-back-row">
+      <button class="stt-back-btn" onclick="showInternalPage(null)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        <span data-lang="settings_back">رجوع</span>
+      </button>
+    </div>
+
+    <!-- هيدر -->
+    <div class="fb-header">
+      <div class="fb-header-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div>
+        <h1 class="fb-title" data-lang="fb_title">أرسل رأيك</h1>
+        <p class="fb-sub" data-lang="fb_sub">كلامك يساعدنا نطور الترسانة أكثر</p>
+      </div>
+    </div>
+
+    <!-- بطاقة الفورم -->
+    <div class="fb-card">
+
+      <!-- حالة: غير مسجل -->
+      <div id="fb-locked" style="display:none;">
+        <div class="fb-locked-msg">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <p data-lang="fb_login_required">سجّل دخولك عبر Google لتتمكن من إرسال الفيدباك</p>
+          <button class="fb-google-btn" onclick="showInternalPage(null); document.getElementById('google-login-btn')?.click()">
+            <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            <span data-lang="settings_google_btn">الدخول عبر Google</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- حالة: مسجل — الفورم -->
+      <div id="fb-form-wrap">
+
+        <!-- التصنيف -->
+        <div class="fb-field">
+          <label class="fb-label" data-lang="fb_type_label">نوع الرسالة</label>
+          <div class="fb-type-grid">
+            <button class="fb-type-btn active" data-type="suggestion" onclick="selectFbType(this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span data-lang="fb_type_suggestion">اقتراح</span>
+            </button>
+            <button class="fb-type-btn" data-type="bug" onclick="selectFbType(this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l1.5 1.5"/><path d="M14.5 3.5L16 2"/><path d="M9 7.5A3 3 0 0 1 15 7.5"/><path d="M6.8 8A9 9 0 0 0 3 15c0 3.9 3.1 7 7 7h4c3.9 0 7-3.1 7-7a9 9 0 0 0-3.8-7"/><path d="M3 13h18"/><path d="M8 13v5"/><path d="M16 13v5"/></svg>
+              <span data-lang="fb_type_bug">مشكلة</span>
+            </button>
+            <button class="fb-type-btn" data-type="praise" onclick="selectFbType(this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span data-lang="fb_type_praise">إطراء</span>
+            </button>
+            <button class="fb-type-btn" data-type="other" onclick="selectFbType(this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span data-lang="fb_type_other">أخرى</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- التقييم بالنجوم -->
+        <div class="fb-field">
+          <label class="fb-label" data-lang="fb_rating_label">تقييمك للترسانة</label>
+          <div class="fb-stars" id="fb-stars">
+            <span class="fb-star" data-v="1" onclick="setRating(1)">★</span>
+            <span class="fb-star" data-v="2" onclick="setRating(2)">★</span>
+            <span class="fb-star" data-v="3" onclick="setRating(3)">★</span>
+            <span class="fb-star" data-v="4" onclick="setRating(4)">★</span>
+            <span class="fb-star" data-v="5" onclick="setRating(5)">★</span>
+          </div>
+        </div>
+
+        <!-- حقل النص -->
+        <div class="fb-field">
+          <label class="fb-label" data-lang="fb_msg_label">رسالتك</label>
+          <textarea id="fb-msg" class="fb-textarea" data-lang-placeholder="fb_msg_placeholder" placeholder="اكتب رأيك هنا..." maxlength="1000"></textarea>
+          <div class="fb-char-count"><span id="fb-char">0</span> / 1000</div>
+        </div>
+
+        <!-- زر الإرسال -->
+        <button class="fb-submit-btn" id="fb-submit" onclick="submitFeedback()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <span data-lang="fb_submit">إرسال الفيدباك</span>
+        </button>
+
+      </div>
+
+      <!-- حالة: تم الإرسال -->
+      <div id="fb-success" style="display:none;">
+        <div class="fb-success-msg">
+          <div class="fb-success-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+          <h3 data-lang="fb_success_title">شكراً لك!</h3>
+          <p data-lang="fb_success_desc">وصل رأيك، وسنأخذه بعين الاعتبار.</p>
+          <button class="stt-back-btn" onclick="resetFeedback()" style="margin-top:16px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.8"/></svg>
+            <span data-lang="fb_send_another">إرسال رأي آخر</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     صفحة السياسة والخصوصية
+══════════════════════════════════════════════ -->
+<div id="internal-page-privacy" style="display:none;">
+  <div class="container" style="max-width:720px;padding-bottom:60px;">
+
+    <div class="stt-back-row">
+      <button class="stt-back-btn" onclick="showInternalPage(null)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        <span data-lang="settings_back">رجوع</span>
+      </button>
+    </div>
+
+    <div class="legal-hero">
+      <div class="legal-hero-icon" style="color:var(--acc2);">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <h1 class="legal-title" data-lang="priv_title">سياسة الخصوصية</h1>
+        <p class="legal-updated">آخر تحديث: يوليو 2026</p>
+      </div>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--acc);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="priv_s1_title">نظرة عامة</h2>
+      <p class="legal-p" data-lang="priv_s1_body">الترسانة (Arsenal) منصة أدوات رقمية تعمل بالكامل داخل متصفحك دون الحاجة إلى أي خوادم خارجية لمعالجة ملفاتك. نحن نؤمن بأن خصوصيتك حق أساسي، وقد بُنيت المنصة من الأساس على مبدأ "الخصوصية أولاً".</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--acc2);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="priv_s2_title">ما الذي نجمعه؟</h2>
+      <div class="legal-table">
+        <div class="legal-table-row">
+          <div class="legal-table-key" data-lang="priv_collect_k1">ملفاتك</div>
+          <div class="legal-table-val legal-no" data-lang="priv_collect_v1">لا نجمعها ولا نرفعها — تُعالَج محلياً فقط</div>
+        </div>
+        <div class="legal-table-row">
+          <div class="legal-table-key" data-lang="priv_collect_k2">الاسم والبريد الإلكتروني</div>
+          <div class="legal-table-val legal-yes" data-lang="priv_collect_v2">عند تسجيل الدخول عبر Google — لتخصيص تجربتك فقط</div>
+        </div>
+        <div class="legal-table-row">
+          <div class="legal-table-key" data-lang="priv_collect_k3">الإعدادات والتفضيلات</div>
+          <div class="legal-table-val legal-yes" data-lang="priv_collect_v3">تُحفظ محلياً على جهازك فقط (localStorage)</div>
+        </div>
+        <div class="legal-table-row">
+          <div class="legal-table-key" data-lang="priv_collect_k4">الفيدباك الذي ترسله</div>
+          <div class="legal-table-val legal-yes" data-lang="priv_collect_v4">يُخزَّن في قاعدة بيانات آمنة لتحسين المنصة</div>
+        </div>
+        <div class="legal-table-row" style="border-bottom:none;">
+          <div class="legal-table-key" data-lang="priv_collect_k5">بيانات الإعلانات</div>
+          <div class="legal-table-val legal-no" data-lang="priv_collect_v5">لا توجد إعلانات — لا تتبع ولا بيع بيانات</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--acc3);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="priv_s3_title">كيف نحمي بياناتك؟</h2>
+      <ul class="legal-list">
+        <li data-lang="priv_s3_l1">جميع عمليات معالجة الملفات تتم داخل متصفحك باستخدام تقنيات WebAssembly المعتمدة عالمياً.</li>
+        <li data-lang="priv_s3_l2">لا تمر ملفاتك عبر أي خادم خارجي في أي مرحلة من مراحل المعالجة.</li>
+        <li data-lang="priv_s3_l3">بيانات الفيدباك المرسلة محمية بقواعد أمان Firebase الصارمة ولا يمكن قراءتها من طرف ثالث.</li>
+        <li data-lang="priv_s3_l4">تسجيل الدخول عبر Google OAuth 2.0 — لا نحتفظ بكلمة مرورك أو أي بيانات حساسة.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--acc);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="priv_s4_title">حقوقك</h2>
+      <ul class="legal-list">
+        <li data-lang="priv_s4_l1">حق الوصول: يمكنك في أي وقت الاطلاع على البيانات المرتبطة بحسابك.</li>
+        <li data-lang="priv_s4_l2">حق الحذف: يمكنك حذف حسابك وجميع بياناتك المرتبطة به بالتواصل معنا.</li>
+        <li data-lang="priv_s4_l3">حق الإلغاء: يمكنك إلغاء اشتراكك في أي وقت.</li>
+        <li data-lang="priv_s4_l4">حق الشفافية: نلتزم بإعلامك بأي تغيير في سياسة الخصوصية.</li>
+      </ul>
+    </div>
+
+    <div class="legal-highlight">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--acc2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <p data-lang="priv_highlight">ملفاتك ملكك وحدك. نحن لا نراها، لا نحتفظ بها، ولا نشاركها مع أي طرف ثالث — أبداً.</p>
+    </div>
+
+  </div>
+  <footer>
+    <div class="eyebrow"><span class="blink"></span><span data-lang="footer_trust">ARSENAL · ثقتكم وجودنا</span></div>
+    <div data-lang="footer_copyright">© 2026 Arsenal</div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     صفحة شروط الاستخدام
+══════════════════════════════════════════════ -->
+<div id="internal-page-terms" style="display:none;">
+  <div class="container" style="max-width:720px;padding-bottom:60px;">
+
+    <div class="stt-back-row">
+      <button class="stt-back-btn" onclick="showInternalPage(null)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        <span data-lang="settings_back">رجوع</span>
+      </button>
+    </div>
+
+    <div class="legal-hero">
+      <div class="legal-hero-icon" style="color:var(--acc);">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div>
+        <h1 class="legal-title" data-lang="terms_title">شروط الاستخدام</h1>
+        <p class="legal-updated">آخر تحديث: يوليو 2026</p>
+      </div>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--acc);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="terms_s1_title">القبول بالشروط</h2>
+      <p class="legal-p" data-lang="terms_s1_body">باستخدامك لمنصة الترسانة (Arsenal)، فإنك توافق على الالتزام بهذه الشروط. إذا كنت لا توافق على أي بند من هذه الشروط، يُرجى التوقف عن استخدام المنصة. نحتفظ بحق تعديل هذه الشروط في أي وقت مع الإشارة إلى تاريخ آخر تحديث.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--acc2);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="terms_s2_title">الاستخدام المقبول</h2>
+      <ul class="legal-list">
+        <li data-lang="terms_s2_l1">يُسمح باستخدام المنصة للأغراض الشخصية والتجارية المشروعة.</li>
+        <li data-lang="terms_s2_l2">يجب أن لا يقل عمر المستخدم عن 13 عاماً.</li>
+        <li data-lang="terms_s2_l3">أنت مسؤول عن المحتوى الذي تعالجه عبر المنصة وامتثاله للقوانين المعمول بها.</li>
+        <li data-lang="terms_s2_l4">يُحظر استخدام المنصة لمعالجة محتوى ينتهك حقوق الملكية الفكرية للغير.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--acc3);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="terms_s3_title">الاستخدام المحظور</h2>
+      <ul class="legal-list">
+        <li data-lang="terms_s3_l1">يُحظر محاولة اختراق أو التلاعب بأي مكون من مكونات المنصة.</li>
+        <li data-lang="terms_s3_l2">يُحظر إعادة بيع الأدوات أو تضمينها في منتجات تجارية دون إذن كتابي مسبق.</li>
+        <li data-lang="terms_s3_l3">يُحظر استخدام المنصة لأغراض غير مشروعة أو تنتهك حقوق الآخرين.</li>
+        <li data-lang="terms_s3_l4">يُحظر نشر محتوى يحض على التمييز أو العنف عبر المنصة.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--acc);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="terms_s4_title">الاشتراكات والمدفوعات</h2>
+      <ul class="legal-list">
+        <li data-lang="terms_s4_l1">الاشتراكات المدفوعة تُفعَّل يدوياً بعد التحقق من عملية الدفع.</li>
+        <li data-lang="terms_s4_l2">بسبب طبيعة الأدوات الرقمية، لا يمكن استرداد المبالغ المدفوعة بعد تفعيل الاشتراك إلا في حالات استثنائية يُبت فيها بحسب كل حالة على حدة.</li>
+        <li data-lang="terms_s4_l3">نحتفظ بحق تعديل الأسعار مع إشعار مسبق لا يقل عن 30 يوماً.</li>
+        <li data-lang="terms_s4_l4">في حال إساءة الاستخدام، يحق لنا إلغاء الاشتراك دون استرداد.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--acc2);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="terms_s5_title">الملكية الفكرية</h2>
+      <p class="legal-p" data-lang="terms_s5_body">جميع عناصر المنصة من تصميم وكود وشعارات هي ملك حصري للترسانة. يُسمح باستخدام الأدوات وفق هذه الشروط، لكن يُحظر نسخ أو توزيع أو إعادة إنتاج أي جزء من المنصة دون إذن كتابي مسبق.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-icon" style="color:var(--c2);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <h2 class="legal-section-title" data-lang="terms_s6_title">إخلاء المسؤولية</h2>
+      <p class="legal-p" data-lang="terms_s6_body">تُقدَّم المنصة "كما هي" دون أي ضمانات صريحة أو ضمنية. لا نتحمل المسؤولية عن أي خسارة في البيانات أو أضرار ناجمة عن استخدام المنصة. يتحمل المستخدم كامل المسؤولية عن النتائج المترتبة على استخدامه للأدوات.</p>
+    </div>
+
+    <div class="legal-highlight">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <p data-lang="terms_contact">للاستفسارات والشكاوى المتعلقة بهذه الشروط، تواصل معنا عبر نموذج الفيدباك داخل التطبيق.</p>
+    </div>
+
+  </div>
+  <footer>
+    <div class="eyebrow"><span class="blink"></span><span data-lang="footer_trust">ARSENAL · ثقتكم وجودنا</span></div>
+    <div data-lang="footer_copyright">© 2026 Arsenal</div>
+  </footer>
+</div>
