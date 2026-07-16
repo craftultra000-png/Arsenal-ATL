@@ -970,5 +970,14 @@ window.arsenalTranslations = {
     "rate_slow_desc": "减速 {pct}% — 速度和音调同时降低",
     "rate_fast_desc": "加速 {pct}% — 速度和音调同时升高",
 
-  "pay_login_required": "请先登录以订阅"
+
+    "pay_login_required": "请先登录以订阅",
+    "pay_loading": "正在创建付款请求...",
+    "pay_wallet_title": "付款地址 — USDT BEP20",
+    "pay_address_label": "地址",
+    "pay_amount_label": "金额",
+    "pay_copy_btn": "复制地址",
+    "pay_warn_bsc": "请确保选择 BSC (BEP20) 网络。",
+    "pay_auto_note": "付款确认后将自动激活订阅。",
+    "pay_retry": "重试"
 };
