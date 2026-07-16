@@ -660,7 +660,7 @@ window.arsenalTranslations = {
     "settings_sound_off": "已静音",
     "settings_language": "语言",
     "settings_vip": "支持项目",
-    "settings_vip_desc": "支持项目并获得专属福利",
+    "settings_vip_desc": "购买即可解锁专属权益",
     "settings_legal": "法律",
     "settings_privacy_desc": "我们如何处理您的数据",
     "settings_version": "Arsenal · v1.0.0",
