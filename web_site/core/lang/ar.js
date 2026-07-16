@@ -645,7 +645,7 @@ window.arsenalTranslations = {
     "settings_sound_off": "مكتوم",
     "settings_language": "اللغة",
     "settings_vip": "دعم المشروع",
-    "settings_vip_desc": "ادعم المشروع واحصل على مزايا حصرية",
+    "settings_vip_desc": "أشتري لفتح مزايا حصرية",
     "settings_legal": "قانوني",
     "settings_privacy_desc": "كيف نتعامل مع بياناتك",
     "settings_version": "الترسانة · v1.0.0",
