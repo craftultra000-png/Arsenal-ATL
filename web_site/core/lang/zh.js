@@ -35,7 +35,7 @@ window.arsenalTranslations = {
     "arsenal_archive": "压缩与加密",
     "arsenal_share": "本地文件共享",
 
-    "menu_vip": "支持项目 (VIP)",
+    "menu_vip": "购买(VIP)",
     "menu_privacy": "隐私政策",
 
     "footer_trust": "武器库 • 您的信任是我们的使命",
