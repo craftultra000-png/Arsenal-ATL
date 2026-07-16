@@ -953,5 +953,14 @@ window.arsenalTranslations = {
     "rate_slow_desc": "Slowed {pct}% — Speed and pitch decrease together",
     "rate_fast_desc": "Sped up {pct}% — Speed and pitch increase together",
   
-  "pay_login_required": "Please log in first to subscribe"
+
+    "pay_login_required": "Please log in first to subscribe",
+    "pay_loading": "Creating payment request...",
+    "pay_wallet_title": "Payment Address — USDT BEP20",
+    "pay_address_label": "Address",
+    "pay_amount_label": "Amount",
+    "pay_copy_btn": "Copy Address",
+    "pay_warn_bsc": "Make sure to select <strong>BSC (BEP20)</strong> network only.",
+    "pay_auto_note": "Your subscription will be activated automatically after payment confirmation.",
+    "pay_retry": "Retry"
 };
