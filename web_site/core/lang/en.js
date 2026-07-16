@@ -35,7 +35,7 @@ window.arsenalTranslations = {
     "arsenal_archive": "Compress & Encrypt",
     "arsenal_share": "Local File Share",
 
-    "menu_vip": "Support Project (VIP)",
+    "menu_vip": "Buy (VIP)",
     "menu_privacy": "Privacy Policy",
 
     "footer_trust": "Arsenal • Your Trust is Our Presence",
