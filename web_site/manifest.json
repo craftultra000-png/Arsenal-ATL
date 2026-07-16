@@ -11,13 +11,19 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "core/icons/icon-192.png",
+      "src": "core/icons/icon-192-any.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "core/icons/icon-512.png",
+      "src": "core/icons/icon-512-any.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "core/icons/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
