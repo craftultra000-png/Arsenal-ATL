@@ -994,5 +994,7 @@ window.arsenalTranslations = {
     "settings_offline_ready":       "Arsenal готов к работе офлайн ✓",
     "settings_offline_ready_desc":  "Все файлы сохранены локально",
     "rate_slow_desc": "Замедление {pct}% — скорость и тон снижаются вместе",
-    "rate_fast_desc": "Ускорение {pct}% — скорость и тон повышаются вместе"
+    "rate_fast_desc": "Ускорение {pct}% — скорость и тон повышаются вместе",
+
+  "pay_login_required": "Пожалуйста, войдите в систему для подписки"
 };
