@@ -644,7 +644,7 @@ window.arsenalTranslations = {
     "settings_sound_off": "Muted",
     "settings_language": "Language",
     "settings_vip": "Support Project",
-    "settings_vip_desc": "Support the project and get exclusive benefits",
+    "settings_vip_desc": "Buy to unlock exclusive benefits",
     "settings_legal": "Legal",
     "settings_privacy_desc": "How we handle your data",
     "settings_version": "Arsenal · v1.0.0",
