@@ -686,7 +686,7 @@ window.arsenalTranslations = {
     "settings_sound_off": "Выключен",
     "settings_language": "Язык",
     "settings_vip": "Поддержка проекта",
-    "settings_vip_desc": "Поддержите проект и получите эксклюзивные преимущества",
+    "settings_vip_desc": "Купите, чтобы разблокировать эксклюзивные преимущества",
     "settings_legal": "Правовая информация",
     "settings_privacy_desc": "Как мы обрабатываем ваши данные",
     "settings_version": "Arsenal · v1.0.0",
