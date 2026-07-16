@@ -956,5 +956,6 @@ window.arsenalTranslations = {
     "settings_offline_ready":       "!Arsenal جاهز للعمل بدون إنترنت ✓",
     "settings_offline_ready_desc":  "جميع الملفات محفوظة محلياً",
     "rate_slow_desc": "تبطيئ {pct}% — السرعة والطبقة تنخفضان معاً",
-    "rate_fast_desc": "تسريع {pct}% — السرعة والطبقة ترتفعان معاً"
+    "rate_fast_desc": "تسريع {pct}% — السرعة والطبقة ترتفعان معاً",
+  "pay_login_required": "يجب تسجيل الدخول أولاً للاشتراك"
 };
