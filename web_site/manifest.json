@@ -11,12 +11,6 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "core/icons/icon-any-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
       "src": "core/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
