@@ -132,7 +132,7 @@ function initDropdowns() {
             { value: '4',     label: '4 ' + t('vcm_threads_unit'),             desc: t('vcm_threads_4_desc') },
             { value: '6',     label: '6 ' + t('vcm_threads_unit'),             desc: t('vcm_threads_6_desc') },
             { value: '8',     label: '8 ' + t('vcm_threads_unit'),             desc: t('vcm_threads_8_desc') },
-            { value: 'max', label: `MAX (${Math.max(1, logical - 2)})`,    desc: t('vcm_threads_max2_desc') },
+            { value: 'max-2', label: `MAX (${Math.max(1, logical - 2)})`,    desc: t('vcm_threads_max2_desc') },
         ].filter(o => { const n = parseInt(o.value); return isNaN(n) || n <= logical; })
     });
 }
