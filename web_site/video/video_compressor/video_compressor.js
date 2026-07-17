@@ -253,7 +253,7 @@ startBtn.addEventListener('click', async () => {
         } catch (_) {}
 
         const preset = getSmartPreset(presetVal, vidW, vidH);
-const safeThreads = Math.min(threads, 4);
+const safeThreads = threads;
 const ffmpegCmd = ['-i', inName];
 if (resolution !== 'original') ffmpegCmd.push('-vf', `scale=-2:${parseInt(resolution)}`);
 ffmpegCmd.push('-c:v', 'libx264', '-threads', String(safeThreads), '-preset', preset, '-crf', crfVal, '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-y', outName);
