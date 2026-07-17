@@ -21,8 +21,9 @@ function getOptimalThreads(userChoice) {
     // WASM يحتاج thread للـ main — نترك نواة واحدة دائماً للنظام
     const maxSafe = Math.max(1, logical - 1);
     if (userChoice === 'auto')  return Math.max(1, Math.floor(logical / 2));
-    if (userChoice === 'max-2') return Math.max(1, logical - 2);
+    if (userChoice === 'max-2' || userChoice === 'max-2') return Math.max(1, logical - 2);
     const n = parseInt(userChoice);
+    if (isNaN(n)) return Math.max(1, Math.floor(logical / 2));
     return Math.min(n, maxSafe);
 }
 
@@ -252,9 +253,9 @@ startBtn.addEventListener('click', async () => {
         } catch (_) {}
 
         const preset = getSmartPreset(presetVal, vidW, vidH);
-        const ffmpegCmd = ['-i', inName, '-threads', String(threads)];
         if (resolution !== 'original') ffmpegCmd.push('-vf', `scale=-2:${parseInt(resolution)}`);
         ffmpegCmd.push('-c:v', 'libx264', '-preset', preset, '-crf', crfVal, '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-y', outName);
+        const ffmpegCmd = ['-i', inName, '-threads', String(threads)];
 
         setStatus(t('vcm_status_processing', { pct: 0 }), 12);
         await ffmpeg.exec(ffmpegCmd);
