@@ -11,7 +11,7 @@ function getFfmpegPaths() {
     return {
         base,
         coreURL:   base + 'ffmpeg-core.js',
-        wasmURL:   base + 'ffmpeg-core.wasm',
+        wasmURL:   base + 'https://raw.githubusercontent.com/craftultra000-png/Arsenal-ATL/refs/heads/cdn/ffmpeg-core.wasm',
         workerURL: base + 'ffmpeg-core.worker.js',
     };
 }
