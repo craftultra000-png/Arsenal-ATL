@@ -302,6 +302,7 @@ Object.assign(window, _mod);
         const srcdoc = `<!DOCTYPE html>
 <html lang="${currentLang}" dir="${currentDir}">
 <head>
+
 <script src="./libs/eruda.js"></script>
 <script>eruda.init();</script>
 
