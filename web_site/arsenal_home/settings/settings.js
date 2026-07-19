@@ -80,7 +80,7 @@
     const payload = parseJwt(response.credential);
     const user = { name: payload.name, email: payload.email, picture: payload.picture };
     const userId = payload.sub; // Google unique ID
-localStorage.setItem('arsenal_user_id', userId);
+localStorage.setItem('arsenal_user_id', String(payload.sub));
 
     // نحاول نحول الصورة لـ base64 ونخزنها محلياً لتجنب مشاكل الـ sandbox
     if (payload.picture) {
