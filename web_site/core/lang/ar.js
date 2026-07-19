@@ -967,5 +967,9 @@ window.arsenalTranslations = {
     "pay_copy_btn": "نسخ العنوان",
     "pay_warn_bsc": "تأكد من اختيار شبكة BSC (BEP20) فقط.",
     "pay_auto_note": "سيتم تفعيل اشتراكك تلقائياً بعد تأكيد الدفع.",
-    "pay_retry": "إعادة المحاولة"
+    "pay_retry": "إعادة المحاولة",
+
+    "sub_success_title": " تم تفعيل اشتراكك!",
+    "sub_success_desc": "مرحباً بك في Arsenal VIP",
+    "sub_success_btn": "ابدأ الاستخدام"
 };
