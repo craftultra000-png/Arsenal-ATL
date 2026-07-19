@@ -979,5 +979,9 @@ window.arsenalTranslations = {
     "pay_copy_btn": "复制地址",
     "pay_warn_bsc": "请确保选择 BSC (BEP20) 网络。",
     "pay_auto_note": "付款确认后将自动激活订阅。",
-    "pay_retry": "重试"
+    "pay_retry": "重试",
+
+    "sub_success_title": " 订阅已激活！",
+    "sub_success_desc": "欢迎加入 Arsenal VIP",
+    "sub_success_btn": "开始使用"
 };
