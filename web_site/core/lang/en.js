@@ -962,5 +962,10 @@ window.arsenalTranslations = {
     "pay_copy_btn": "Copy Address",
     "pay_warn_bsc": "Make sure to select <strong>BSC (BEP20)</strong> network only.",
     "pay_auto_note": "Your subscription will be activated automatically after payment confirmation.",
-    "pay_retry": "Retry"
+    "pay_retry": "Retry",
+
+  
+    "sub_success_title": "Subscription Activated!",
+    "sub_success_desc": "Welcome to Arsenal VIP",
+    "sub_success_btn": "Start Using"
 };
