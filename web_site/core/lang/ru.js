@@ -1005,5 +1005,9 @@ window.arsenalTranslations = {
     "pay_copy_btn": "Копировать адрес",
     "pay_warn_bsc": "Убедитесь, что выбрана сеть BSC (BEP20).",
     "pay_auto_note": "Подписка будет активирована автоматически после подтверждения оплаты.",
-    "pay_retry": "Повторить"
+    "pay_retry": "Повторить",
+
+    "sub_success_title": " Подписка активирована!",
+    "sub_success_desc": "Добро пожаловать в Arsenal VIP",
+    "sub_success_btn": "Начать использование"
 };
