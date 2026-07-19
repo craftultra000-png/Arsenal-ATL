@@ -336,6 +336,7 @@ Object.assign(window, _mod);
     ${htmlContent}
     ${moduleTags}
     ${scriptTags}
+    ${erudaTag}
 </body>
 </html>`;
 
@@ -490,11 +491,14 @@ window.pauseCurrentTool = pauseCurrentTool;
     const DEV_EMAIL = 'craftultra000@gmail.com';
     try {
         const user = JSON.parse(localStorage.getItem('asl_user') || '{}');
+    const erudaTag = user.email === 'craftultra000@gmail.com' 
+    ? `<script src="https://cdn.jsdelivr.net/npm/eruda"><\/script><script>eruda.init();<\/script>`
+    : '';
         if (user.email === DEV_EMAIL) {
             const s = document.createElement('script');
             s.src = 'https://cdn.jsdelivr.net/npm/eruda';
             s.onload = () => eruda.init();
             document.head.appendChild(s);
         }
-    } catch(e) {}
+    } catch(e) {return {};}
 })();
