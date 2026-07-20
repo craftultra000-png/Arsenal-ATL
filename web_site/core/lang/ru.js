@@ -1009,5 +1009,6 @@ window.arsenalTranslations = {
 
     "sub_success_title": " Подписка активирована!",
     "sub_success_desc": "Добро пожаловать в Arsenal VIP",
-    "sub_success_btn": "Начать использование"
+    "sub_success_btn": "Начать использование",
+    "plan_current": "подписчик ✓"
 };
