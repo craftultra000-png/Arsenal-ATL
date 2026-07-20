@@ -984,5 +984,5 @@ window.arsenalTranslations = {
     "sub_success_title": " 订阅已激活！",
     "sub_success_desc": "欢迎加入 Arsenal VIP",
     "sub_success_btn": "开始使用",
-    "plan_current": "订户 ✓"
+    "plan_current": "订户"
 };
