@@ -863,7 +863,7 @@ window.arsenalTranslations = {
     "plan_free_f1": "معظم الأدوات بلا حدود",
     "plan_free_f2": "معالجة محلية 100%",
     "plan_free_f3": "بدون إعلانات",
-    "plan_free_f4": "أدوات AI المتقدمة",
+    "plan_free_f4": "أستخدام محدود لأدوات AI المتقدمة",
     "plan_free_f5": "ثيمات حصرية",
     "plan_free_f6": "شارة VIP",
     "plan_free_btn": "خطتك الحالية",
