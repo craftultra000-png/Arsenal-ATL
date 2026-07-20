@@ -967,5 +967,6 @@ window.arsenalTranslations = {
   
     "sub_success_title": "Subscription Activated!",
     "sub_success_desc": "Welcome to Arsenal VIP",
-    "sub_success_btn": "Start Using"
+    "sub_success_btn": "Start Using",
+    "plan_current": "subscriber ✓"
 };
