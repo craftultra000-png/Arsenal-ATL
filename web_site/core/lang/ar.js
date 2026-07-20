@@ -971,5 +971,6 @@ window.arsenalTranslations = {
 
     "sub_success_title": " تم تفعيل اشتراكك!",
     "sub_success_desc": "مرحباً بك في Arsenal VIP",
-    "sub_success_btn": "ابدأ الاستخدام"
+    "sub_success_btn": "ابدأ الاستخدام",
+    "plan_current": "مشترك ✓"
 };
