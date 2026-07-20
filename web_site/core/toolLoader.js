@@ -491,10 +491,25 @@ window.pauseCurrentTool = pauseCurrentTool;
     try {
         const user = JSON.parse(localStorage.getItem('asl_user') || '{}');
         if (user.email === DEV_EMAIL) {
+            // حقن eruda في الـ parent
             const s = document.createElement('script');
             s.src = 'https://cdn.jsdelivr.net/npm/eruda';
             s.onload = () => eruda.init();
             document.head.appendChild(s);
+
+            // حقن eruda في كل iframe جديد
+            const _createToolFrame = createToolFrame;
+            window._injectErudaToFrame = function(iframe) {
+                iframe.addEventListener('load', () => {
+                    try {
+                        const doc = iframe.contentDocument;
+                        const s2 = doc.createElement('script');
+                        s2.src = 'https://cdn.jsdelivr.net/npm/eruda';
+                        s2.onload = () => iframe.contentWindow.eruda.init();
+                        doc.head.appendChild(s2);
+                    } catch(e) {}
+                });
+            };
         }
     } catch(e) {}
 })();
