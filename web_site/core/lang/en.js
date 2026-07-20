@@ -858,7 +858,7 @@ window.arsenalTranslations = {
     "plan_free_f1": "Most tools, unlimited",
     "plan_free_f2": "100% local processing",
     "plan_free_f3": "No ads",
-    "plan_free_f4": "Advanced AI tools",
+    "plan_free_f4": "Limited use of advanced AI tools",
     "plan_free_f5": "Exclusive themes",
     "plan_free_f6": "VIP badge",
     "plan_free_btn": "Current Plan",
