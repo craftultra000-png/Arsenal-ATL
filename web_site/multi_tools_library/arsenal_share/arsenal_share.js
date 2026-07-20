@@ -234,7 +234,7 @@
             el.innerHTML = "";
             // حجم أكبر (280) + مستوى تصحيح أخطاء L (الأخف) لأن الـpayload كبير جداً (SDP كامل + مفتاح التشفير)
             // مستوى تصحيح أعلى مع payload كبير يزيد كثافة البكسلات لدرجة يصعب قراءتها بكاميرا هاتف عادية
-            new QRCode(el, { text: text, width: 280, height: 280, colorDark: "#000", colorLight: "#fff", correctLevel: QRCode.CorrectLevel.L });
+            new QRCode(el, { text: text, width: 300, height: 300, colorDark: "#000", colorLight: "#fff", correctLevel: QRCode.CorrectLevel.L });
         }
 
         async initScanner() {
