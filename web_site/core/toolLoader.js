@@ -357,6 +357,7 @@ function createToolFrame(toolId, tool, htmlContent) {
     iframe.style.display = "block";
     iframe.style.background = "transparent";
     iframe.srcdoc = createToolSrcdoc(toolId, tool, htmlContent);
+    if (window._injectErudaToFrame) window._injectErudaToFrame(iframe);
     return iframe;
 }
 
@@ -501,13 +502,15 @@ window.pauseCurrentTool = pauseCurrentTool;
             const _createToolFrame = createToolFrame;
             window._injectErudaToFrame = function(iframe) {
                 iframe.addEventListener('load', () => {
-                    try {
-                        const doc = iframe.contentDocument;
-                        const s2 = doc.createElement('script');
-                        s2.src = 'https://cdn.jsdelivr.net/npm/eruda';
-                        s2.onload = () => iframe.contentWindow.eruda.init();
-                        doc.head.appendChild(s2);
-                    } catch(e) {}
+                    setTimeout(() => {
+                        try {
+                            const doc = iframe.contentDocument;
+                            const s2 = doc.createElement('script');
+                            s2.src = 'https://cdn.jsdelivr.net/npm/eruda';
+                            s2.onload = () => iframe.contentWindow.eruda.init();
+                            doc.head.appendChild(s2);
+                        } catch(e) {}
+                    }, 500);
                 });
             };
         }
