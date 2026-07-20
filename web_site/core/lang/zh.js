@@ -875,7 +875,7 @@ window.arsenalTranslations = {
     "plan_free_f1": "大多数工具无限制使用",
     "plan_free_f2": "100% 本地处理",
     "plan_free_f3": "无广告",
-    "plan_free_f4": "高级 AI 工具",
+    "plan_free_f4": "先进人工智能工具的使用受到限制",
     "plan_free_f5": "专属主题",
     "plan_free_f6": "VIP 徽章",
     "plan_free_btn": "当前方案",
