@@ -87,7 +87,7 @@
         const veScript = scripts.find(s => s.src.includes('video_editor.js'));
         if (!veScript) return null;
         const base = veScript.src.replace('video/video_editor/video_editor.js', 'core/core_app/core_ffmpeg/');
-        return { base, coreURL: base + 'ffmpeg-core.js', wasmURL: 'https://raw.githubusercontent.com/craftultra000-png/Arsenal-ATL/refs/heads/cdn/ffmpeg-core.wasm', workerURL: base + 'ffmpeg-core.worker.js' };
+        return { base, coreURL: base + 'ffmpeg-core.js', wasmURL: 'https://huggingface.co/datasets/Silvr0098/arsenal-cdn/resolve/main/ffmpeg-core.wasm', workerURL: base + 'ffmpeg-core.worker.js' };
     }
 
     // ── تهيئة FFmpeg ──────────────────────────────────────────────────
