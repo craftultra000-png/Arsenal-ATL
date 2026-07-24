@@ -16,7 +16,7 @@ window.arsenalTranslations = {
     "video_converter_f_voice": "Конвертер видео в аудио",
 
     "audio_adapter": "Аудиоконвертер",
-    "audio_cut": "Обрезка аудио",
+    "noise_remover": "средство для подавления шума",
     "audio_rate": "Скорость аудио",
 
     "image_editor": "Редактор изображений",
