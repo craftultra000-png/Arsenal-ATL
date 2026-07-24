@@ -16,7 +16,7 @@ window.arsenalTranslations = {
     "video_converter_f_voice": "视频转音频",
 
     "audio_adapter": "音频转换器",
-    "audio_cut": "音频剪辑",
+    "noise_remover": "降噪器",
     "audio_rate": "音频速率",
 
     "image_editor": "图像编辑器",
