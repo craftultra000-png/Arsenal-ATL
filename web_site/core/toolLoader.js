@@ -82,7 +82,7 @@ const arsenalTools = Object.freeze({
         js: ["noise_remover_worker.js", "noise_remover.js", LIB.ort]
     }),
     audio_rate: defineTool("audio", "audio_rate", {
-        js: [LIB.tone, "audio_rate_worker.js", "audio_rate.js", LIB.lame]
+        js: [LIB.tone, "audio_rate.js", LIB.lame]
     }),
 
     // ️ أدوات الصور
