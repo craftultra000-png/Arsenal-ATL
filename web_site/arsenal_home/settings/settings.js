@@ -44,7 +44,7 @@
     if (parent.toggleTheme) {
       parent.toggleTheme();
       // ننتظر الـ class يتغير على الـ parent ثم نزامن
-      requestAnimationFrame(() => requestAnimationFrame(syncThemeUI));
+      syncThemeUI();
     }
   };
 
