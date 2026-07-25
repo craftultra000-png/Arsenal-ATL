@@ -1,0 +1,125 @@
+<div class="nrem-page">
+
+    <!-- ── هيدر ── -->
+    <div class="nrem-header">
+        <div class="nrem-header-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+                <line x1="2" y1="2" x2="22" y2="22"></line>
+            </svg>
+        </div>
+        <div>
+            <h1 class="nrem-title" data-lang="nrem_title">مزيل الضوضاء الذكي</h1>
+            <p class="nrem-sub">إزالة الضوضاء الصوتية المحيطة وتنقية الصوت بالذكاء الاصطناعي.</p>
+        </div>
+    </div>
+
+    <!-- ── رفع الملف ── -->
+    <div class="nrem-section">
+        <div class="nrem-section-label" data-lang="nrem_section_file">الملف الصوتي</div>
+        <div class="nrem-card nrem-drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+            <div class="nrem-drop-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18V5l12-2v13"></path>
+                    <circle cx="6" cy="18" r="3"></circle>
+                    <circle cx="18" cy="16" r="3"></circle>
+                </svg>
+            </div>
+            <span class="nrem-drop-text" id="dropText" data-lang="nrem_drop">اضغط هنا لرفع الملف الصوتي</span>
+            <span class="nrem-drop-hint">WAV · MP3 · OGG · FLAC · M4A</span>
+            <input type="file" id="fileInput" accept="audio/*" hidden>
+        </div>
+    </div>
+
+    <!-- ── تحميل النموذج ── -->
+    <div class="nrem-section" id="modelSection" hidden>
+        <div class="nrem-card nrem-model-card">
+            <div class="nrem-ctrl-row">
+                <span class="nrem-ctrl-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    جاري تحميل نموذج الذكاء الاصطناعي...
+                </span>
+                <span class="nrem-ctrl-val" id="modelPct">0%</span>
+            </div>
+            <div class="nrem-progress-track">
+                <div class="nrem-progress-fill" id="modelBar" style="width:0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── منطقة المعالجة ── -->
+    <div class="nrem-section" id="statusArea" hidden>
+
+        <!-- معلومات الملف -->
+        <div class="nrem-file-meta" id="fileMeta"></div>
+
+        <!-- شريط التقدم -->
+        <div class="nrem-card nrem-progress-card" id="progressWrap" hidden>
+            <div class="nrem-progress-steps" id="progressSteps">
+                <span class="nrem-pstep" id="pstep-model">تحميل النموذج</span>
+                <span class="nrem-pstep" id="pstep-infer">معالجة الإطارات</span>
+                <span class="nrem-pstep" id="pstep-encode">تجميع الملف</span>
+            </div>
+            <div class="nrem-progress-track">
+                <div class="nrem-progress-fill" id="barFill"></div>
+            </div>
+            <p class="nrem-progress-label" id="progressLabel">جارٍ التهيئة…</p>
+        </div>
+
+        <!-- المشغلات -->
+        <div id="players" hidden>
+            <div class="nrem-section-label" data-lang="nrem_section_compare">مقارنة الصوت</div>
+            <div class="nrem-players-grid">
+                <div class="nrem-card nrem-player-card">
+                    <div class="nrem-player-label" data-lang="nrem_original">الأصلي</div>
+                    <audio id="audioOrig" controls></audio>
+                </div>
+                <div class="nrem-card nrem-player-card">
+                    <div class="nrem-player-label nrem-player-label--clean" data-lang="nrem_clean">المُنقّى</div>
+                    <audio id="audioClean" controls></audio>
+                </div>
+            </div>
+        </div>
+
+        <!-- تأثير البودكاست -->
+        <div class="nrem-podcast-controls" id="podcastControls" hidden>
+            <div class="nrem-ctrl-row">
+                <span class="nrem-ctrl-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+                    <span data-lang="nrem_podcast">تأثير البودكاست الاحترافي</span>
+                </span>
+                <button class="nrem-toggle-btn" id="podcastToggle" aria-pressed="false">
+                    <span class="nrem-toggle-track">
+                        <span class="nrem-toggle-thumb"></span>
+                    </span>
+                    <span class="nrem-toggle-text" data-lang="nrem_off">إيقاف</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- أزرار التصدير -->
+        <div class="nrem-action-row" id="actionRow" hidden>
+            <button class="nrem-btn nrem-btn-success" id="downloadBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span data-lang="nrem_download">تحميل WAV</span>
+            </button>
+            <button class="nrem-btn nrem-btn-secondary" id="resetBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="1 4 1 10 7 10"></polyline>
+                    <path d="M3.51 15a9 9 0 1 0 .49-3.96"></path>
+                </svg>
+                <span data-lang="nrem_reset">ملف آخر</span>
+            </button>
+        </div>
+
+    </div>
+
+
+
+</div>
