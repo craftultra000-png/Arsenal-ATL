@@ -38,7 +38,7 @@ function getIcon(name, color = "currentColor") {
   // ── Theme & Navigation ────────────────────────────────────────────────────────
   // قراءة الثيم من localStorage (يُحفظ من صفحة الـ onboarding) 
 let dark = localStorage.getItem('asl_theme') !== 'light';
-document.body.classList.toggle('light', !dark);
+if (!dark) document.body.classList.add('light');
 
   function toggleTheme() {
     dark = !dark;
