@@ -16,11 +16,7 @@
         const val = parentStyle.getPropertyValue(v).trim();
         if (val) root.style.setProperty(v, val);
       });
-      if (parent.document.body.classList.contains('light')) {
-        document.body.classList.add('light');
-      } else {
-        document.body.classList.remove('light');
-      }
+      document.body.classList.toggle('light', localStorage.getItem('asl_theme') === 'light');
     } catch(e) {}
   }
 
