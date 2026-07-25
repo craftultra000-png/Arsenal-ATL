@@ -46,13 +46,12 @@ document.body.classList.toggle('dark', dark);
     document.body.classList.toggle('light', !dark);
     document.body.classList.toggle('dark', dark);
     
+    localStorage.setItem('asl_theme', dark ? 'dark' : 'light');
     const iconEl = document.getElementById('theme-icon');
     const lbl = document.getElementById('theme-lbl');
-    
-    lbl.textContent = dark ? t('theme_light') : t('theme_dark');
-    localStorage.setItem('asl_theme', dark ? 'dark' : 'light');
+    if (lbl) lbl.textContent = dark ? t('theme_light') : t('theme_dark');
     syncThemeToggle();
-    iconEl.innerHTML = getIcon(dark ? 'sun' : 'moon');
+    if (iconEl) iconEl.innerHTML = getIcon(dark ? 'sun' : 'moon');
   }
   window.toggleTheme = toggleTheme;
   
