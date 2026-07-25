@@ -36,9 +36,9 @@ function getIcon(name, color = "currentColor") {
   // ── CSS Orbs — تستغني عن Canvas بالكامل ──────────────────────
   
   // ── Theme & Navigation ────────────────────────────────────────────────────────
-  // قراءة الثيم من localStorage (يُحفظ من صفحة الـ onboarding)
-  let dark = localStorage.getItem('asl_theme') !== 'light';
-  if (!dark) document.body.classList.add('light');
+  // قراءة الثيم من localStorage (يُحفظ من صفحة الـ onboarding) 
+let dark = localStorage.getItem('asl_theme') !== 'light';
+document.body.classList.toggle('light', !dark);
 
   function toggleTheme() {
     dark = !dark;
