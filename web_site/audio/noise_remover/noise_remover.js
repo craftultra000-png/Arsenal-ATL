@@ -46,7 +46,7 @@ function getWorkerUrl() {
 
 function getOrtUrl() {
     const s = [...document.querySelectorAll('script[src]')]
-        .find(s => s.src && s.src.includes('ort') && s.src.includes('.js'));
+        .find(s => s.src && s.src.includes('ort.min.js'));
     return s ? s.src : null;
 }
 
