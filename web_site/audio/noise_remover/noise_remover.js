@@ -32,6 +32,10 @@ const podcastToggle   = document.getElementById('podcastToggle');
 const modelSection    = document.getElementById('modelSection');
 const modelBar        = document.getElementById('modelBar');
 const modelPct        = document.getElementById('modelPct');
+const startBtn        = document.getElementById('startBtn');
+const startWrap       = document.getElementById('startWrap');
+
+let selectedFile = null;
 
 // ── Worker URL من script[src] — نمط Arsenal ─────────────────
 function getWorkerUrl() {
@@ -42,7 +46,7 @@ function getWorkerUrl() {
 
 function getOrtUrl() {
     const s = [...document.querySelectorAll('script[src]')]
-        .find(s => s.src && s.src.includes('ort.min.js'));
+        .find(s => s.src && s.src.includes('ort') && s.src.includes('.js'));
     return s ? s.src : null;
 }
 
@@ -68,6 +72,8 @@ function updateUIProgress(pct, label) {
     });
 }
 
+let pendingFile = null;
+
 // ── تهيئة الـ Worker ─────────────────────────────────────────
 function initWorker() {
     if (worker) worker.terminate();
@@ -79,6 +85,12 @@ function initWorker() {
                 modelSection.hidden = true;
                 dropZone.style.pointerEvents = 'auto';
                 dropZone.style.opacity = '1';
+                // معالجة الملف المنتظر بعد جاهزية النموذج
+                if (pendingFile) {
+                    const f = pendingFile;
+                    pendingFile = null;
+                    processAudioFile(f);
+                }
                 break;
             case 'progress':
                 updateUIProgress(e.data.pct, e.data.label);
@@ -297,11 +309,35 @@ dropZone.addEventListener('drop', e => {
     e.preventDefault();
     dropZone.classList.remove('drag-over');
     const file = e.dataTransfer.files[0];
-    if (file) processAudioFile(file);
+    if (file) selectFile(file);
 });
+dropZone.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', e => {
     const file = e.target.files[0];
-    if (file) processAudioFile(file);
+    if (file) selectFile(file);
+});
+
+// ── اختيار الملف — يظهر زر البدء فقط ───────────────────────
+function selectFile(file) {
+    selectedFile = file;
+    dropText.textContent = file.name;
+    startWrap.style.display = 'block';
+}
+
+// ── زر بدء المعالجة ─────────────────────────────────────────
+startBtn.addEventListener('click', async () => {
+    if (!selectedFile) return;
+    startBtn.disabled = true;
+    startWrap.style.display = 'none';
+
+    // تهيئة الـ Worker وتحميل النموذج
+    initWorker();
+    await loadModel();
+
+    // بعد انتهاء loadModel يُرسل للـ Worker —ننتظر جاهزيته
+    // worker يُرسل 'ready' عبر onmessage عند الانتهاء
+    // processAudioFile تُستدعى من هناك — انظر initWorker
+    pendingFile = selectedFile;
 });
 
 downloadBtn.addEventListener('click', () => {
@@ -320,6 +356,8 @@ resetBtn.addEventListener('click', () => {
     audioOrig.src = ''; audioClean.src = '';
     enhancedBlob = null; cleanSamples = null;
     fileInput.value = '';
+    selectedFile = null;
+    startWrap.style.display = 'none';
     dropText.textContent = 'اضغط هنا لرفع الملف الصوتي';
     podcastEnabled = false;
     podcastToggle.setAttribute('aria-pressed', 'false');
@@ -336,5 +374,4 @@ podcastToggle.addEventListener('click', async () => {
 });
 
 // ── Init ──────────────────────────────────────────────────────
-initWorker();
-loadModel();
+// النموذج يُحمَّل عند الضغط على "بدء المعالجة" فقط
