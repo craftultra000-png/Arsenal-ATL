@@ -302,6 +302,16 @@ html, body {
 .nrem-toggle-btn[aria-pressed="true"] .nrem-toggle-text { color: var(--acc2); }
 
 /* ── أزرار التصدير ── */
+/* ── زر بدء المعالجة ── */
+#startWrap {
+    margin-top: 12px;
+}
+
+#startBtn {
+    width: 100%;
+    animation: fadeInTool 0.25s ease-out;
+}
+
 .nrem-action-row {
     display: flex;
     gap: 10px;
