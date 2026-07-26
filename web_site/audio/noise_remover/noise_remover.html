@@ -74,19 +74,33 @@
             <p class="nrem-progress-label" id="progressLabel">جارٍ التهيئة…</p>
         </div>
 
-        <!-- المشغلات -->
+        <!-- النتائج -->
         <div id="players" hidden>
-            <div class="nrem-section-label" data-lang="nrem_section_compare">مقارنة الصوت</div>
-            <div class="nrem-players-grid">
-                <div class="nrem-card nrem-player-card">
-                    <div class="nrem-player-label" data-lang="nrem_original">الأصلي</div>
-                    <audio id="audioOrig" controls></audio>
-                </div>
-                <div class="nrem-card nrem-player-card">
-                    <div class="nrem-player-label nrem-player-label--clean" data-lang="nrem_clean">المُنقّى</div>
-                    <audio id="audioClean" controls></audio>
-                </div>
+
+            <!-- تبديل الأصلي / المنقى -->
+            <div class="nrem-tabs">
+                <button class="nrem-tab" id="tabOrig">الأصلي</button>
+                <button class="nrem-tab active" id="tabClean">المُنقّى</button>
             </div>
+
+            <!-- زر التشغيل -->
+            <button class="nrem-btn nrem-btn-play" id="playBtn">
+                <svg id="playIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>تشغيل</span>
+            </button>
+
+            <!-- التايم لاين -->
+            <div class="nrem-timeline" id="progressWrapper">
+                <span id="currentTimeText" class="nrem-time">00:00</span>
+                <div class="nrem-progress-track nrem-timeline-track" id="progressTrack">
+                    <div class="nrem-progress-fill" id="progressFill"></div>
+                    <div class="nrem-progress-thumb" id="progressThumb"></div>
+                </div>
+                <span id="totalTimeText" class="nrem-time">00:00</span>
+            </div>
+
         </div>
 
         <!-- تأثير البودكاست -->
@@ -125,7 +139,5 @@
         </div>
 
     </div>
-
-
 
 </div>
