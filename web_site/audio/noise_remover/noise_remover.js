@@ -37,11 +37,11 @@ const startWrap       = document.getElementById('startWrap');
 
 let selectedFile = null;
 
-// ── Worker URL من script[src] — نمط Arsenal ─────────────────
+// ── Worker URL — يُبنى من مسار noise_remover.js ─────────────
 function getWorkerUrl() {
     const s = [...document.querySelectorAll('script[src]')]
-        .find(s => s.src && s.src.includes('noise_remover_worker.js'));
-    return s ? s.src : 'noise_remover_worker.js';
+        .find(s => s.src && s.src.includes('noise_remover.js'));
+    return s ? s.src.replace('noise_remover.js', 'noise_remover_worker.js') : null;
 }
 
 function getOrtUrl() {
@@ -83,6 +83,9 @@ function initWorker() {
         switch (e.type) {
             case 'init-ok':
                 modelSection.hidden = true;
+                dropZone.style.pointerEvents = 'auto';
+                dropZone.style.opacity = '1';
+                // معالجة الملف المنتظر بعد جاهزية النموذج
                 if (pendingFile) {
                     const f = pendingFile;
                     pendingFile = null;
@@ -108,7 +111,10 @@ function initWorker() {
 const MODEL_URL = 'https://huggingface.co/datasets/Silvr0098/arsenal-cdn/resolve/main/dpdfnet8_48khz_hr.onnx';
 
 async function loadModel() {
-    modelSection.hidden = false;
+    // تعطيل منطقة الرفع حتى يكتمل التحميل
+    dropZone.style.pointerEvents = 'none';
+    dropZone.style.opacity       = '0.5';
+    modelSection.hidden          = false;
 
     try {
         // تحميل مع تتبع التقدم
@@ -150,6 +156,8 @@ async function loadModel() {
 
     } catch (err) {
         modelSection.hidden = true;
+        dropZone.style.pointerEvents = 'auto';
+        dropZone.style.opacity = '1';
         console.error('[NoiseRemover] فشل تحميل النموذج:', err.message);
     }
 }
@@ -320,11 +328,7 @@ startBtn.addEventListener('click', () => {
     if (!selectedFile) return;
     startBtn.disabled = true;
     startWrap.style.display = 'none';
-
-    // نحفظ الملف أولاً قبل أي شيء
-    // init-ok في initWorker سيجده ويُشغّل processAudioFile
     pendingFile = selectedFile;
-
     initWorker();
     loadModel();
 });
