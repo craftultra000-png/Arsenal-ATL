@@ -70,25 +70,30 @@ function formatBytes(bytes) {
 // ==========================================
 // 2.1 تهيئة قائمة مستويات الضغط (ArsenalDropdown)
 // ==========================================
-setTimeout(() => {
-    if (typeof ArsenalDropdown === 'function') {
-        new ArsenalDropdown({
-            containerId: 'compressionLevelDD',
-            inputId: 'compressionLevel',
-            accentVar: '--acc',
-            defaultValue: '6',
-            options: [
-                { value: '3', label: t('arc_lvl_3_label'), desc: t('arc_lvl_3_desc') },
-                { value: '4', label: t('arc_lvl_4_label'), desc: t('arc_lvl_4_desc') },
-                { value: '5', label: t('arc_lvl_5_label'), desc: t('arc_lvl_5_desc') },
-                { value: '6', label: t('arc_lvl_6_label'), desc: t('arc_lvl_6_desc') },
-                { value: '7', label: t('arc_lvl_7_label'), desc: t('arc_lvl_7_desc') },
-                { value: '8', label: t('arc_lvl_8_label'), desc: t('arc_lvl_8_desc') },
-                { value: '9', label: t('arc_lvl_9_label'), desc: t('arc_lvl_9_desc') },
-            ]
-        });
+function initCompressionDropdown() {
+    if (typeof ArsenalDropdown !== 'function') return;
+    // تحقق أن الترجمة جاهزة — t() ترجع المفتاح نفسه إذا ما حُمّلت بعد
+    if (typeof t !== 'function' || t('arc_lvl_3_label') === 'arc_lvl_3_label') {
+        setTimeout(initCompressionDropdown, 100);
+        return;
     }
-}, 100);
+    new ArsenalDropdown({
+        containerId: 'compressionLevelDD',
+        inputId: 'compressionLevel',
+        accentVar: '--acc',
+        defaultValue: '6',
+        options: [
+            { value: '3', label: t('arc_lvl_3_label'), desc: t('arc_lvl_3_desc') },
+            { value: '4', label: t('arc_lvl_4_label'), desc: t('arc_lvl_4_desc') },
+            { value: '5', label: t('arc_lvl_5_label'), desc: t('arc_lvl_5_desc') },
+            { value: '6', label: t('arc_lvl_6_label'), desc: t('arc_lvl_6_desc') },
+            { value: '7', label: t('arc_lvl_7_label'), desc: t('arc_lvl_7_desc') },
+            { value: '8', label: t('arc_lvl_8_label'), desc: t('arc_lvl_8_desc') },
+            { value: '9', label: t('arc_lvl_9_label'), desc: t('arc_lvl_9_desc') },
+        ]
+    });
+}
+setTimeout(initCompressionDropdown, 100);
 
 // ==========================================
 // 3. نظام السحب والإفلات (Drag & Drop)
