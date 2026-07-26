@@ -37,18 +37,9 @@ const startWrap       = document.getElementById('startWrap');
 
 let selectedFile = null;
 
-// ── Worker URL — يُبنى من مسار noise_remover.js ─────────────
-function getWorkerUrl() {
-    const s = [...document.querySelectorAll('script[src]')]
-        .find(s => s.src && s.src.includes('noise_remover.js'));
-    return s ? s.src.replace('noise_remover.js', 'noise_remover_worker.js') : null;
-}
-
-function getOrtUrl() {
-    const s = [...document.querySelectorAll('script[src]')]
-        .find(s => s.src && s.src.includes('ort.min.js'));
-    return s ? s.src : null;
-}
+// ── Worker و ORT — عبر Arsenal.ONNX ─────────────────────────
+function getWorkerUrl()  { return Arsenal.ONNX.buildWorkerUrl('noise_remover_worker.js'); }
+function getOrtUrl()     { return Arsenal.ONNX.getOrtUrl(); }
 
 // ── Step Helpers ─────────────────────────────────────────────
 function setStep(stepEl) {
