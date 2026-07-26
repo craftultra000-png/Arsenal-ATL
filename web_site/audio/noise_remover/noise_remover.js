@@ -303,7 +303,6 @@ dropZone.addEventListener('drop', e => {
     const file = e.dataTransfer.files[0];
     if (file) selectFile(file);
 });
-dropZone.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', e => {
     const file = e.target.files[0];
     if (file) selectFile(file);
