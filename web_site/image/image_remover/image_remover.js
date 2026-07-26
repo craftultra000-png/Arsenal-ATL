@@ -246,30 +246,26 @@ window.addEventListener('touchend',   stopDrawing);
 let aiWorker   = null;   // الـ worker instance
 let workerReady = false; // صار init بنجاح
 
-// نجيب مسارات الملفات من الـ script tags المحملة مسبقاً
+// نجيب مسارات الملفات — عبر Arsenal.ONNX إذا متوفر
 function getAIPaths() {
-    // نبني المسار من lang.js أو transformers script
-    let base;
-    const trScript = [...document.querySelectorAll('script[type="module"][data-url]')]
-        .find(s => s.dataset.url && s.dataset.url.includes('transformers'));
-    if (trScript) {
-        base = trScript.dataset.url.replace('transformers.min.js', '');
-    } else {
-        const langScript = [...document.querySelectorAll('script[src]')]
-            .find(s => s.src && s.src.includes('lang.js'));
-        if (!langScript) return null;
-        base = langScript.src.replace('lang.js', '');
+    if (window.Arsenal && Arsenal.ONNX) {
+        return {
+            ortUrl:       Arsenal.ONNX.getOrtUrl(),
+            modelBasePath: Arsenal.ONNX.getWasmBasePath(),
+            wasmBasePath:  Arsenal.ONNX.getWasmBasePath(),
+        };
     }
-
-    return {
-        ortUrl:        base + 'ort.min.js',
-        modelBasePath: base,
-        wasmBasePath:  base,
-    };
+    // fallback يدوي
+    const langScript = [...document.querySelectorAll('script[src]')]
+        .find(s => s.src && s.src.includes('lang.js'));
+    if (!langScript) return null;
+    const base = langScript.src.replace('lang.js', '');
+    return { ortUrl: base + 'ort.min.js', modelBasePath: base, wasmBasePath: base };
 }
 
-// نجيب مسار الـ worker من الـ script tags
+// نجيب مسار الـ worker — عبر Arsenal.ONNX إذا متوفر
 function getWorkerUrl() {
+    if (window.Arsenal && Arsenal.ONNX) return Arsenal.ONNX.buildWorkerUrl('image_remover_worker.js');
     const s = [...document.querySelectorAll('script[src]')]
         .find(s => s.src && s.src.includes('image_remover_worker.js'));
     return s ? s.src : null;
