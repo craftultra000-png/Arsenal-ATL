@@ -89,7 +89,7 @@ const arsenalTools = Object.freeze({
     // ️ أدوات الصور
     image_editor: defineTool("image", "image_editor"),
     image_remover: defineTool("image", "image_remover", {
-        js: ["image_remover_worker.js", "image_remover.js", LIB.ort], 
+        js: [LIB.onnxRuntime, "image_remover_worker.js", "image_remover.js", LIB.ort], 
     }),
     image_compressor: defineTool("image", "image_compressor", {
         js: [LIB.jszip, "image_compressor.js"]
