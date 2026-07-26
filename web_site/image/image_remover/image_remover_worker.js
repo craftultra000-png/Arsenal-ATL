@@ -1,7 +1,38 @@
-const SIZE = 1024;
+const SIZE        = 1024;
+const MODEL_URL   = 'https://huggingface.co/datasets/Silvr0098/arsenal-cdn/resolve/main/isnet-general-use-q8.onnx';
+const MODEL_CACHE = 'arsenal-image-remover-model-v1';
 
 let session = null;
 let _ort    = null;
+
+// ── تحميل النموذج مع كاش ─────────────────────────────────────
+async function loadModelBytes() {
+    // ① تحقق من الكاش أولاً
+    try {
+        const cache  = await caches.open(MODEL_CACHE);
+        const cached = await cache.match(MODEL_URL);
+        if (cached) {
+            self.postMessage({ type: 'progress', text: 'النموذج محفوظ محلياً ✓' });
+            return await cached.arrayBuffer();
+        }
+    } catch (_) {}
+
+    // ② تحميل من الشبكة
+    self.postMessage({ type: 'progress', text: 'جاري تحميل النموذج...' });
+    const response = await fetch(MODEL_URL);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const buffer = await response.arrayBuffer();
+
+    // ③ حفظ في الكاش
+    try {
+        const cache = await caches.open(MODEL_CACHE);
+        await cache.put(MODEL_URL, new Response(buffer.slice(0), {
+            headers: { 'Content-Type': 'application/octet-stream' }
+        }));
+    } catch (_) {}
+
+    return buffer;
+}
 
 self.onmessage = async (e) => {
     const { type, payload } = e.data;
@@ -16,10 +47,8 @@ self.onmessage = async (e) => {
             _ort.env.wasm.wasmPaths  = payload.wasmBasePath;
             _ort.env.wasm.numThreads = 1;
 
-            self.postMessage({ type: 'progress', text: 'جاري تحميل النموذج...' });
-
-            const modelUrl = 'https://huggingface.co/datasets/Silvr0098/arsenal-cdn/resolve/main/isnet-general-use-q8.onnx';
-            session = await _ort.InferenceSession.create(modelUrl, {
+            const modelBuffer = await loadModelBytes();
+            session = await _ort.InferenceSession.create(modelBuffer, {
                 executionProviders: ['wasm'],
                 enableMemPattern: false,
                 enableCpuMemArena: false,
