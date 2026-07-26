@@ -39,12 +39,17 @@ self.onmessage = async (e) => {
             } else {
                 // fallback — نبحث في المسارات الشائعة
                 try {
-                    importScripts('../core/core_app/ort.min.js');
+                    importScripts('../core/core_app/ort.wasm.min.js');
                 } catch {
-                    importScripts('ort.min.js');
+                    importScripts('ort.wasm.min.js');
                 }
             }
 
+            // تحديد مسار الـ wasm files
+            const wasmBasePath = ortUrl
+                ? ortUrl.substring(0, ortUrl.lastIndexOf('/') + 1)
+                : '../core/core_app/';
+            ort.env.wasm.wasmPaths  = wasmBasePath;
             ort.env.wasm.numThreads = 1;
             onnxSession = await ort.InferenceSession.create(onnxBytes, {
                 executionProviders: ['wasm'],
