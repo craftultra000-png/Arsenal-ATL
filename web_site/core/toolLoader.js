@@ -32,6 +32,7 @@ const LIB = Object.freeze({
     pdfLib:       `${CORE_APP}/pdf-lib.min.js`,
     qrcode:       `${CORE_APP}/easy.qrcode.min.js`,
     html5qr:      `${CORE_APP}/html5-qrcode.min.js`,
+    onnxRuntime:  `${CORE_APP}/onnx_runtime.js`,
     ort:          `${CORE_APP}/ort.wasm.min.js`,
     argon2:       `${CORE_APP}/argon2.js`,
 });
