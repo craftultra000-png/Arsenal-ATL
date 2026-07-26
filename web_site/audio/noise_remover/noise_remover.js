@@ -83,9 +83,6 @@ function initWorker() {
         switch (e.type) {
             case 'init-ok':
                 modelSection.hidden = true;
-                dropZone.style.pointerEvents = 'auto';
-                dropZone.style.opacity = '1';
-                // معالجة الملف المنتظر بعد جاهزية النموذج
                 if (pendingFile) {
                     const f = pendingFile;
                     pendingFile = null;
@@ -111,10 +108,7 @@ function initWorker() {
 const MODEL_URL = 'https://huggingface.co/datasets/Silvr0098/arsenal-cdn/resolve/main/dpdfnet8_48khz_hr.onnx';
 
 async function loadModel() {
-    // تعطيل منطقة الرفع حتى يكتمل التحميل
-    dropZone.style.pointerEvents = 'none';
-    dropZone.style.opacity       = '0.5';
-    modelSection.hidden          = false;
+    modelSection.hidden = false;
 
     try {
         // تحميل مع تتبع التقدم
@@ -156,8 +150,6 @@ async function loadModel() {
 
     } catch (err) {
         modelSection.hidden = true;
-        dropZone.style.pointerEvents = 'auto';
-        dropZone.style.opacity = '1';
         console.error('[NoiseRemover] فشل تحميل النموذج:', err.message);
     }
 }
@@ -325,19 +317,17 @@ function selectFile(file) {
 }
 
 // ── زر بدء المعالجة ─────────────────────────────────────────
-startBtn.addEventListener('click', async () => {
+startBtn.addEventListener('click', () => {
     if (!selectedFile) return;
     startBtn.disabled = true;
     startWrap.style.display = 'none';
 
-    // تهيئة الـ Worker وتحميل النموذج
-    initWorker();
-    await loadModel();
-
-    // بعد انتهاء loadModel يُرسل للـ Worker —ننتظر جاهزيته
-    // worker يُرسل 'ready' عبر onmessage عند الانتهاء
-    // processAudioFile تُستدعى من هناك — انظر initWorker
+    // نحفظ الملف أولاً قبل أي شيء
+    // init-ok في initWorker سيجده ويُشغّل processAudioFile
     pendingFile = selectedFile;
+
+    initWorker();
+    loadModel();
 });
 
 downloadBtn.addEventListener('click', () => {
