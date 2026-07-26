@@ -39,9 +39,9 @@ self.onmessage = async (e) => {
             } else {
                 // fallback — نبحث في المسارات الشائعة
                 try {
-                    importScripts('../core/core_app/ort.wasm.min.js');
+                    importScripts('../core/core_app/ort.min.js');
                 } catch {
-                    importScripts('ort.wasm.min.js');
+                    importScripts('ort.min.js');
                 }
             }
 
