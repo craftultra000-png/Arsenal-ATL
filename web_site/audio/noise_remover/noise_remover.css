@@ -1,0 +1,511 @@
+/* ══════════════════════════════════════════════
+   NOISE REMOVER — هوية Arsenal
+══════════════════════════════════════════════ */
+
+html, body {
+    background: var(--bg);
+    color: var(--c1, #f0f0f0);
+    margin: 0;
+}
+
+.nrem-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    font-family: 'Tajawal', sans-serif;
+    animation: fadeInTool 0.35s ease-out;
+}
+
+/* ── هيدر ── */
+.nrem-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.nrem-header-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(0, 212, 170, 0.10);
+    color: var(--acc2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.nrem-title { font-size: 22px; font-weight: 700; color: var(--c1); margin: 0 0 4px; }
+.nrem-sub   { font-size: 13px; color: var(--c2); margin: 0; line-height: 1.5; }
+
+/* ── sections ── */
+.nrem-section {
+    margin-bottom: 16px;
+}
+
+.nrem-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 8px;
+}
+
+/* ── بطاقة ── */
+.nrem-card {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 16px;
+    transition: background 0.25s, border-color 0.25s;
+}
+
+/* ── منطقة الرفع ── */
+/* ── صف الإدخال 1:1 ── */
+.nrem-input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.nrem-input-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 12px;
+    cursor: pointer;
+    text-align: center;
+    border: 1.5px dashed var(--bd);
+    color: var(--acc2);
+    transition: border-color 0.2s, background 0.2s;
+    user-select: none;
+}
+
+.nrem-input-btn:hover {
+    border-color: var(--acc2);
+    background: rgba(0,212,170,0.06);
+}
+
+.nrem-input-btn.drag-over {
+    border-color: var(--acc2);
+    background: rgba(0,212,170,0.1);
+}
+
+.nrem-input-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--c1);
+}
+
+/* زر التسجيل */
+.nrem-record-btn { color: #ff6b6b; }
+.nrem-record-btn:hover { border-color: #ff6b6b; background: rgba(255,107,107,0.06); }
+.nrem-record-btn.recording {
+    border-color: #ff4b4b;
+    background: rgba(255,75,75,0.1);
+    animation: nrem-pulse 1s ease-in-out infinite;
+}
+
+@keyframes nrem-pulse {
+    0%, 100% { border-color: #ff4b4b; }
+    50%       { border-color: rgba(255,75,75,0.3); }
+}
+
+/* إبقاء .nrem-drop-zone للـ drag-over */
+.nrem-drop-zone { }
+
+.nrem-drop-hint {
+    font-size: 11px;
+    color: var(--c2);
+    opacity: 0.5;
+    letter-spacing: 0.5px;
+}
+
+/* ── بطاقة النموذج ── */
+.nrem-model-card { padding: 14px 16px; }
+
+/* ── شريط التقدم ── */
+.nrem-progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--sf, rgba(255,255,255,0.08));
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.nrem-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--acc2), var(--acc));
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+/* ── بطاقة التقدم ── */
+.nrem-progress-card { padding: 16px; }
+
+.nrem-progress-steps {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.nrem-pstep {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--c2);
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--bd);
+    background: var(--sf);
+    transition: all 0.25s;
+}
+
+.nrem-pstep.active {
+    color: var(--acc2);
+    border-color: rgba(0,212,170,0.4);
+    background: rgba(0,212,170,0.08);
+}
+
+.nrem-pstep.done {
+    color: var(--acc2);
+    border-color: rgba(0,212,170,0.3);
+    background: rgba(0,212,170,0.06);
+    opacity: 0.6;
+}
+
+.nrem-progress-label {
+    font-size: 12px;
+    color: var(--c2);
+    margin: 8px 0 0;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ── معلومات الملف ── */
+.nrem-file-meta {
+    font-size: 12px;
+    color: var(--c2);
+    padding: 0 4px;
+    margin-bottom: 10px;
+    font-family: monospace;
+}
+
+/* ── المشغلات ── */
+.nrem-players-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.nrem-player-card {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nrem-player-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--c2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nrem-player-label--clean {
+    color: var(--acc2);
+}
+
+.nrem-player-card audio {
+    width: 100%;
+    height: 36px;
+    border-radius: 6px;
+}
+
+/* ── تأثير البودكاست ── */
+.nrem-podcast-controls {
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+}
+
+/* ── ctrl row ── */
+.nrem-ctrl-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.nrem-ctrl-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--c2);
+    font-weight: 600;
+}
+
+.nrem-ctrl-val {
+    font-size: 13px;
+    font-weight: 700;
+    font-family: monospace;
+    color: var(--acc2);
+    background: rgba(0,212,170,0.08);
+    padding: 2px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,212,170,0.15);
+}
+
+/* ── Toggle ── */
+.nrem-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    transition: opacity 0.2s;
+}
+
+.nrem-toggle-btn.loading { opacity: 0.45; pointer-events: none; }
+
+.nrem-toggle-track {
+    position: relative;
+    width: 40px;
+    height: 22px;
+    background: var(--bd);
+    border-radius: 99px;
+    transition: background 0.25s;
+    flex-shrink: 0;
+}
+
+.nrem-toggle-thumb {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 16px;
+    height: 16px;
+    background: var(--c2);
+    border-radius: 50%;
+    transition: transform 0.25s, background 0.25s;
+}
+
+.nrem-toggle-btn[aria-pressed="true"] .nrem-toggle-track { background: var(--acc2); }
+.nrem-toggle-btn[aria-pressed="true"] .nrem-toggle-thumb {
+    background: #0d0f14;
+    transform: translateX(-18px);
+}
+
+.nrem-toggle-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--c2);
+    min-width: 34px;
+    transition: color 0.25s;
+}
+
+.nrem-toggle-btn[aria-pressed="true"] .nrem-toggle-text { color: var(--acc2); }
+
+/* ── أزرار التصدير ── */
+/* ── زر بدء المعالجة ── */
+#startWrap {
+    margin-top: 12px;
+}
+
+#startBtn {
+    width: 100%;
+    animation: fadeInTool 0.25s ease-out;
+}
+
+.nrem-action-row {
+    display: flex;
+    gap: 10px;
+}
+
+.nrem-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.nrem-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.nrem-btn-success {
+    background: var(--acc2);
+    color: #000;
+    box-shadow: 0 4px 16px rgba(0,212,170,0.25);
+}
+
+.nrem-btn-success:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+.nrem-btn-secondary {
+    background: var(--bg2);
+    color: var(--c1);
+    border: 1px solid var(--bd);
+}
+
+.nrem-btn-secondary:hover {
+    border-color: var(--acc);
+    background: rgba(30,127,212,0.06);
+    transform: translateY(-1px);
+}
+
+/* ── ملاحظة ── */
+.nrem-note-card {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: rgba(30,127,212,0.04);
+    border: 1px solid rgba(30,127,212,0.15);
+    border-radius: 8px;
+    padding: 14px;
+    color: var(--acc);
+}
+
+.nrem-note-title { font-size: 13px; font-weight: 700; margin: 0 0 4px; color: var(--acc); }
+.nrem-note-desc  { font-size: 12px; color: var(--c2); margin: 0; line-height: 1.6; }
+
+/* ── Light Mode ── */
+body.light .nrem-card            { background: var(--bg2, #fff); border-color: var(--bd); }
+body.light .nrem-input-btn       { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .nrem-drop-zone       { background: var(--bg2, #fff); }
+body.light .nrem-podcast-controls { background: var(--bg2, #fff); }
+body.light .nrem-title           { color: var(--c1, #111); }
+body.light .nrem-sub             { color: var(--c2, #555); }
+
+/* ── Tabs ── */
+.nrem-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.nrem-tab {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    background: var(--bg2);
+    color: var(--c2);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nrem-tab.active {
+    background: rgba(0,212,170,0.12);
+    border-color: var(--acc2);
+    color: var(--acc2);
+}
+
+body.light .nrem-tab { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); color: var(--c2, #555); }
+body.light .nrem-tab.active { background: rgba(0,180,150,0.08); border-color: var(--acc2); color: var(--acc2); }
+
+/* ── زر التشغيل ── */
+.nrem-btn-play {
+    background: var(--acc);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(124,92,252,0.25);
+    width: 100%;
+    margin-bottom: 12px;
+}
+.nrem-btn-play:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+/* ── Timeline ── */
+.nrem-timeline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg2);
+    border: 1px solid var(--bd);
+    border-radius: 8px;
+    padding: 14px 16px;
+    user-select: none;
+    touch-action: none;
+    transition: border-color 0.2s;
+    direction: ltr;
+    margin-bottom: 12px;
+}
+
+.nrem-timeline:hover { border-color: var(--acc); }
+.nrem-timeline.scrubbing { border-color: var(--acc); }
+
+.nrem-time {
+    font-size: 12px;
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--c2);
+    min-width: 38px;
+    text-align: center;
+}
+
+.nrem-timeline-track {
+    flex: 1;
+    height: 8px;
+    background: var(--sf, rgba(255,255,255,0.08));
+    border-radius: 4px;
+    overflow: visible;
+    position: relative;
+    cursor: pointer;
+    direction: ltr;
+}
+
+.nrem-progress-thumb {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--acc);
+    box-shadow: 0 0 8px rgba(0,0,0,0.35);
+    cursor: grab;
+    transition: transform 0.1s, box-shadow 0.1s;
+    pointer-events: none;
+}
+
+.nrem-timeline.scrubbing .nrem-progress-thumb {
+    transform: translate(-50%, -50%) scale(1.3);
+    box-shadow: 0 0 0 6px rgba(124,92,252,0.2);
+    cursor: grabbing;
+}
+
+body.light .nrem-timeline       { background: var(--bg2, #fff); border-color: var(--bd, #e0e0e0); }
+body.light .nrem-timeline-track { background: rgba(0,0,0,0.08); }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .nrem-players-grid { grid-template-columns: 1fr; }
+}
+
+@keyframes fadeInTool {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
