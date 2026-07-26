@@ -80,7 +80,7 @@ const arsenalTools = Object.freeze({
         js: [LIB.jszip, LIB.lame, "audio_adapter.js"]
     }),
     noise_remover: defineTool("audio", "noise_remover", {
-        js: ["noise_remover.js", LIB.ort]
+        js: [LIB.onnxRuntime, "noise_remover.js", LIB.ort]
     }),
     audio_rate: defineTool("audio", "audio_rate", {
         js: [LIB.tone, "audio_rate.js", LIB.lame]
