@@ -973,7 +973,8 @@ window.arsenalTranslations = {
     "sub_success_desc": "مرحباً بك في Arsenal VIP",
     "sub_success_btn": "ابدأ الاستخدام",
     "plan_current": "مشترك",
-  
+
+    "nrem_title":            "مزيل الضوضاء",
     "nrem_sub":              "إزالة الضوضاء الصوتية المحيطة وتنقية الصوت بالذكاء الاصطناعي.",
     "nrem_section_file":     "الملف الصوتي",
     "nrem_btn_upload":       "رفع ملف",
