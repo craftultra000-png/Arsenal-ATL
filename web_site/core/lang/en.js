@@ -952,7 +952,7 @@ window.arsenalTranslations = {
     "settings_offline_ready_desc":  "All files saved locally",
     "rate_slow_desc": "Slowed {pct}% — Speed and pitch decrease together",
     "rate_fast_desc": "Sped up {pct}% — Speed and pitch increase together",
-  
+
 
     "pay_login_required": "Please log in first to subscribe",
     "pay_loading": "Creating payment request...",
