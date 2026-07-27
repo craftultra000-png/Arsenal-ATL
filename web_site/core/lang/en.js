@@ -969,6 +969,7 @@ window.arsenalTranslations = {
     "sub_success_desc": "Welcome to Arsenal VIP",
     "sub_success_btn": "Start Using",
     "plan_current": "subscriber",
+  
     "nrem_title":            "Noise Remover",
     "nrem_sub":              "Remove background noise and enhance audio quality using AI.",
     "nrem_section_file":     "Audio File",
