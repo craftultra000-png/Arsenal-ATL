@@ -919,7 +919,7 @@ window.arsenalTranslations = {
     "terms_s3_l3": "It is prohibited to use the platform for unlawful purposes or to violate the rights of others.",
     "terms_s3_l4": "It is prohibited to publish content inciting discrimination or violence through the platform.",
     "terms_s4_title": "Subscriptions and Payments",
-    "terms_s4_l1": "Paid subscriptions are activated manually after payment verification.",
+    "terms_s4_l1": "Paid subscriptions are automatically activated after payment verification.",
     "terms_s4_l2": "Due to the nature of digital tools, payments are non-refundable after subscription activation except in exceptional cases handled individually.",
     "terms_s4_l3": "We reserve the right to adjust prices with at least 30 days prior notice.",
     "terms_s4_l4": "In cases of abuse, we reserve the right to cancel the subscription without refund.",
