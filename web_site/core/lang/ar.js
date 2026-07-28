@@ -1,5 +1,5 @@
 window.arsenalTranslations = {
-    "nav_logo": "الترسانة",
+    "nav_logo": "التسانة",
     
     "menu_nav_title": "التنقل",
     "menu_tools_title": "ترسانة الأدوات",
