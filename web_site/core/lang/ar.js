@@ -1,7 +1,7 @@
 window.arsenalTranslations = {
 
     // ===== التنقل والقائمة =====
-    "nav_logo": "الترسانة",
+    "nav_logo": "صديقي العزيز",
     "menu_nav_title": "التنقل",
     "menu_tools_title": "ترسانة الأدوات",
     "menu_home": "الرئيسية",
@@ -39,11 +39,11 @@ window.arsenalTranslations = {
     "arsenal_share": "مشاركة الملفات محلياً",
 
     // ===== الصفحة الرئيسية =====
-    "hero_w1": "كل",
-    "hero_w2": "أدواتك",
-    "hero_w3": "في",
-    "hero_w4": "مكان",
-    "hero_w5": "واحد",
+    "hero_w1": "مرحبا",
+    "hero_w2": "بعودتك",
+    "hero_w3": "بعد",
+    "hero_w4": "مرور",
+    "hero_w5": "60 يوم",
     "hero_desc": "مجموعة أدوات احترافية تعمل مباشرة في متصفحك — بدون سيرفرات، بدون قيود، بخصوصية تامة وقوة هائلة.",
     "hero_btn": "استعرض الأدوات",
     "feat_1_title": 'فورية <span dir="ltr" style="display:inline-block">100%</span>',
