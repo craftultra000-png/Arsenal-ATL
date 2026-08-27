@@ -5,8 +5,8 @@
 
 /* Restore the published tool's compact, solid workspaces and dropdown layering. */
 .text-filter .tf-section { position:relative; overflow:visible; }
-.text-filter .tf-section:has(.arsenal-select-host.is-open) { z-index:1300; }
-.text-filter .tf-card { overflow:visible; }
+.text-filter .tf-section:has(.arsenal-select.is-open) { z-index:1300; }
+.text-filter .tf-card { position:relative; overflow:visible; }
 .text-filter .tf-workspace-card { background:#0a0b0e; backdrop-filter:none; -webkit-backdrop-filter:none; }
 .text-filter .tf-workspace-card .tf-textarea { background:#0a0b0e; backdrop-filter:none; -webkit-backdrop-filter:none; }
 .text-filter .arsenal-select__button,
