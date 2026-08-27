@@ -370,3 +370,49 @@
 .platform-nav-home:active,.platform-nav-group-toggle:active { background:rgba(255,255,255,.07); }
 @media (prefers-reduced-motion:reduce) { .platform-sidenav,.platform-overlay,.platform-nav-group-body,.platform-action,.platform-nav-close,.platform-nav-home,.platform-nav-group-toggle,.platform-nav-item,.platform-theme-row { transition-duration:1ms; } }
 @media (max-width:560px) { .platform-sidenav { width:min(280px,calc(100vw - 48px)); } .platform-nav-body { padding:8px 11px 16px; } }
+
+
+/* Compact mobile navigation: tool links are stacked vertically, never distributed across a horizontal row. */
+.platform-nav-body { padding: 6px 10px 12px; }
+.platform-nav-section { margin: 8px 5px 6px; }
+.platform-nav-divider { margin: 7px 14px; }
+.platform-nav-home,
+.platform-nav-group { margin-bottom: 8px; border-radius: 10px; }
+.platform-nav-home,
+.platform-nav-group-toggle { min-height: 41px; padding: 8px 12px; font-size: .82rem; }
+.platform-nav-home__icon,
+.platform-nav-group__icon { width: 24px; height: 24px; }
+.platform-nav-group { overflow: hidden; }
+.platform-nav-group-toggle { min-height: 41px; }
+.platform-nav-group-body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-height: 0;
+  gap: 0;
+  padding: 0 10px;
+}
+.platform-nav-group.is-open .platform-nav-group-body {
+  max-height: 320px;
+  gap: 5px;
+  padding: 8px 10px 10px;
+}
+.platform-nav-item {
+  display: flex;
+  width: 100%;
+  min-height: 35px;
+  align-items: center;
+  padding: 6px 10px;
+  text-align: start;
+}
+.platform-nav-item b { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.platform-nav-footer { padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); }
+.platform-theme-row { min-height: 40px; }
+@media (max-width: 560px) {
+  .platform-nav-body { padding: 5px 9px 10px; }
+  .platform-nav-home,
+  .platform-nav-group { margin-bottom: 7px; }
+  .platform-nav-home,
+  .platform-nav-group-toggle { min-height: 40px; padding: 8px 11px; }
+  .platform-nav-group.is-open .platform-nav-group-body { padding: 7px 9px 9px; }
+}
