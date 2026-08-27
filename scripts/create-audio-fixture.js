@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+const sampleRate = 8000;
+const seconds = 1;
+const samples = sampleRate * seconds;
+const output = Buffer.alloc(44 + samples * 2);
+output.write('RIFF', 0); output.writeUInt32LE(36 + samples * 2, 4); output.write('WAVE', 8);
+output.write('fmt ', 12); output.writeUInt32LE(16, 16); output.writeUInt16LE(1, 20); output.writeUInt16LE(1, 22);
+output.writeUInt32LE(sampleRate, 24); output.writeUInt32LE(sampleRate * 2, 28); output.writeUInt16LE(2, 32); output.writeUInt16LE(16, 34);
+output.write('data', 36); output.writeUInt32LE(samples * 2, 40);
+for (let index = 0; index < samples; index += 1) output.writeInt16LE(Math.round(Math.sin(2 * Math.PI * 440 * index / sampleRate) * 12000), 44 + index * 2);
+fs.mkdirSync('/home/ubuntu/Arsenal-ATL-rebuilt/arsenal-ts/test-fixtures', { recursive: true });
+fs.writeFileSync('/home/ubuntu/Arsenal-ATL-rebuilt/arsenal-ts/test-fixtures/tone.wav', output);

@@ -1,0 +1,104 @@
+{
+  "sourceLocale": "ar",
+  "locales": [
+    "ar",
+    "en",
+    "es",
+    "fr",
+    "de",
+    "tr",
+    "ru",
+    "hi",
+    "zh"
+  ],
+  "translations": {
+    ". اختر مستوى الضغط ثم ابدأ المعالجة.": {
+      "ar": ". اختر مستوى الضغط ثم ابدأ المعالجة.",
+      "en": "Choose the pressure level and then start processing.",
+      "es": "Elige el nivel de presión y luego empieza a procesar.",
+      "fr": "Choisissez le niveau de pression et commencez le traitement.",
+      "de": "Wählen Sie das Druckniveau und beginnen Sie dann mit der Verarbeitung.",
+      "tr": "Basınç seviyesini seçin ve sonra işleme başlayın.",
+      "ru": "Выберите уровень давления, а затем начните обработку.",
+      "hi": "दबाव स्तर चुनें और फिर प्रसंस्करण शुरू करें।",
+      "zh": "选择压力级然后开始处理."
+    },
+    ". ستنتقل منطق المعالجة إليها مباشرةً من دون iframe أو محمّل أدوات مركزي.": {
+      "ar": ". ستنتقل منطق المعالجة إليها مباشرةً من دون iframe أو محمّل أدوات مركزي.",
+      "en": "The logic of treatment will move directly to her without iframe or a central instrument loader.",
+      "es": "La lógica del tratamiento se moverá directamente a ella sin iframe o un cargador central de instrumentos.",
+      "fr": "La logique du traitement se déplacera directement vers elle sans iframe ou un chargeur d'instrument central.",
+      "de": "Die Logik der Behandlung wird sich direkt auf sie ohne iframe oder einen zentralen Instrumentenlader bewegen.",
+      "tr": "Tedavi mantığı doğrudan ona iframe veya merkezi bir araç yükleyicisi olmadan hareket edecektir.",
+      "ru": "Логика лечения перейдет непосредственно к ней без iframe или центрального погрузчика прибора.",
+      "hi": "उपचार का तर्क बिना किसी iframe या केंद्रीय साधन लोडर के सीधे उसके पास जाएगा।",
+      "zh": "治疗的逻辑会直接转移到她身上,没有iframe或中央仪器装载器."
+    },
+    "· جاري قراءة بيانات الفيديو…": {
+      "ar": "· جاري قراءة بيانات الفيديو…",
+      "en": ":: Video reading is ongoing...",
+      "es": ":: La lectura de vídeo continúa...",
+      "fr": ":: La lecture vidéo est en cours...",
+      "de": ":: Video lesen geht weiter...",
+      "tr": ":: Video okuma devam ediyor...",
+      "ru": "Чтение видео продолжается...",
+      "hi": ":: Video reading चल रही है...",
+      "zh": "* 视频阅读正在进行中."
+    },
+    "\" alt=\"صفحة": {
+      "ar": "\" alt=\"صفحة",
+      "en": "A page",
+      "es": "Una página",
+      "fr": "Une page",
+      "de": "Eine Seite",
+      "tr": "Bir sayfa",
+      "ru": "Страница",
+      "hi": "A page",
+      "zh": "页面"
+    },
+    "% توفير": {
+      "ar": "% توفير",
+      "en": "Provided",
+      "es": "Suministrado",
+      "fr": "Fourni",
+      "de": "Bereitgestellt",
+      "tr": "Provided",
+      "ru": "обеспеченный",
+      "hi": "प्रदान करना",
+      "zh": "提供"
+    },
+    "% مع خفض الطبقة.": {
+      "ar": "% مع خفض الطبقة.",
+      "en": "With a lower class.",
+      "es": "Con una clase baja.",
+      "fr": "Avec une classe inférieure.",
+      "de": "Mit einer niedrigeren Klasse.",
+      "tr": "Daha düşük bir sınıfla.",
+      "ru": "С более низким классом.",
+      "hi": "कम वर्ग के साथ।",
+      "zh": "以下类."
+    },
+    "% مع رفع الطبقة.": {
+      "ar": "% مع رفع الطبقة.",
+      "en": "With elevation.",
+      "es": "Con elevación.",
+      "fr": "Avec élévation.",
+      "de": "Mit Erhöhung.",
+      "tr": "yükseklik ile.",
+      "ru": "С высотой.",
+      "hi": "ऊंचाई के साथ।",
+      "zh": "与高处."
+    },
+    "آخر تحديث: يوليو 2026": {
+      "ar": "آخر تحديث: يوليو 2026",
+      "en": "Last update: July 2026",
+      "es": "Última actualización: julio 2026",
+      "fr": "Dernière mise à jour: juillet 2026",
+      "de": "Letzte Aktualisierung: Juli 2026",
+      "tr": "Son Güncelleme: 2026",
+      "ru": "Последнее обновление: июль 2026",
+      "hi": "अंतिम अपडेट: जुलाई 2026",
+      "zh": "最后更新:2026年7月"
+    }
+  }
+}

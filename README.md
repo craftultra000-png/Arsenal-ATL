@@ -1,272 +1,51 @@
-<div align="center">
+# Arsenal ATL
 
-<img src="web_site/core/style_and_sound/arsenal_Silver.png" alt="Arsenal" width="96"/>
+منصة Arsenal ATL هي مجموعة أدوات رقمية تعمل محلياً في المتصفح لمعالجة الفيديو والصوت والصور وPDF والنصوص، مع دعم واجهة عربية RTL وثماني لغات إضافية.
 
-<br/>
+## المتطلبات
 
-# Arsenal — الترسانة
+يُستخدم Node.js 22 أو إصدار حديث متوافق مع Vite 7، مع pnpm.
 
-**منصة أدوات رقمية احترافية تعمل بالكامل في متصفحك**
-
-[![License](https://img.shields.io/badge/License-ASAL_v1.0-367cee?style=flat-square)](./LICENSE.txt)
-[![Live](https://img.shields.io/badge/Live-arsenal--atl.pages.dev-00d4aa?style=flat-square)](https://arsenal-atl.pages.dev)
-[![PWA](https://img.shields.io/badge/PWA-Ready-f5a623?style=flat-square)](#)
-[![Languages](https://img.shields.io/badge/Languages-AR_·_EN_·_RU_·_ZH-367cee?style=flat-square)](#)
-[![Status](https://img.shields.io/badge/Status-Production-00d4aa?style=flat-square)](#)
-
-<br/>
-
-[العربية](#ar) · [English](#en)
-
-</div>
-
----
-
-<a name="ar"></a>
-
-## نظرة عامة
-
-**الترسانة** منصة أدوات رقمية احترافية مفتوحة المصدر، مبنية على مبدأ واحد:
-
-> ملفاتك ملكك وحدك. نحن لا نراها، لا نحتفظ بها، ولا نشاركها مع أي طرف ثالث — أبداً.
-
-جميع عمليات المعالجة تتم داخل متصفحك مباشرةً باستخدام تقنيات WebAssembly. لا رفع ملفات. لا سيرفرات. لا قيود.
-
----
-
-## المميزات
-
-| الميزة | التفاصيل |
-|--------|----------|
-| خصوصية تامة | المعالجة محلية 100% — ملفاتك لا تغادر جهازك |
-| فوري بالكامل | لا انتظار، لا رفع، لا اتصال مطلوب |
-| يعمل بدون إنترنت | بعد أول تحميل يعمل offline بشكل كامل |
-| 4 لغات | العربية، الإنجليزية، الروسية، الصينية مع دعم RTL |
-| قابل للتثبيت | PWA — يُثبَّت على الجوال والحاسوب كتطبيق مستقل |
-
----
-
-## الأدوات
-
-**فيديو**
-محرر فيديو · ضاغط فيديو · تحويل فيديو إلى صوت
-
-**صوت**
-محول صوت · قص صوت · معدّل السرعة
-
-**صور**
-محرر صور · مزيل خلفية بالذكاء الاصطناعي · ضاغط صور
-
-**PDF**
-إنشاء PDF · ضغط PDF · محرر PDF
-
-**نصوص**
-تشفير AES-256-GCM · مصفاة نصوص · مقارنة نصوص
-
-**متعدد**
-مولد QR · أرشفة وتشفير · مشاركة ملفات محلية
-
----
-
-## التقنيات
-
-```
-FFmpeg (WASM)       —  معالجة الفيديو والصوت محلياً
-ONNX Runtime        —  الذكاء الاصطناعي لإزالة الخلفية
-pdf-lib             —  معالجة ملفات PDF
-AES-256-GCM         —  تشفير النصوص والملفات بمعيار عسكري
-Google OAuth 2.0    —  تسجيل الدخول
-Firebase Firestore  —  تخزين الفيدباك
-Cloudflare Pages    —  الاستضافة والنشر
+```bash
+pnpm install --frozen-lockfile
+pnpm dev --host 127.0.0.1
 ```
 
----
+## بناء الإنتاج
 
-## هيكل المشروع
-
-```
-arsenal/
-├── index.html                  ← صفحة الترحيب والـ Onboarding
-├── manifest.json               ← إعدادات PWA
-├── sw.js                       ← Service Worker
-├── robots.txt                  ← إعدادات محركات البحث
-├── sitemap.xml                 ← خريطة الموقع
-│
-├── arsenal_home/
-│   ├── arsenal.html            ← الصفحة الرئيسية (Shell)
-│   ├── arsenal.css             ← النظام البصري الكامل
-│   ├── arsenal.js              ← منطق التطبيق الرئيسي
-│   └── settings/               ← الإعدادات، الخطط، السياسات
-│
-├── core/
-│   ├── toolLoader.js           ← محرك تحميل الأدوات
-│   ├── lang/                   ← ملفات الترجمة (ar · en · ru · zh)
-│   └── core_app/               ← المكتبات (FFmpeg · ONNX · pdf-lib)
-│
-├── video/ · audio/ · image/ · pdf/ · text/
-│                               ← أدوات مستقلة لكل فئة
-└── tools/                      ← صفحات SEO لكل أداة
+```bash
+pnpm check
+pnpm build
 ```
 
----
+ينشئ أمر البناء المجلد `dist/`. هذا هو **المجلد الوحيد** الذي يجب أن تنشره Cloudflare Pages عند النشر اليدوي، أو يُضبط بوصفه مجلد الإخراج عند النشر المتصل بـGitHub.
 
-## كيف يعمل
+| إعداد Cloudflare Pages | القيمة |
+|---|---|
+| Build command | `pnpm build` |
+| Build output directory | `dist` |
+| Node.js | 22 أو أحدث متوافق |
+| Root directory | جذر هذا المستودع |
 
-```
-المستخدم يختار أداة
-         ↓
-toolLoader.js يحمّل ملفات الأداة
-         ↓
-HTML + CSS + JS تُحقن في iframe معزول
-         ↓
-الأداة تعمل محلياً داخل المتصفح
-         ↓
-الملف الناتج يُحمَّل مباشرة على جهاز المستخدم
-```
+## PWA والعمل دون اتصال
 
----
+تولّد عملية البناء `manifest.webmanifest` و`service-worker.js`. في الواجهة افتح **الإعدادات** ثم اضغط **«تحميل للاستخدام Offline»** لتخزين الصفحات والأصول المحلية اللازمة. تعمل الميزات المعتمدة على نموذج ONNX أو محرك FFmpeg لم يُنزّل من قبل عند توفر الإنترنت في الاستخدام الأول، ثم تستفيد من التخزين المحلي اللاحق.
 
-## الترخيص
+## SEO
 
-هذا المشروع مرخص بموجب **Arsenal Source Available License (ASAL) v1.0**
+تُنشأ البيانات الوصفية وJSON-LD و`sitemap.xml` من السجل المركزي `src/shared/seo.ts` أثناء البناء. يبقى `robots.txt` في `public/` ويشير إلى خريطة الموقع على النطاق:
 
-مسموح: الاستخدام الشخصي والدراسة · التعديل لأغراض شخصية · Fork للتعلم
-
-غير مسموح: إعادة التوزيع باسم مختلف · الاستخدام التجاري · نشر نسخة عامة
-
-للتراخيص التجارية: `arsenalatl.feedback@gmail.com`
-
-راجع [LICENSE.txt](./LICENSE.txt) للتفاصيل الكاملة.
-
----
----
-
-<a name="en"></a>
-
-## Overview
-
-**Arsenal** is an open-source professional digital toolkit built on a single principle:
-
-> Your files belong to you alone. We never see them, store them, or share them with any third party — ever.
-
-All processing happens directly inside your browser using WebAssembly technologies. No file uploads. No servers. No limits.
-
----
-
-## Features
-
-| Feature | Details |
-|---------|---------|
-| Total Privacy | 100% local processing — files never leave your device |
-| Instant | No waiting, no uploads, no connection required |
-| Works Offline | After first load, runs fully offline |
-| 4 Languages | Arabic, English, Russian, Chinese with full RTL support |
-| Installable | PWA — installs on mobile and desktop as a standalone app |
-
----
-
-## Tools
-
-**Video**
-Video Editor · Video Compressor · Video to Audio
-
-**Audio**
-Audio Converter · Audio Cutter · Speed Changer
-
-**Image**
-Image Editor · AI Background Remover · Image Compressor
-
-**PDF**
-PDF Creator · PDF Compressor · PDF Editor
-
-**Text**
-AES-256-GCM Encryption · Text Filter · Text Comparison
-
-**Multi**
-QR Generator · Archive & Encrypt · Local File Share
-
----
-
-## Tech Stack
-
-```
-FFmpeg (WASM)       —  Local video & audio processing
-ONNX Runtime        —  AI-powered background removal
-pdf-lib             —  PDF manipulation
-AES-256-GCM         —  Military-grade text & file encryption
-Google OAuth 2.0    —  Authentication
-Firebase Firestore  —  Feedback storage
-Cloudflare Pages    —  Hosting & deployment
+```text
+https://arsenal-atl.pages.dev/sitemap.xml
 ```
 
----
+## البنية
 
-## Project Structure
-
-```
-arsenal/
-├── index.html                  ← Welcome & Onboarding page
-├── manifest.json               ← PWA configuration
-├── sw.js                       ← Service Worker
-├── robots.txt                  ← Search engine configuration
-├── sitemap.xml                 ← Site map
-│
-├── arsenal_home/
-│   ├── arsenal.html            ← Main shell page
-│   ├── arsenal.css             ← Full design system
-│   ├── arsenal.js              ← Core app logic
-│   └── settings/               ← Settings, plans, policies
-│
-├── core/
-│   ├── toolLoader.js           ← Tool loading engine
-│   ├── lang/                   ← Translation files (ar · en · ru · zh)
-│   └── core_app/               ← Libraries (FFmpeg · ONNX · pdf-lib)
-│
-├── video/ · audio/ · image/ · pdf/ · text/
-│                               ← Independent tools per category
-└── tools/                      ← SEO landing pages per tool
+```text
+src/       TypeScript للواجهة والأدوات والطبقات المشتركة
+public/    أصول النشر الثابتة وPWA وCloudflare headers
+index.html الصفحة الرئيسية
+vite.config.ts  مداخل Vite متعددة الصفحات وتوليد PWA وSEO
 ```
 
----
-
-## How It Works
-
-```
-User selects a tool
-         ↓
-toolLoader.js fetches the tool files
-         ↓
-HTML + CSS + JS injected into an isolated iframe
-         ↓
-Tool runs locally inside the browser
-         ↓
-Output file downloaded directly to user's device
-```
-
----
-
-## License
-
-This project is licensed under the **Arsenal Source Available License (ASAL) v1.0**
-
-Permitted: Personal use and study · Modification for personal projects · Forking for learning
-
-Prohibited: Redistribution under a different name · Commercial use · Deploying a public copy
-
-For commercial licensing: `arsenalatl.feedback@gmail.com`
-
-See [LICENSE.txt](./LICENSE.txt) for full details.
-
----
-
-<div align="center">
-
-<br/>
-
-[![Visit](https://img.shields.io/badge/arsenal--atl.pages.dev-Visit_Live-367cee?style=for-the-badge)](https://arsenal-atl.pages.dev)
-
-<br/>
-
-**Arsenal ATL · ثقتكم وجودنا**
-
-</div>
+لا ترفع `node_modules/` أو `dist/` إلى Git. كلاهما مستثنى في `.gitignore`؛ يعيد Cloudflare إنشاء `dist/` من أمر البناء.

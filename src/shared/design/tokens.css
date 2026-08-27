@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: dark;
+  --bg: #000000;
+  --bg-elevated: #070707;
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-strong: rgba(255, 255, 255, 0.09);
+  --surface-hover: rgba(255, 255, 255, 0.09);
+  --text: #f0f0f0;
+  --text-muted: #8a9aaa;
+  --border: rgba(30, 127, 212, 0.20);
+  --border-strong: #367cee;
+  --accent: #367cee;
+  --accent-strong: #5b99ff;
+  --accent-soft: rgba(30, 127, 212, 0.15);
+  --accent-2: #00d4aa;
+  --accent-3: #f5a623;
+  --warning: #f5a623;
+  --danger: #ff5f68;
+  --radius-sm: 8px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
+  --shadow: 0 12px 48px rgba(0, 0, 0, 0.38);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  font-family: 'Tajawal', system-ui, sans-serif;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f4f8ff;
+  --bg-elevated: #ffffff;
+  --surface: rgba(255, 255, 255, 0.8);
+  --surface-strong: rgba(255, 255, 255, 0.96);
+  --surface-hover: rgba(54, 124, 238, 0.08);
+  --text: #111b2d;
+  --text-muted: #64718a;
+  --border: rgba(48, 84, 140, 0.16);
+  --border-strong: rgba(54, 124, 238, 0.56);
+  --accent-soft: rgba(54, 124, 238, 0.1);
+  --shadow: 0 16px 46px rgba(40, 70, 120, 0.12);
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; background: var(--bg); }
+body { min-width: 320px; min-height: 100vh; margin: 0; background: var(--bg); color: var(--text); }
+button, input, textarea, select { font: inherit; }
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: 0.55; }
+
+.arsenal-backdrop {
+  position: fixed;
+  z-index: -2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 46% at 12% 4%, rgba(54, 124, 238, 0.28), transparent 70%),
+    radial-gradient(ellipse 58% 42% at 92% 18%, rgba(0, 212, 170, 0.18), transparent 70%),
+    radial-gradient(ellipse 55% 42% at 52% 100%, rgba(24, 100, 180, 0.16), transparent 70%);
+}
+
+.arsenal-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.58;
+  background: linear-gradient(180deg, transparent, var(--bg) 88%);
+}
+
+.arsenal-shell { width: min(100% - 28px, 1120px); margin: 0 auto; padding: 92px 0 52px; }
+.arsenal-card { border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 8px; background: rgba(255, 255, 255, 0.06); box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.08); backdrop-filter: blur(32px) saturate(200%); -webkit-backdrop-filter: blur(32px) saturate(200%); }
+.arsenal-button { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: 9px; padding: 10px 18px; border: 1px solid transparent; border-radius: var(--radius-sm); background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: #fff; font-weight: 800; transition: transform 160ms var(--ease-out), filter 160ms var(--ease-out), background 160ms var(--ease-out); }
+.arsenal-button:hover { filter: brightness(1.08); }
+.arsenal-button:active { transform: scale(0.97); }
+.arsenal-button--ghost { border-color: var(--border); background: var(--surface); color: var(--text); }
+.arsenal-button--ghost:hover { background: var(--surface-hover); border-color: var(--border-strong); }
+.arsenal-input, .arsenal-textarea, .arsenal-select { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); background: rgba(0, 0, 0, 0.14); color: var(--text); outline: none; transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out); }
+.arsenal-input, .arsenal-select { min-height: 46px; padding: 10px 13px; }
+.arsenal-textarea { min-height: 150px; padding: 13px; resize: vertical; }
+.arsenal-input:focus, .arsenal-textarea:focus, .arsenal-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.arsenal-muted { color: var(--text-muted); }
+.arsenal-status { min-height: 22px; margin: 12px 0 0; color: var(--text-muted); font-size: 0.92rem; }
+.arsenal-status[data-kind='error'] { color: #ff8f96; }
+.arsenal-status[data-kind='success'] { color: var(--accent-2); }
+
+@media (max-width: 680px) {
+  .arsenal-shell { width: min(100% - 22px, 1120px); padding-top: 82px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* Keep each tool backdrop inside the page stacking context so themed visuals remain visible behind the workspace. */
+#app { position: relative; min-height: 100vh; isolation: isolate; }
+#app .arsenal-backdrop { z-index: -1; }
+
+
+
+/* Reference Arsenal backdrop: one canvas reproduces the five soft orbs, then a static vignette settles them into black. */
+#app .arsenal-backdrop { overflow:hidden; background:#000; }
+.arsenal-reference-orbs { position:absolute; z-index:0; inset:0; display:block; width:100%; height:100%; pointer-events:none; }
+#app .arsenal-backdrop::after { z-index:1; opacity:1; background:radial-gradient(ellipse at 50% 0%, rgba(0,0,0,.12) 0%, rgba(0,0,0,.26) 42%, rgba(0,0,0,.68) 100%); }
+:root[data-theme='light'] #app .arsenal-backdrop { background:#f7f7fc; }
+:root[data-theme='light'] #app .arsenal-backdrop::after { background:radial-gradient(ellipse at 50% 0%, transparent 40%, rgba(240,240,248,.55) 100%); }
+
+/* طبقة توافق الوضع الفاتح: أدوات مستقلة كثيرة كانت تحمل خلفيات داكنة صريحة. */
+:root[data-theme='light'] .arsenal-card,
+:root[data-theme='light'] .tool-workspace [class*='-card'],
+:root[data-theme='light'] .tool-workspace [class*='-panel'],
+:root[data-theme='light'] .tool-workspace [class*='-section'],
+:root[data-theme='light'] .tool-workspace [class*='-drop'],
+:root[data-theme='light'] .tool-workspace [class*='-zone'] {
+  background:rgba(255,255,255,.84) !important;
+  box-shadow:0 10px 28px rgba(40,70,120,.08), inset 0 1px 0 rgba(255,255,255,.92);
+}
+:root[data-theme='light'] .tool-workspace [class*='-card'],
+:root[data-theme='light'] .tool-workspace [class*='-panel'],
+:root[data-theme='light'] .tool-workspace [class*='-section'],
+:root[data-theme='light'] .tool-workspace [class*='-drop'],
+:root[data-theme='light'] .tool-workspace [class*='-zone'] { color:var(--text); }
+:root[data-theme='light'] .tool-workspace input:not([type='range']):not([type='checkbox']),
+:root[data-theme='light'] .tool-workspace textarea,
+:root[data-theme='light'] .tool-workspace select,
+:root[data-theme='light'] .arsenal-input,
+:root[data-theme='light'] .arsenal-textarea { background:rgba(255,255,255,.94); color:var(--text); }
+:root[data-theme='light'] .arsenal-select__button { background:rgba(255,255,255,.94); }
+:root[data-theme='light'] .arsenal-select__menu { background:var(--bg-elevated); box-shadow:0 18px 38px rgba(40,70,120,.18); }
+:root[data-theme='light'] .arsenal-select__option.is-selected { background:var(--accent-soft); }
+:root[data-theme='light'] .arsenal-backdrop::after { background:linear-gradient(180deg,rgba(247,249,255,.08),rgba(242,246,255,.72) 92%); }
+
+/* Numeric sliders use a physical scale: minimum at the left and maximum at the right, independent of Arabic text direction. */
+.arsenal-shell input[type='range'] { direction:ltr; touch-action:pan-y; }

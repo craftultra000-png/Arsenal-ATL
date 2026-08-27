@@ -1,0 +1,42 @@
+@import '@shared/design/tokens.css';
+
+.guide-workspace{min-height:calc(100vh - 138px)!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important}.arsenal-guide{width:min(100%,1040px);margin:0 auto;padding:clamp(30px,6vw,66px) 0 56px}.arsenal-guide__hero{max-width:690px;margin:0 auto 35px;text-align:center}.arsenal-guide__eyebrow{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;padding:6px 11px;border:1px solid rgba(54,124,238,.26);border-radius:999px;color:var(--accent);background:rgba(54,124,238,.07);font-size:.72rem;font-weight:850}.arsenal-guide__eyebrow svg{width:15px;height:15px}.arsenal-guide__hero h1{margin:0;color:var(--text);font-size:clamp(2rem,5.4vw,3.35rem);font-weight:900;letter-spacing:-.035em;line-height:1.2}.arsenal-guide__hero p{max-width:600px;margin:15px auto 0;color:var(--text-muted);font-size:clamp(.89rem,2.1vw,1rem);line-height:1.9}.arsenal-guide__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.guide-tool-card{position:relative;display:flex;min-height:236px;flex-direction:column;overflow:hidden;padding:16px;border:1px solid var(--border);border-radius:12px;color:inherit;background:rgba(8,10,15,.80);box-shadow:inset 0 1px 0 rgba(255,255,255,.025);text-decoration:none;transition:transform 180ms var(--ease-out),border-color 180ms var(--ease-out),background 180ms var(--ease-out)}.guide-tool-card::before{position:absolute;inset:0 auto 0 0;width:3px;content:'';background:var(--tool-accent);opacity:.72}.guide-tool-card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--tool-accent) 58%,var(--border));background:rgba(13,18,28,.93)}.guide-tool-card__top{display:flex;align-items:center;justify-content:space-between;gap:10px}.guide-tool-card__icon{display:grid;width:42px;height:42px;place-items:center;border:1px solid color-mix(in srgb,var(--tool-accent) 25%,transparent);border-radius:10px;color:var(--tool-accent);background:color-mix(in srgb,var(--tool-accent) 10%,transparent)}.guide-tool-card__icon svg{width:21px;height:21px}.guide-tool-card__category{color:var(--text-muted);font-size:.65rem;font-weight:850}.guide-tool-card h2{margin:15px 0 6px;color:var(--text);font-size:1rem;font-weight:850}.guide-tool-card__description{min-height:46px;margin:0;color:var(--text-muted);font-size:.76rem;line-height:1.65}.guide-tool-card__facts{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 10px}.guide-tool-card__facts span{padding:4px 7px;border:1px solid var(--border);border-radius:5px;color:var(--text-muted);background:rgba(255,255,255,.025);font-size:.64rem;font-weight:750}.guide-tool-card__step{margin:0;color:var(--text-muted);font-size:.7rem;line-height:1.55}.guide-tool-card__step b{color:var(--text);font-weight:850}.guide-tool-card__footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:13px;border-top:1px solid var(--border);color:var(--tool-accent);font-size:.76rem;font-weight:850}.guide-tool-card__footer svg{width:16px;height:16px;transition:transform 160ms var(--ease-out)}.guide-tool-card:hover .guide-tool-card__footer svg{transform:translateX(-3px)}.arsenal-guide__footer{margin-top:27px;padding-top:15px;border-top:1px solid var(--border);color:var(--text-muted);font-size:.72rem;text-align:center}.arsenal-guide__footer b{color:var(--accent-2)}@media(max-width:900px){.arsenal-guide__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:570px){.arsenal-guide{padding-top:28px}.arsenal-guide__grid{grid-template-columns:1fr;gap:10px}.guide-tool-card{min-height:0;padding:15px}.guide-tool-card__description{min-height:0}.arsenal-guide__hero{margin-bottom:27px}.arsenal-guide__hero h1{font-size:2rem}}@media(prefers-reduced-motion:reduce){.guide-tool-card,.guide-tool-card__footer svg{transition:none}}
+
+
+/* دليل الأدوات: بطاقات مستقلة متوازنة تحاكي إيقاع المنصة المرجعية. */
+.arsenal-guide__grid { gap:22px; }
+.guide-tool-card { min-height:248px; padding:19px; border-color:var(--border); border-radius:16px; background:#0a0d12; box-shadow:0 10px 28px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.035); isolation:isolate; transition:transform 180ms var(--ease-out),border-color 180ms var(--ease-out),box-shadow 180ms var(--ease-out),background 180ms var(--ease-out); }
+.guide-tool-card::before { z-index:-1; width:4px; opacity:.92; }
+.guide-tool-card::after { position:absolute; z-index:-2; top:-78px; inset-inline-start:-62px; width:215px; height:215px; border-radius:50%; background:radial-gradient(circle,color-mix(in srgb,var(--tool-accent),transparent 87%) 0%,transparent 68%); content:''; pointer-events:none; }
+.guide-tool-card:hover,.guide-tool-card:focus-visible { transform:translateY(-4px); border-color:color-mix(in srgb,var(--tool-accent),var(--border) 42%); background:#0c1118; box-shadow:0 15px 34px color-mix(in srgb,var(--tool-accent),transparent 89%),inset 0 1px 0 rgba(255,255,255,.05); outline:0; }
+.guide-tool-card:active { transform:scale(.985); }
+.guide-tool-card__top { min-height:45px; }
+.guide-tool-card__icon { width:45px; height:45px; border-radius:12px; border-color:color-mix(in srgb,var(--tool-accent),transparent 62%); background:color-mix(in srgb,var(--tool-accent),transparent 90%); box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--tool-accent),transparent 92%); }
+.guide-tool-card__icon svg { width:23px; height:23px; stroke-width:2.2; }
+.guide-tool-card__category { align-self:flex-start; margin-top:4px; padding:4px 7px; border:1px solid color-mix(in srgb,var(--tool-accent),transparent 88%); border-radius:999px; color:var(--text-muted); background:rgba(255,255,255,.018); font-size:.64rem; line-height:1; }
+.guide-tool-card__content { display:grid; align-content:start; gap:0; min-width:0; }
+.guide-tool-card h2 { margin:18px 0 7px; font-size:1.08rem; line-height:1.35; letter-spacing:-.015em; }
+.guide-tool-card__description { min-height:0; margin:0; font-size:.79rem; line-height:1.75; }
+.guide-tool-card__facts { gap:7px; margin:15px 0 12px; }
+.guide-tool-card__facts span { padding:5px 8px; border-color:color-mix(in srgb,var(--tool-accent),transparent 85%); border-radius:6px; background:rgba(255,255,255,.025); font-size:.63rem; }
+.guide-tool-card__step { min-height:36px; font-size:.72rem; line-height:1.65; }
+.guide-tool-card__footer { min-height:38px; margin-top:15px; padding-top:12px; border-top-color:color-mix(in srgb,var(--tool-accent),transparent 84%); color:var(--tool-accent); font-size:.8rem; }
+.guide-tool-card__arrow { width:18px; height:18px; transition:transform 170ms var(--ease-out); }
+.guide-tool-card:hover .guide-tool-card__arrow,.guide-tool-card:focus-visible .guide-tool-card__arrow { transform:translateX(-4px); }
+:root[data-theme='light'] .guide-tool-card { background:#fff; box-shadow:0 10px 28px rgba(40,70,120,.08),inset 0 1px 0 rgba(255,255,255,.92); }
+:root[data-theme='light'] .guide-tool-card:hover,:root[data-theme='light'] .guide-tool-card:focus-visible { background:#fff; box-shadow:0 15px 34px color-mix(in srgb,var(--tool-accent),transparent 86%); }
+@media(max-width:900px) { .arsenal-guide__grid { gap:18px; } }
+:root[dir='ltr'] .guide-tool-card__arrow { transform:rotate(180deg); }
+:root[dir='ltr'] .guide-tool-card:hover .guide-tool-card__arrow,:root[dir='ltr'] .guide-tool-card:focus-visible .guide-tool-card__arrow { transform:rotate(180deg) translateX(-4px); }
+@media(max-width:570px) {
+  .arsenal-guide { padding-top:24px; }
+  .arsenal-guide__grid { gap:17px; }
+  .guide-tool-card { min-height:0; padding:17px 16px; border-radius:14px; }
+  .guide-tool-card__top { min-height:42px; }
+  .guide-tool-card__icon { width:42px; height:42px; }
+  .guide-tool-card h2 { margin-top:15px; font-size:1.02rem; }
+  .guide-tool-card__description { font-size:.77rem; }
+  .guide-tool-card__facts { margin:13px 0 10px; }
+  .guide-tool-card__step { min-height:0; font-size:.7rem; }
+  .guide-tool-card__footer { min-height:35px; margin-top:13px; padding-top:10px; }
+}

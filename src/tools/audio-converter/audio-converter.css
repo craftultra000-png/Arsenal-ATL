@@ -1,0 +1,83 @@
+/* محول الصوت — استعادة واجهة المنصة الأساسية مع منطق TypeScript المستقل. */
+#app[data-tool='audio-converter'] .tool-workspace { min-height:0; padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; backdrop-filter:none; }
+.adp-page { width:100%; max-width:600px; margin:0 auto; padding:24px 16px 60px; color:var(--text); font-family:'Tajawal',sans-serif; animation:fadeInTool .35s ease-out; }
+.adp-header { display:flex; align-items:center; gap:14px; margin-bottom:28px; }
+.adp-header-icon { display:flex; width:48px; height:48px; flex:0 0 48px; align-items:center; justify-content:center; border-radius:12px; background:rgba(0,212,170,.12); color:var(--accent-2); }
+.adp-title { margin:0 0 4px; color:var(--text); font-size:22px; font-weight:700; }
+.adp-sub { margin:0; color:var(--text-muted); font-size:13px; line-height:1.5; }
+.adp-section { position:relative; margin-bottom:16px; }
+.adp-section-label { margin:0 0 8px; padding:0 4px; color:var(--text-muted); font-size:11px; font-weight:700; letter-spacing:1.5px; }
+.adp-card { overflow:visible; border:1px solid var(--border); border-radius:8px; padding:16px; background:var(--bg-elevated); transition:background .25s,border-color .25s,backdrop-filter .25s; }
+.adp-card:active { border-color:var(--accent-2); background:rgba(255,255,255,.06); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+.adp-drop-zone { display:flex; min-height:172px; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:32px 16px; cursor:pointer; text-align:center; }
+.adp-drop-zone:hover,.adp-drop-zone:focus-within { border-color:var(--accent-2); background:rgba(255,255,255,.06); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+.adp-drop-icon { display:flex; width:52px; height:52px; align-items:center; justify-content:center; border-radius:12px; background:rgba(0,212,170,.10); color:var(--accent-2); }
+.adp-drop-text { color:var(--text-muted); font-size:14px; font-weight:600; word-break:break-word; }
+.ac-file-input { position:fixed !important; top:0 !important; left:0 !important; width:1px !important; height:1px !important; opacity:0 !important; overflow:hidden !important; clip:rect(0 0 0 0) !important; clip-path:inset(50%) !important; pointer-events:none !important; }
+.adp-file-meta { display:grid; width:min(100%,440px); grid-template-columns:minmax(0,1fr) auto; gap:3px 10px; margin-top:4px; padding:10px 12px; border:1px solid rgba(0,212,170,.25); border-radius:8px; background:rgba(0,212,170,.06); text-align:start; }
+.adp-file-meta strong { overflow:hidden; color:var(--text); font-size:13px; text-overflow:ellipsis; white-space:nowrap; }
+.adp-file-meta small { grid-column:1; color:var(--text-muted); font-size:11px; }
+.adp-file-meta em { grid-column:1; color:var(--accent-2); font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px; font-style:normal; }
+.adp-file-meta button { grid-column:2; grid-row:1 / span 3; width:30px; height:30px; align-self:center; border:1px solid var(--border); border-radius:7px; background:transparent; color:var(--text-muted); font-size:18px; }
+.adp-file-meta button:hover { border-color:rgba(255,95,104,.7); color:#ff9da4; }
+.adp-format-card { min-height:46px; padding:0; border:0; background:transparent; }
+.adp-format-card select { width:100%; min-height:46px; padding:0 13px; border:1px solid var(--border); border-radius:8px; outline:0; background:var(--bg-elevated); color:var(--text); font:700 14px 'Tajawal',sans-serif; }
+.adp-format-card select:focus { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-soft); }.adp-format-card>.arsenal-select-host{display:block;width:100%}.adp-format-card .arsenal-select__button{min-height:46px;border-radius:8px;background:var(--bg-elevated)}
+.adp-format-helper { display:none; }
+.adp-format-card > span { display:none !important; }
+.adp-btn { display:flex; width:100%; min-height:51px; align-items:center; justify-content:center; gap:10px; padding:15px; border:0; border-radius:8px; font:700 16px 'Tajawal',sans-serif; transition:transform .25s,filter .25s,box-shadow .25s; }
+.adp-btn:disabled { cursor:not-allowed; opacity:.4; }
+.adp-btn-primary { background:var(--accent); box-shadow:0 4px 16px rgba(54,124,238,.25); color:#fff; }
+.adp-btn-primary:not(:disabled):hover { filter:brightness(1.1); transform:translateY(-1px); }
+.adp-btn-success { background:var(--accent-2); box-shadow:0 4px 16px rgba(0,212,170,.25); color:#000; text-decoration:none; }
+.adp-btn-success:hover { filter:brightness(1.08); transform:translateY(-1px); }
+.adp-status .adp-card { padding:14px 16px; }
+.adp-status-text { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; color:var(--text); font-family:ui-monospace,SFMono-Regular,Menlo,'Tajawal',sans-serif; font-size:12px; }
+.adp-status-text b { color:var(--accent-2); }
+.adp-progress-track { width:100%; height:6px; overflow:hidden; border-radius:3px; background:var(--surface); }
+.adp-progress-fill { display:block; width:0; height:100%; border-radius:3px; background:linear-gradient(90deg,var(--accent-2),var(--accent)); transition:width .3s ease; }
+.adp-page [hidden] { display:none !important; }
+:root[data-theme='light'] .adp-card,:root[data-theme='light'] .adp-format-card select { background:var(--bg-elevated); }
+@keyframes fadeInTool { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@media(max-width:560px) { .adp-page { padding:20px 4px 48px; } .adp-header { margin-bottom:24px; } .adp-drop-zone { min-height:166px; padding:28px 14px; } }
+
+
+/* Frosted icon pads, while keeping the SVG marks visibly sharp. */
+:root[data-theme='dark'] .adp-header-icon,
+:root[data-theme='dark'] .adp-drop-icon { background:rgba(0,212,170,.10); backdrop-filter:blur(14px) saturate(150%); -webkit-backdrop-filter:blur(14px) saturate(150%); box-shadow:inset 0 1px 0 rgba(192,255,244,.12),0 10px 22px rgba(0,0,0,.14); }
+
+/* Arsenal reference audio surfaces: solid at rest, glass only when the user engages with a card. */
+:root[data-theme='dark'] .adp-card,
+:root[data-theme='dark'] .adp-format-card select,
+:root[data-theme='dark'] .adp-format-card .arsenal-select__button {
+  background: #070707;
+  border-color: var(--border);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+:root[data-theme='dark'] .adp-card:active,
+:root[data-theme='dark'] .adp-card.glass,
+:root[data-theme='dark'] .adp-drop-zone:hover,
+:root[data-theme='dark'] .adp-drop-zone:focus-within {
+  background: rgba(255,255,255,.06);
+  border-color: var(--accent-2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+:root[data-theme='dark'] .adp-header-icon,
+:root[data-theme='dark'] .adp-drop-icon {
+  background: rgba(0,212,170,.12);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+:root[data-theme='dark'] .adp-file-meta {
+  background: rgba(0,212,170,.06);
+  border-color: rgba(0,212,170,.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+:root[data-theme='dark'] .adp-btn-primary { background: var(--accent); box-shadow: 0 4px 16px rgba(54,124,238,.25); }
+:root[data-theme='dark'] .adp-btn-success { background: var(--accent-2); box-shadow: 0 4px 16px rgba(0,212,170,.25); }
+

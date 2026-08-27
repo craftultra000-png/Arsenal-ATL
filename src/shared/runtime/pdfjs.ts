@@ -1,0 +1,6 @@
+export type PdfJsDocument = { numPages:number; getPage(pageNumber:number):Promise<PdfJsPage> };
+export type PdfJsPage = { getViewport(options:{scale:number}):{width:number;height:number}; render(options:{canvasContext:CanvasRenderingContext2D;viewport:{width:number;height:number}}):{promise:Promise<void>} };
+export type PdfJs = { GlobalWorkerOptions:{workerSrc:string}; getDocument(source:{data:ArrayBuffer}):{promise:Promise<PdfJsDocument>;onProgress?:((progress:{loaded:number;total:number})=>void)} };
+declare global { interface Window { pdfjsLib?:PdfJs } }
+let pending:Promise<PdfJs>|undefined;
+export function getPdfJs():Promise<PdfJs>{if(window.pdfjsLib?.getDocument){window.pdfjsLib.GlobalWorkerOptions.workerSrc='/libraries/pdf.worker.min.js';return Promise.resolve(window.pdfjsLib);}if(pending)return pending;pending=new Promise<PdfJs>((resolve,reject)=>{const script=document.createElement('script');script.src='/libraries/pdf.min.js';script.async=true;script.onload=()=>{if(window.pdfjsLib?.getDocument){window.pdfjsLib.GlobalWorkerOptions.workerSrc='/libraries/pdf.worker.min.js';resolve(window.pdfjsLib);}else reject(new Error('تعذر تهيئة PDF.js.'));};script.onerror=()=>reject(new Error('تعذر تحميل مكتبة قارئ PDF.'));document.head.appendChild(script);}).catch((error)=>{pending=undefined;throw error;});return pending;}
