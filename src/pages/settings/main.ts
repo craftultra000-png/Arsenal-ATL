@@ -10,6 +10,9 @@ import { LOCALES, getLocale, localeMeta, setLocale, t } from '@shared/i18n';
 type UserProfile = { name: string; email: string; picture?: string; sub?: string };
 type View = 'main' | 'feedback' | 'subscription' | 'privacy' | 'terms';
 type FeedbackKind = 'suggestion' | 'bug' | 'praise' | 'other';
+type PaymentPlan = 'monthly' | 'yearly';
+type PaymentResponse = { pay_address?: string; pay_amount?: string | number; message?: string; error?: string };
+type SubscriptionResponse = { active?: boolean; plan?: string; expiryDate?: string; error?: string };
 
 const USER_KEY = 'asl_user';
 const USER_ID_KEY = 'arsenal_user_id';
@@ -29,8 +32,10 @@ shell.content.classList.add('settings-workspace');
 let activeView: View = 'main';
 let feedbackKind: FeedbackKind = 'suggestion';
 let feedbackRating = 0;
-let currentPlan: 'monthly' | 'yearly' = 'monthly';
+let currentPlan: PaymentPlan = 'monthly';
 let paymentPoll: number | undefined;
+let paymentPollInFlight = false;
+let subscriptionSyncInFlight = false;
 
 function user(): UserProfile | null {
   try { return JSON.parse(localStorage.getItem(USER_KEY) ?? 'null') as UserProfile | null; } catch { return null; }
@@ -39,7 +44,12 @@ function currentTheme(): 'dark' | 'light' { return localStorage.getItem(THEME_KE
 function soundOn(): boolean { return localStorage.getItem(SOUND_KEY) !== 'off'; }
 function language(): string { return getLocale(); }
 function setTheme(next: 'dark' | 'light'): void { localStorage.setItem(THEME_KEY, next); document.documentElement.dataset.theme = next; document.documentElement.style.colorScheme = next; }
-function setView(view: View): void { activeView = view; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function setView(view: View): void {
+  activeView = view;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (view === 'subscription') void refreshSubscriptionState(true);
+}
 function render(): void {
   shell.content.innerHTML = activeView === 'main' ? mainTemplate() : activeView === 'feedback' ? feedbackTemplate() : activeView === 'subscription' ? subscriptionTemplate() : legalTemplate(activeView);
   bindCurrentView();
@@ -80,10 +90,22 @@ function feedbackTemplate(): string {
   return `<section class="settings-inner"><button class="settings-back" data-back>${iconSvg('chevron-down')} رجوع</button><header class="settings-header"><span class="settings-header__icon">${iconSvg('share')}</span><div><h1>أرسل رأيك</h1><p>كلامك يساعدنا على تطوير الترسانة أكثر.</p></div></header><article class="feedback-card"><label>نوع الرسالة</label><div class="feedback-types">${(['suggestion:اقتراح','bug:مشكلة','praise:إطراء','other:أخرى'] as const).map((entry) => { const [value, label] = entry.split(':'); return `<button type="button" data-feedback-kind="${value}" class="${feedbackKind === value ? 'is-active' : ''}">${label}</button>`; }).join('')}</div><label>تقييمك للترسانة</label><div class="feedback-stars" aria-label="التقييم">${[1,2,3,4,5].map((value) => `<button type="button" data-rating="${value}" class="${value <= feedbackRating ? 'is-active' : ''}" aria-label="${value} نجوم">★</button>`).join('')}</div><label for="feedback-message">رسالتك</label><textarea id="feedback-message" maxlength="1000" placeholder="اكتب اقتراحك أو وصف المشكلة هنا…"></textarea><p class="feedback-counter"><span id="feedback-count">0</span> / 1000</p><button id="submit-feedback" class="settings-primary-button" type="button">${iconSvg('share')}<span>إرسال الفيدباك</span></button><p id="feedback-status" class="settings-status" role="status"></p></article></section>`;
 }
 
+function subscriptionFeatures(items: string[]): string {
+  return items.map((item) => `<li>${iconSvg('check')}<span>${t(item)}</span></li>`).join('');
+}
+
 function subscriptionTemplate(): string {
+  const profile = user();
   const active = localStorage.getItem('arsenal_sub_active') === 'true';
-  const plan = localStorage.getItem('arsenal_sub_plan');
-  return `<section class="settings-inner"><button class="settings-back" data-back>${iconSvg('chevron-down')} رجوع</button><header class="subscription-hero"><p>دعم المشروع</p><h1><span>اختر خطتك</span></h1><small>الترسانة تعمل على جهازك بلا إعلانات ولا رفع ملفات.</small></header><div class="subscription-grid"><article class="plan-card"><span class="plan-card__icon">${iconSvg('archive')}</span><h2>مجاني</h2><p class="plan-card__price">0<span>$</span></p><small>للأبد</small><ul><li>${iconSvg('check')} معظم الأدوات بلا حدود</li><li>${iconSvg('check')} معالجة محلية 100%</li><li>${iconSvg('check')} بدون إعلانات</li></ul><button disabled>خطتك الحالية</button></article><article class="plan-card plan-card--featured"><span class="plan-card__badge">الأكثر شيوعاً</span><span class="plan-card__icon">${iconSvg('lock')}</span><h2>VIP شهري</h2><p class="plan-card__price">5<span>$</span></p><small>شهرياً</small><ul><li>${iconSvg('check')} وصول مبكر للأدوات الجديدة</li><li>${iconSvg('check')} ثيمات وخيارات إضافية</li><li>${iconSvg('check')} أولوية في الدعم</li></ul><button class="subscription-action" data-plan="monthly" ${active && plan === 'monthly' ? 'disabled' : ''}>${active && plan === 'monthly' ? 'خطتك الحالية' : 'اشترك الآن'}</button></article><article class="plan-card plan-card--gold"><span class="plan-card__badge">وفّر 17%</span><span class="plan-card__icon">${iconSvg('lock')}</span><h2>VIP سنوي</h2><p class="plan-card__price">50<span>$</span></p><small>سنوياً</small><ul><li>${iconSvg('check')} كل مزايا VIP</li><li>${iconSvg('check')} شارة دعم المنصة</li><li>${iconSvg('check')} أولوية في الدعم</li></ul><button class="subscription-action" data-plan="yearly" ${active && plan === 'yearly' ? 'disabled' : ''}>${active && plan === 'yearly' ? 'خطتك الحالية' : 'اشترك سنوياً'}</button></article></div><p class="settings-caption">تتطلب عملية الاشتراك تسجيل الدخول أولاً. لن يُنشأ طلب دفع إلا بعد تأكيدك في النافذة التالية.</p></section>`;
+  const plan = localStorage.getItem('arsenal_sub_plan') as PaymentPlan | null;
+  const expiry = localStorage.getItem('arsenal_sub_expiry');
+  const planTitle = plan === 'yearly' ? t('VIP سنوي') : t('VIP شهري');
+  const expiryText = expiry ? new Intl.DateTimeFormat(getLocale(), { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(expiry)) : '';
+  const activeBanner = active && plan ? `<aside class="subscription-status" role="status"><span>${iconSvg('check')}</span><div><b>${t('اشتراك VIP نشط')}</b><small>${t('الخطة الحالية: {plan}', { plan: planTitle })}${expiryText ? ` · ${t('ينتهي في: {date}', { date: expiryText })}` : ''}</small></div></aside>` : '';
+  const loginNotice = profile?.sub ? '' : `<aside class="subscription-login-notice"><span>${iconSvg('lock')}</span><div><b>${t('تسجيل الدخول مطلوب لبدء الدفع')}</b><small>${t('سجّل دخولك عبر Google لإنشاء طلب الدفع وربط الاشتراك بحسابك.')}</small></div><button id="subscription-google-login" class="settings-google-button" type="button"><span class="settings-google-mark">${iconSvg('google')}</span>${t('الدخول عبر Google')}</button></aside>`;
+  const monthlyCurrent = active && plan === 'monthly';
+  const yearlyCurrent = active && plan === 'yearly';
+  return `<section class="settings-inner subscription-page"><button class="settings-back" data-back>${iconSvg('chevron-down')} ${t('رجوع')}</button><header class="subscription-hero"><p>${t('دعم المشروع')}</p><h1><span>${t('اختر خطتك')}</span></h1><small>${t('الترسانة تعمل على جهازك بلا إعلانات ولا رفع ملفات.')}</small></header>${activeBanner}${loginNotice}<div class="subscription-grid"><article class="plan-card plan-card--free"><span class="plan-card__icon">${iconSvg('archive')}</span><h2>${t('الخطة المجانية')}</h2><p class="plan-card__price">0<span>$</span></p><small>${t('للأبد')}</small><ul>${subscriptionFeatures(['معظم الأدوات بلا حدود', 'معالجة محلية 100%', 'بدون إعلانات'])}</ul><button type="button" disabled>${t('مضمون لك دائماً')}</button></article><article class="plan-card plan-card--featured"><span class="plan-card__badge">${t('الأكثر شيوعاً')}</span><span class="plan-card__icon">${iconSvg('diamond')}</span><h2>${t('VIP شهري')}</h2><p class="plan-card__price">5<span>$</span></p><small>${t('شهرياً')}</small><ul>${subscriptionFeatures(['جميع الأدوات بلا حدود', 'وصول مبكر للأدوات الجديدة', 'ثيمات حصرية متعددة', 'شارة VIP ضمن المنصة', 'أدوات AI المتقدمة', 'أولوية في الدعم'])}</ul><button class="subscription-action" data-plan="monthly" type="button" ${monthlyCurrent || !profile?.sub ? 'disabled' : ''}>${monthlyCurrent ? t('خطتك الحالية') : !profile?.sub ? t('تسجيل الدخول مطلوب لبدء الدفع') : t('اشترك الآن')}</button></article><article class="plan-card plan-card--gold"><span class="plan-card__badge">${t('وفّر 17%')}</span><span class="plan-card__icon">${iconSvg('diamond')}</span><h2>${t('VIP سنوي')}</h2><p class="plan-card__price">50<span>$</span></p><small>${t('سنوياً')}</small><p class="plan-card__saving">${t('بدل 60$ — توفر 10$')}</p><ul>${subscriptionFeatures(['مزايا VIP كاملة', 'وصول مبكر للأدوات الجديدة', 'ثيمات حصرية متعددة', 'شارة دعم المنصة', 'أدوات AI المتقدمة', 'أولوية في الدعم'])}</ul><button class="subscription-action" data-plan="yearly" type="button" ${yearlyCurrent || !profile?.sub ? 'disabled' : ''}>${yearlyCurrent ? t('خطتك الحالية') : !profile?.sub ? t('تسجيل الدخول مطلوب لبدء الدفع') : t('اشترك سنوياً')}</button></article></div><p class="settings-caption subscription-note">${t('تتطلب عملية الاشتراك تسجيل الدخول أولاً. لن يُنشأ طلب دفع إلا بعد تأكيدك في النافذة التالية.')}</p></section>`;
 }
 function legalSection(icon: string, accent: string, title: string, content: string): string {
   return `<article class="legal-section"><span class="legal-section__icon" style="--legal-accent:${accent}">${icon}</span><h2>${title}</h2>${content}</article>`;
@@ -108,7 +130,9 @@ function legalTemplate(kind: 'privacy' | 'terms'): string {
   return `<section class="settings-inner legal-page"><button class="settings-back" data-back>${iconSvg('chevron-down')} رجوع</button><header class="legal-hero"><span class="legal-hero__icon ${privacy ? 'is-privacy' : 'is-terms'}">${privacy ? iconSvg('shield') : iconSvg('file-edit')}</span><div><h1>${privacy ? 'سياسة الخصوصية' : 'شروط الاستخدام'}</h1><p>آخر تحديث: يوليو 2026</p></div></header>${privacy ? privacyContent : termsContent}<aside class="legal-highlight ${privacy ? 'is-privacy' : 'is-terms'}">${privacy ? iconSvg('check') : iconSvg('message')}<p>${privacy ? 'ملفاتك ملكك وحدك. نحن لا نراها، لا نحتفظ بها، ولا نشاركها مع أي طرف ثالث — أبداً.' : 'للاستفسارات والشكاوى المتعلقة بهذه الشروط، تواصل معنا عبر نموذج الفيدباك داخل التطبيق.'}</p></aside></section>`;
 }
 
-function paymentModal(): string { return `<div id="payment-modal" class="payment-modal" hidden><button class="payment-modal__backdrop" data-close-payment aria-label="إغلاق"></button><section class="payment-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="payment-title"><button class="payment-modal__close" data-close-payment type="button">${iconSvg('close')}</button><span class="payment-modal__icon">${iconSvg('lock')}</span><h2 id="payment-title">تأكيد خطة VIP</h2><p id="payment-copy">راجع تفاصيل الخطة قبل إنشاء عنوان الدفع.</p><div id="payment-info" class="payment-modal__info"></div><button id="payment-confirm" class="settings-primary-button" type="button">إنشاء عنوان الدفع</button><p id="payment-status" class="settings-status"></p></section></div>`; }
+function paymentModal(): string {
+  return `<div id="payment-modal" class="payment-modal" hidden><button class="payment-modal__backdrop" data-close-payment aria-label="${t('إغلاق')}"></button><section class="payment-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="payment-title"><button class="payment-modal__close" data-close-payment type="button" aria-label="${t('إغلاق')}">${iconSvg('close')}</button><span class="payment-modal__icon">${iconSvg('diamond')}</span><p class="payment-modal__eyebrow">${t('دعم المشروع')}</p><h2 id="payment-title">${t('تأكيد خطة VIP')}</h2><p id="payment-copy"></p><div id="payment-info" class="payment-modal__info" aria-live="polite"></div><button id="payment-confirm" class="settings-primary-button" type="button">${iconSvg('lock')}<span>${t('إنشاء عنوان الدفع')}</span></button><p id="payment-status" class="settings-status" role="status" aria-live="polite"></p></section></div>`;
+}
 
 function bindCurrentView(): void {
   shell.content.querySelectorAll<HTMLElement>('[data-back]').forEach((button) => button.addEventListener('click', () => setView('main')));
@@ -145,7 +169,11 @@ function bindFeedback(): void {
   shell.content.querySelector<HTMLButtonElement>('#submit-feedback')?.addEventListener('click', () => void submitFeedback());
 }
 function bindSubscription(): void {
-  shell.content.querySelectorAll<HTMLButtonElement>('.subscription-action').forEach((button) => button.addEventListener('click', () => openPayment(button.dataset.plan as 'monthly' | 'yearly')));
+  shell.content.querySelector<HTMLButtonElement>('#subscription-google-login')?.addEventListener('click', () => void loginWithGoogle());
+  shell.content.querySelectorAll<HTMLButtonElement>('.subscription-action').forEach((button) => button.addEventListener('click', () => {
+    const plan = button.dataset.plan;
+    if (plan === 'monthly' || plan === 'yearly') openPayment(plan);
+  }));
 }
 
 async function loginWithGoogle(): Promise<void> {
@@ -224,20 +252,159 @@ async function submitFeedback(): Promise<void> {
   try { const response = await fetch(FEEDBACK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }); if (!response.ok) throw new Error(); status.textContent = 'شكراً لك، تم إرسال رأيك بنجاح.'; status.dataset.kind = 'success'; message.value = ''; feedbackRating = 0; } catch { const local = JSON.parse(localStorage.getItem('arsenal_feedback_outbox') ?? '[]') as unknown[]; local.push({ ...payload, queuedAt: new Date().toISOString() }); localStorage.setItem('arsenal_feedback_outbox', JSON.stringify(local)); status.textContent = 'تعذر الاتصال بالخدمة؛ حُفظ رأيك محلياً على هذا الجهاز.'; status.dataset.kind = 'info'; } finally { button.disabled = false; }
 }
 
-function openPayment(plan: 'monthly' | 'yearly'): void {
-  const profile = user(); if (!profile?.sub) { shell.setStatus('سجّل دخولك عبر Google أولاً قبل بدء الاشتراك.', 'error'); return; }
-  currentPlan = plan; document.body.insertAdjacentHTML('beforeend', paymentModal());
-  const modal = document.querySelector<HTMLElement>('#payment-modal')!; const info = modal.querySelector<HTMLElement>('#payment-info')!; const planName = plan === 'monthly' ? 'VIP شهري — 5$' : 'VIP سنوي — 50$'; info.innerHTML = `<b>${planName}</b><small>لن يتم إرسال أي طلب إلى مزود الدفع قبل ضغط زر التأكيد.</small>`; modal.hidden = false;
-  modal.querySelectorAll<HTMLElement>('[data-close-payment]').forEach((button) => button.addEventListener('click', closePayment));
-  modal.querySelector<HTMLButtonElement>('#payment-confirm')?.addEventListener('click', () => void createPayment(profile.sub!));
+function subscriptionPlanTitle(plan: PaymentPlan): string {
+  return plan === 'yearly' ? t('VIP سنوي') : t('VIP شهري');
 }
-function closePayment(): void { if (paymentPoll) window.clearInterval(paymentPoll); document.querySelector('#payment-modal')?.remove(); }
+
+function setPaymentStatus(status: HTMLElement | null, message: string, kind: 'info' | 'success' | 'error' = 'info'): void {
+  if (!status) return;
+  status.textContent = t(message);
+  status.dataset.kind = kind;
+}
+
+function storeSubscriptionState(data: SubscriptionResponse): boolean {
+  const wasActive = localStorage.getItem('arsenal_sub_active') === 'true';
+  const wasPlan = localStorage.getItem('arsenal_sub_plan');
+  const wasExpiry = localStorage.getItem('arsenal_sub_expiry');
+  const nextPlan = data.plan === 'monthly' || data.plan === 'yearly' ? data.plan : null;
+  const nextExpiry = typeof data.expiryDate === 'string' ? data.expiryDate : '';
+  const nextActive = data.active === true && nextPlan !== null;
+  if (nextActive && nextPlan) {
+    localStorage.setItem('arsenal_sub_active', 'true');
+    localStorage.setItem('arsenal_sub_plan', nextPlan);
+    localStorage.setItem('arsenal_sub_expiry', nextExpiry);
+  } else {
+    localStorage.removeItem('arsenal_sub_active');
+    localStorage.removeItem('arsenal_sub_plan');
+    localStorage.removeItem('arsenal_sub_expiry');
+  }
+  return wasActive !== nextActive || wasPlan !== nextPlan || wasExpiry !== nextExpiry;
+}
+
+async function readSubscription(userId: string): Promise<SubscriptionResponse> {
+  const response = await fetch(`${PAYMENT_WORKER}/check-subscription?userId=${encodeURIComponent(userId)}`, { headers: { Accept: 'application/json' } });
+  const data = await response.json() as SubscriptionResponse;
+  if (!response.ok) throw new Error(data.error ?? 'تعذر تحديث حالة الاشتراك. ستظهر حالتك المحفوظة على هذا الجهاز.');
+  return data;
+}
+
+async function refreshSubscriptionState(rerenderWhenChanged: boolean): Promise<void> {
+  const profile = user();
+  if (!profile?.sub || subscriptionSyncInFlight) return;
+  subscriptionSyncInFlight = true;
+  try {
+    const changed = storeSubscriptionState(await readSubscription(profile.sub));
+    if (changed && rerenderWhenChanged && activeView === 'subscription') render();
+  } catch {
+    const status = shell.content.querySelector<HTMLElement>('#subscription-sync-status');
+    setPaymentStatus(status, 'تعذر تحديث حالة الاشتراك. ستظهر حالتك المحفوظة على هذا الجهاز.', 'error');
+  } finally {
+    subscriptionSyncInFlight = false;
+  }
+}
+
+function openPayment(plan: PaymentPlan): void {
+  const profile = user();
+  if (!profile?.sub) {
+    setView('subscription');
+    return;
+  }
+  closePayment();
+  currentPlan = plan;
+  document.body.insertAdjacentHTML('beforeend', paymentModal());
+  const modal = document.querySelector<HTMLElement>('#payment-modal');
+  const copy = modal?.querySelector<HTMLElement>('#payment-copy');
+  const info = modal?.querySelector<HTMLElement>('#payment-info');
+  const button = modal?.querySelector<HTMLButtonElement>('#payment-confirm');
+  if (!modal || !copy || !info || !button) return;
+  const planTitle = subscriptionPlanTitle(plan);
+  copy.textContent = t('ستنشئ المنصة معلومات دفع لخطة {plan} فقط بعد تأكيدك.', { plan: planTitle });
+  info.innerHTML = `<div class="payment-plan-summary"><small>${t('الخطة المختارة')}</small><b>${escapeHtml(planTitle)}</b><strong dir="ltr">${plan === 'yearly' ? '50' : '5'} USD</strong></div><p>${t('تتطلب عملية الاشتراك تسجيل الدخول أولاً. لن يُنشأ طلب دفع إلا بعد تأكيدك في النافذة التالية.')}</p>`;
+  modal.hidden = false;
+  modal.querySelectorAll<HTMLElement>('[data-close-payment]').forEach((element) => element.addEventListener('click', closePayment));
+  button.addEventListener('click', () => void createPayment(profile.sub!));
+  button.focus();
+}
+
+function closePayment(): void {
+  if (paymentPoll) window.clearInterval(paymentPoll);
+  paymentPoll = undefined;
+  paymentPollInFlight = false;
+  document.querySelector('#payment-modal')?.remove();
+}
+async function copyPaymentAddress(address: string, status: HTMLElement): Promise<void> {
+  try {
+    await navigator.clipboard.writeText(address);
+    setPaymentStatus(status, 'تم نسخ عنوان الدفع.', 'success');
+  } catch {
+    setPaymentStatus(status, 'تعذر نسخ العنوان تلقائياً؛ انسخه يدوياً.', 'error');
+  }
+}
+
 async function createPayment(userId: string): Promise<void> {
-  const modal = document.querySelector<HTMLElement>('#payment-modal'); const info = modal?.querySelector<HTMLElement>('#payment-info'); const button = modal?.querySelector<HTMLButtonElement>('#payment-confirm'); const status = modal?.querySelector<HTMLElement>('#payment-status'); if (!info || !button || !status) return;
-  button.disabled = true; status.textContent = 'جاري إنشاء معلومات الدفع…';
-  try { const response = await fetch(`${PAYMENT_WORKER}/create-payment`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ plan: currentPlan, userId }) }); const data = await response.json() as { pay_address?: string; pay_amount?: string; message?: string }; if (!data.pay_address || !data.pay_amount) throw new Error(data.message ?? 'تعذر إنشاء طلب الدفع.'); info.innerHTML = `<small>عنوان الدفع — USDT BEP20</small><code>${escapeHtml(data.pay_address)}</code><b>${escapeHtml(data.pay_amount)} USDT</b><button id="copy-payment-address" class="settings-mini-button" type="button">${iconSvg('copy')} نسخ العنوان</button><p>تأكد من اختيار شبكة BSC (BEP20) فقط.</p>`; modal?.querySelector<HTMLButtonElement>('#copy-payment-address')?.addEventListener('click', async () => { await navigator.clipboard.writeText(data.pay_address!); status.textContent = 'تم نسخ عنوان الدفع.'; status.dataset.kind = 'success'; }); status.textContent = 'أُنشئت معلومات الدفع. سيجري فحص التفعيل تلقائياً.'; status.dataset.kind = 'info'; startPaymentPolling(userId); } catch (error) { status.textContent = error instanceof Error ? error.message : 'تعذر إنشاء معلومات الدفع.'; status.dataset.kind = 'error'; button.disabled = false; }
+  const modal = document.querySelector<HTMLElement>('#payment-modal');
+  const info = modal?.querySelector<HTMLElement>('#payment-info');
+  const button = modal?.querySelector<HTMLButtonElement>('#payment-confirm');
+  const status = modal?.querySelector<HTMLElement>('#payment-status');
+  if (!modal || !info || !button || !status) return;
+  button.disabled = true;
+  modal.dataset.state = 'loading';
+  setPaymentStatus(status, 'جاري إنشاء معلومات الدفع…');
+  try {
+    const response = await fetch(`${PAYMENT_WORKER}/create-payment`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ plan: currentPlan, userId })
+    });
+    const data = await response.json() as PaymentResponse;
+    const amount = data.pay_amount === undefined || data.pay_amount === null ? '' : String(data.pay_amount);
+    if (!response.ok || !data.pay_address || !amount) throw new Error('PAYMENT_CREATE_FAILED');
+    modal.dataset.state = 'awaiting-payment';
+    info.innerHTML = `<small class="payment-info__label">${t('عنوان الدفع — USDT BEP20')}</small><code dir="ltr" data-i18n-skip>${escapeHtml(data.pay_address)}</code><div class="payment-amount"><small>${t('المبلغ المطلوب')}</small><b dir="ltr">${escapeHtml(amount)} USDT</b></div><button id="copy-payment-address" class="settings-mini-button" type="button">${iconSvg('copy')}<span>${t('نسخ العنوان')}</span></button><p class="payment-network-warning">${iconSvg('alert')}<span>${t('تأكد من اختيار شبكة BSC (BEP20) فقط.')}</span></p><p class="payment-monitoring-note">${iconSvg('activity')}<span>${t('تتم المراقبة تلقائياً بعد تأكيد الدفع.')}</span></p>`;
+    button.hidden = true;
+    button.disabled = true;
+    modal.querySelector<HTMLButtonElement>('#copy-payment-address')?.addEventListener('click', () => void copyPaymentAddress(data.pay_address!, status));
+    setPaymentStatus(status, 'سيجري فحص التفعيل تلقائياً بعد تأكيد الدفع.');
+    startPaymentPolling(userId);
+  } catch {
+    modal.dataset.state = 'error';
+    setPaymentStatus(status, 'تعذر إنشاء معلومات الدفع. تحقق من الاتصال ثم حاول مرة أخرى.', 'error');
+    button.disabled = false;
+  }
 }
-function startPaymentPolling(userId: string): void { if (paymentPoll) window.clearInterval(paymentPoll); let attempts = 0; paymentPoll = window.setInterval(async () => { attempts += 1; if (attempts > 36) { if (paymentPoll) window.clearInterval(paymentPoll); return; } try { const response = await fetch(`${PAYMENT_WORKER}/check-subscription?userId=${encodeURIComponent(userId)}`); const data = await response.json() as { active?: boolean; plan?: string; expiryDate?: string }; if (data.active) { localStorage.setItem('arsenal_sub_active', 'true'); localStorage.setItem('arsenal_sub_plan', data.plan ?? currentPlan); localStorage.setItem('arsenal_sub_expiry', data.expiryDate ?? ''); closePayment(); shell.setStatus('تم تفعيل اشتراكك بنجاح.', 'success'); render(); } } catch { /* تتابع المحاولة التالية ما دام الطلب مفتوحاً */ } }, 10_000); }
+function startPaymentPolling(userId: string): void {
+  if (paymentPoll) window.clearInterval(paymentPoll);
+  let attempts = 0;
+  const check = async (): Promise<void> => {
+    if (paymentPollInFlight) return;
+    paymentPollInFlight = true;
+    try {
+      const data = await readSubscription(userId);
+      if (data.active) {
+        storeSubscriptionState(data);
+        closePayment();
+        if (activeView === 'subscription') render();
+      }
+    } catch {
+      // تتابع المحاولة التالية؛ الحالة المحلية تبقى كما هي حتى يتاح الاتصال.
+    } finally {
+      paymentPollInFlight = false;
+    }
+  };
+  void check();
+  paymentPoll = window.setInterval(() => {
+    attempts += 1;
+    if (attempts > 36) {
+      if (paymentPoll) window.clearInterval(paymentPoll);
+      paymentPoll = undefined;
+      const status = document.querySelector<HTMLElement>('#payment-status');
+      setPaymentStatus(status, 'انتهت مهلة التحقق. أعد فتح الطلب بعد التأكد من الدفع.', 'error');
+      return;
+    }
+    void check();
+  }, 10_000);
+}
 function escapeHtml(value: string): string { return value.replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character] ?? character)); }
 
 render();
+void refreshSubscriptionState(false);

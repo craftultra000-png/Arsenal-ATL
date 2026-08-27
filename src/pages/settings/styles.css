@@ -104,3 +104,75 @@
 
 /* يعزل قائمة اللغة عن قاعدة حقول الإدخال القديمة التي تضيف padding إلى جذر `.arsenal-select`. */
 .settings-language .arsenal-select { min-height:0 !important; padding:0 !important; border:0 !important; border-radius:0 !important; background:transparent !important; color:inherit !important; }
+
+/* تدفق اشتراك VIP: بطاقات خطط واضحة ونافذة دفع مرتبطة بالعامل الخلفي. */
+.subscription-page { padding-top:20px; }
+.subscription-page .settings-back { margin-bottom:13px; }
+.subscription-hero { position:relative; overflow:hidden; padding:24px 18px 27px; border:1px solid rgba(54,124,238,.25); border-radius:15px; background:linear-gradient(135deg,rgba(54,124,238,.13),rgba(0,212,170,.045) 62%,rgba(9,11,16,.9)); text-align:center; }
+.subscription-hero::after { position:absolute; inset:auto -28px -56px auto; width:148px; height:148px; border:1px solid rgba(0,212,170,.15); border-radius:50%; content:''; }
+.subscription-hero p { position:relative; margin:0 0 7px; color:var(--accent-2); font-size:.72rem; font-weight:900; letter-spacing:.1em; }
+.subscription-hero h1 { position:relative; margin:0; color:var(--text); font-size:clamp(1.65rem,6.3vw,2.65rem); font-weight:950; }
+.subscription-hero h1 span { color:var(--accent); }
+.subscription-hero small { position:relative; display:block; max-width:440px; margin:10px auto 0; color:var(--text-muted); font-size:.76rem; line-height:1.7; }
+.subscription-status,.subscription-login-notice { display:flex; align-items:flex-start; gap:10px; margin:14px 0; padding:12px; border:1px solid rgba(0,212,170,.3); border-radius:11px; background:rgba(0,212,170,.065); }
+.subscription-status>span,.subscription-login-notice>span { display:grid; width:34px; height:34px; flex:0 0 34px; place-items:center; border-radius:9px; color:var(--accent-2); background:rgba(0,212,170,.12); }
+.subscription-status>span svg,.subscription-login-notice>span svg { width:18px; height:18px; }
+.subscription-status>div,.subscription-login-notice>div { display:grid; min-width:0; flex:1; gap:3px; }
+.subscription-status b,.subscription-login-notice b { color:var(--text); font-size:.8rem; font-weight:900; }
+.subscription-status small,.subscription-login-notice small { color:var(--text-muted); font-size:.69rem; line-height:1.55; }
+.subscription-login-notice { align-items:center; border-color:rgba(54,124,238,.3); background:rgba(54,124,238,.065); }
+.subscription-login-notice>span { color:var(--accent); background:var(--accent-soft); }
+.subscription-login-notice .settings-google-button { min-height:34px; padding:6px 9px; font-size:.68rem; }
+.subscription-grid { align-items:stretch; margin-top:18px; }
+.plan-card { min-height:370px; padding:24px 16px 15px; background:#0a0d12; box-shadow:inset 0 1px rgba(255,255,255,.04); }
+.plan-card--free { border-color:rgba(255,255,255,.12); }
+.plan-card--featured { background:linear-gradient(180deg,rgba(54,124,238,.14),#0a0d12 38%); box-shadow:0 0 0 1px rgba(54,124,238,.16),0 14px 32px rgba(54,124,238,.12),inset 0 1px rgba(255,255,255,.045); }
+.plan-card--gold { background:linear-gradient(180deg,rgba(245,166,35,.105),#0a0d12 39%); box-shadow:inset 0 1px rgba(255,255,255,.04); }
+.plan-card__badge { top:-11px; box-shadow:0 4px 12px rgba(54,124,238,.28); }
+.plan-card--gold .plan-card__badge { box-shadow:0 4px 12px rgba(245,166,35,.22); }
+.plan-card__icon { margin-bottom:11px; }
+.plan-card__saving { min-height:16px; margin:4px 0 -1px; color:var(--accent-3); font-size:.63rem; font-weight:850; }
+.plan-card ul { display:grid; gap:8px; margin:16px 0; }
+.plan-card li { margin:0; color:var(--text-muted); }
+.plan-card li span { min-width:0; }
+.plan-card button { transition:transform 160ms var(--ease-out),filter 160ms var(--ease-out),opacity 160ms var(--ease-out); }
+.plan-card button:not(:disabled):hover { transform:translateY(-1px); filter:brightness(1.07); }
+.plan-card button:disabled { opacity:.58; cursor:not-allowed; }
+.subscription-note { max-width:585px; margin:14px auto 0; text-align:center; }
+.payment-modal { z-index:500; padding:16px; }
+.payment-modal__dialog { max-height:calc(100dvh - 32px); overflow:auto; border-color:rgba(54,124,238,.32); background:#0b0f16; animation:subscription-modal-in 190ms var(--ease-out); }
+.payment-modal__eyebrow { margin:0 0 5px; color:var(--accent-2); font-size:.67rem; font-weight:900; letter-spacing:.09em; }
+.payment-modal__dialog>p { margin-bottom:14px; }
+.payment-modal__info { gap:10px; border-color:rgba(54,124,238,.2); background:#090c12; }
+.payment-plan-summary { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:4px 10px; padding:11px; border:1px solid rgba(54,124,238,.2); border-radius:8px; background:rgba(54,124,238,.07); }
+.payment-plan-summary small { grid-column:1 / -1; color:var(--text-muted); font-size:.66rem; }
+.payment-plan-summary b { color:var(--text); font-size:.84rem; }
+.payment-plan-summary strong { color:var(--accent-2); font:900 .9rem ui-monospace,monospace; }
+.payment-modal__info>p { margin:0; color:var(--text-muted); font-size:.7rem; line-height:1.65; }
+.payment-info__label { color:var(--text-muted); font-size:.68rem; text-align:center; }
+.payment-modal__info code { border:1px solid rgba(0,212,170,.18); color:var(--accent-2); line-height:1.6; text-align:start; }
+.payment-amount { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px; border:1px solid rgba(0,212,170,.22); border-radius:8px; background:rgba(0,212,170,.06); }
+.payment-amount small { color:var(--text-muted); font-size:.72rem; }
+.payment-amount b { color:var(--accent-2); font:900 .94rem ui-monospace,monospace; }
+.payment-modal__info .settings-mini-button { width:100%; min-height:40px; color:var(--text); border-color:rgba(54,124,238,.34); }
+.payment-network-warning,.payment-monitoring-note { display:flex; align-items:flex-start; gap:7px; padding:9px; border-radius:8px; }
+.payment-network-warning { border:1px solid rgba(245,166,35,.23); background:rgba(245,166,35,.07); }
+.payment-monitoring-note { border:1px solid rgba(0,212,170,.17); background:rgba(0,212,170,.045); }
+.payment-network-warning svg,.payment-monitoring-note svg { width:15px; height:15px; flex:0 0 15px; margin-top:1px; }
+.payment-network-warning svg { color:var(--accent-3); }
+.payment-monitoring-note svg { color:var(--accent-2); }
+.payment-network-warning span,.payment-monitoring-note span { color:var(--text-muted); font-size:.69rem; line-height:1.55; }
+.payment-modal[data-state='loading'] .payment-modal__icon { animation:subscription-pulse 850ms ease-in-out infinite alternate; }
+.payment-modal[data-state='awaiting-payment'] .payment-modal__icon { color:var(--accent-2); background:rgba(0,212,170,.11); }
+.payment-modal[data-state='error'] .payment-modal__icon { color:#ff8f96; background:rgba(255,75,75,.1); }
+@keyframes subscription-modal-in { from { opacity:0; transform:translateY(12px) scale(.985); } to { opacity:1; transform:translateY(0) scale(1); } }
+@keyframes subscription-pulse { to { box-shadow:0 0 0 8px rgba(54,124,238,0); } }
+:root[data-theme='light'] .subscription-hero { background:linear-gradient(135deg,rgba(54,124,238,.12),rgba(0,212,170,.055) 62%,#fff); }
+:root[data-theme='light'] .plan-card { background:#fff; }
+:root[data-theme='light'] .plan-card--featured { background:linear-gradient(180deg,rgba(54,124,238,.13),#fff 41%); }
+:root[data-theme='light'] .plan-card--gold { background:linear-gradient(180deg,rgba(245,166,35,.12),#fff 41%); }
+:root[data-theme='light'] .payment-modal__dialog,:root[data-theme='light'] .payment-modal__info { background:#fff; }
+:root[data-theme='light'] .payment-modal__info code { background:#f6fbfa; }
+@media(max-width:680px) { .subscription-grid { gap:17px; }.plan-card { min-height:0; padding:25px 18px 17px; }.plan-card ul { max-width:none; }.subscription-login-notice { flex-wrap:wrap; }.subscription-login-notice .settings-google-button { width:100%; }.payment-modal__dialog { width:min(100%,420px); padding:24px 17px 18px; } }
+@media(max-width:430px) { .subscription-page { padding-top:17px; }.subscription-hero { padding:21px 14px 23px; }.subscription-status,.subscription-login-notice { margin:12px 0; }.plan-card li { font-size:.7rem; }.plan-card__price { font-size:2.15rem; } }
+.payment-modal button[hidden] { display:none !important; }
