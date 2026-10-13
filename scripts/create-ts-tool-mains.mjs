@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const slugs = [
   'video-editor', 'video-compressor', 'video-to-audio',
-  'audio-converter', 'noise-remover', 'audio-rate',
+  'audio-converter', 'noise-remover',
   'image-editor', 'background-remover', 'image-compressor',
   'pdf-create', 'pdf-compressor', 'pdf-editor',
   'text-encryption', 'text-filter', 'text-comparison',

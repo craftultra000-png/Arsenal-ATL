@@ -15,7 +15,7 @@ const excludedDefaultPrecache = ['/assets/runtime/onnx/'];
 const applicationRoutes = [
   '/', '/guide/', '/settings/',
   '/tools/video-editor/', '/tools/video-compressor/', '/tools/video-to-audio/',
-  '/tools/audio-converter/', '/tools/noise-remover/', '/tools/audio-rate/',
+  '/tools/audio-converter/', '/tools/noise-remover/',
   '/tools/image-editor/', '/tools/background-remover/', '/tools/image-compressor/',
   '/tools/pdf-create/', '/tools/pdf-compressor/', '/tools/pdf-editor/',
   '/tools/text-encryption/', '/tools/text-filter/', '/tools/text-comparison/',
@@ -269,7 +269,6 @@ export default defineConfig({
         videoToAudio: page('tools/video-to-audio/index.html'),
         audioConverter: page('tools/audio-converter/index.html'),
         noiseRemover: page('tools/noise-remover/index.html'),
-        audioRate: page('tools/audio-rate/index.html'),
         imageEditor: page('tools/image-editor/index.html'),
         backgroundRemover: page('tools/background-remover/index.html'),
         imageCompressor: page('tools/image-compressor/index.html'),

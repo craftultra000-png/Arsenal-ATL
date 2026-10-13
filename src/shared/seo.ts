@@ -18,14 +18,14 @@ export const SEO_PAGES: readonly SeoPage[] = [
   {
     path: '/',
     name: 'Arsenal ATL',
-    title: 'Arsenal | 18 أداة رقمية تعمل محلياً في متصفحك',
-    description: 'Arsenal منصة تضم 18 أداة للفيديو والصوت والصور وPDF والنصوص. عالج ملفاتك وأنشئ GIF وQR محلياً من دون رفعها إلى خادم.',
+    title: 'Arsenal | 17 أداة رقمية تعمل محلياً في متصفحك',
+    description: 'Arsenal منصة تضم 17 أداة للفيديو والصوت والصور وPDF والنصوص. عالج ملفاتك وأنشئ GIF وQR محلياً من دون رفعها إلى خادم.',
     kind: 'home'
   },
   {
     path: '/guide/',
     name: 'دليل أدوات Arsenal',
-    title: 'دليل أدوات Arsenal | 18 أداة للوسائط وPDF والنصوص',
+    title: 'دليل أدوات Arsenal | 17 أداة للوسائط وPDF والنصوص',
     description: 'تعرّف إلى أدوات Arsenal للفيديو والصوت والصور وPDF والنصوص، واختر الأداة المناسبة لمعالجة ملفاتك محلياً داخل المتصفح.',
     kind: 'guide'
   },
@@ -74,14 +74,6 @@ export const SEO_PAGES: readonly SeoPage[] = [
     name: 'مزيل الضوضاء',
     title: 'مزيل ضوضاء الصوت بالذكاء الاصطناعي | Arsenal ATL',
     description: 'نقِّ التسجيلات الصوتية من الضوضاء داخل المتصفح باستخدام المعالجة المحلية، ثم استمع إلى النتيجة ونزّلها.',
-    kind: 'tool',
-    applicationCategory: 'MultimediaApplication'
-  },
-  {
-    path: '/tools/audio-rate/',
-    name: 'تغيير سرعة الصوت',
-    title: 'تغيير سرعة الصوت محلياً | Arsenal ATL',
-    description: 'سرّع ملفاً صوتياً أو أبطئه داخل المتصفح واستمع إلى المعاينة قبل تنزيل نسخة جديدة من الملف.',
     kind: 'tool',
     applicationCategory: 'MultimediaApplication'
   },

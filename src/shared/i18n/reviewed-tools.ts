@@ -17,9 +17,6 @@ export const reviewedToolText: Record<string, ToolTranslationRow> = {
   'تنقية الصوت بالذكاء الاصطناعي داخل المتصفح.': {
     en: 'Clean up audio with AI directly in your browser.', es: 'Limpia el audio con IA directamente en tu navegador.', fr: 'Nettoyez l’audio avec l’IA directement dans votre navigateur.', de: 'Audio direkt im Browser mit KI bereinigen.', tr: 'Sesi doğrudan tarayıcınızda yapay zekâ ile temizleyin.', ru: 'Очищайте аудио с помощью ИИ прямо в браузере.', hi: 'अपने ब्राउज़र में सीधे AI से ऑडियो साफ़ करें।', zh: '直接在浏览器中使用 AI 净化音频。'
   },
-  'تغيير سرعة الصوت وتصديره كملف جديد.': {
-    en: 'Change audio speed and export it as a new file.', es: 'Cambia la velocidad del audio y expórtalo como un archivo nuevo.', fr: 'Modifiez la vitesse audio et exportez-la dans un nouveau fichier.', de: 'Audiogeschwindigkeit ändern und als neue Datei exportieren.', tr: 'Ses hızını değiştirin ve yeni bir dosya olarak dışa aktarın.', ru: 'Меняйте скорость аудио и экспортируйте его как новый файл.', hi: 'ऑडियो की गति बदलें और उसे नई फ़ाइल के रूप में निर्यात करें।', zh: '调整音频速度并导出为新文件。'
-  },
   'تعديلات أساسية للصور عبر مساحة عمل محلية.': {
     en: 'Make essential image edits in a local workspace.', es: 'Realiza ediciones esenciales de imagen en un espacio de trabajo local.', fr: 'Effectuez les retouches essentielles de vos images dans un espace de travail local.', de: 'Grundlegende Bildbearbeitungen in einem lokalen Arbeitsbereich ausführen.', tr: 'Yerel çalışma alanında temel görüntü düzenlemeleri yapın.', ru: 'Выполняйте основные правки изображений в локальном рабочем пространстве.', hi: 'स्थानीय कार्यस्थान में इमेज के ज़रूरी संपादन करें।', zh: '在本地工作区完成基础图像编辑。'
   },
